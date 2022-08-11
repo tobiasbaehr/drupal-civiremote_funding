@@ -1,0 +1,32 @@
+services:
+  civiremote_funding.civiremote.settings:
+    class: Drupal\Core\Config\ImmutableConfig
+    factory: ['Drupal', 'config']
+    arguments: ['civiremote.settings']
+
+  Drupal\civiremote_funding\Api\CiviCRMApiClientInterface:
+    class: Drupal\civiremote_funding\Api\CiviCRMApiClient
+    factory: ['Drupal\civiremote_funding\Api\CiviCRMApiClient', 'create']
+    arguments:
+      - '@cmrf_core.core'
+      - '@civiremote_funding.civiremote.settings'
+      - 'cmrf_connector'
+
+  Drupal\civiremote_funding\Api\FundingApi:
+    class: Drupal\civiremote_funding\Api\FundingApi
+    arguments:
+      - '@Drupal\civiremote_funding\Api\CiviCRMApiClientInterface'
+
+  Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface:
+    class: \Drupal\civiremote_funding\Access\RemoteContactIdProvider
+
+  Drupal\civiremote_funding\Controller\NewApplicationController:
+    class: Drupal\civiremote_funding\Controller\NewApplicationController
+    arguments:
+      - '@Drupal\civiremote_funding\Api\FundingApi'
+
+  Drupal\civiremote_funding\Form\NewApplicationFormRequestHandler:
+    class: Drupal\civiremote_funding\Form\NewApplicationFormRequestHandler
+    arguments:
+      - '@Drupal\civiremote_funding\Api\FundingApi'
+      - '@Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface'

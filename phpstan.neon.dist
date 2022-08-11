@@ -1,0 +1,29 @@
+parameters:
+	paths:
+		- src
+	scanFiles:
+		- vendor/drupal/core/tests/Drupal/Tests/UnitTestCase.php
+	bootstrapFiles:
+		- vendor/autoload.php
+	level: 9
+	checkTooWideReturnTypesInProtectedAndPublicMethods: true
+	checkUninitializedProperties: true
+	checkMissingCallableSignature: true
+	treatPhpDocTypesAsCertain: false
+	exceptions:
+		check:
+			missingCheckedExceptionInThrows: true
+			tooWideThrowType: true
+		checkedExceptionClasses:
+			- \Assert\AssertionFailedException
+		implicitThrows: false
+	ignoreErrors:
+		# Note paths are prefixed with ""*/" to wirk with inspections in PHPStorm because of:
+		# https://youtrack.jetbrains.com/issue/WI-63891/PHPStan-ignoreErrors-configuration-isnt-working-with-inspections
+		- '/^Parameter #1 \$form \(array<int\|string, mixed>\) of method [^\s]+::(build|validate|submit)Form\(\) should be contravariant with parameter \$form \(array\) of method Drupal\\Core\\Form\\(FormInterface|FormBase)::(build|validate|submit)Form\(\)$/'
+		- '/^Parameter #(3|4) \$(jsonSchema|uiSchema) of method Drupal\\json_forms\\Form\\AbstractJsonFormsForm::buildForm\(\) expects stdClass\|null, mixed given.$/'
+		- '/^Parameter #\d+ \$[^\s]+ of class Drupal\\civiremote_funding\\Form\\NewApplicationForm constructor expects [^\s]+, object\|null given.$/'
+		-
+			message: '/^Parameter #1 \$value of static method Drupal\\civiremote_funding\\Api\\[^:]+::fromApiResultValue\(\) expects array\{.+\}, array<int\|string, mixed> given.$/'
+			path: */Api/FundingApi.php
+	tmpDir: .phpstan

@@ -1,0 +1,87 @@
+{
+    "name": "custom/civiremote_funding",
+    "description": "Drupal frontend for funding applications of CiviCRM Funding Manager.",
+    "type": "drupal-custom-module",
+    "license": "GPL-3.0-only",
+    "authors": [
+        {
+            "name": "SYSTOPIA",
+            "email": "info@systopia.de"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Drupal\\civiremote_funding\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Drupal\\Tests\\civiremote_funding\\": "tests/src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:systopia/civiremote.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:systopia/drupal-json_forms.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/systopia/opis-json-schema-ext"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/systopia/expression-language-ext"
+        },
+        {
+            "type": "composer",
+            "url": "https://packages.drupal.org/8"
+        }
+    ],
+    "require": {
+        "php": "^7.4 || ^8",
+        "beberlei/assert": "*",
+        "custom/civiremote": "^1.0@beta",
+        "drupal/json_forms": "dev-main"
+    },
+    "require-dev": {
+        "drupal/core": "^9",
+        "drupal/core-dev": "^9"
+    },
+    "scripts": {
+        "composer-phpstan": [
+            "@composer --working-dir=tools/phpstan"
+        ],
+        "composer-tools": [
+            "@composer-phpstan"
+        ],
+        "phpcs": [
+            "@php vendor/bin/phpcs"
+        ],
+        "phpcbf": [
+            "@php vendor/bin/phpcbf"
+        ],
+        "phpstan": [
+            "@php tools/phpstan/vendor/bin/phpstan"
+        ],
+        "phpunit": [
+            "@php vendor/bin/phpunit --coverage-text"
+        ],
+        "test": [
+            "@phpcs",
+            "@phpstan",
+            "@phpunit"
+        ]
+    }
+}
