@@ -32,6 +32,8 @@ interface CiviCRMApiClientInterface {
    * @param array<string, mixed> $options
    *
    * @return array<int|string, mixed> JSON encodable array.
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
    */
   public function executeV3(string $entity, string $action, array $parameters = [], array $options = []): array;
 
@@ -44,6 +46,8 @@ interface CiviCRMApiClientInterface {
    *   JSON encodable array.
    *
    * @return array<string, mixed>&array{values: array<string|int, mixed>} JSON encodable array.
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
    */
   public function executeV4(string $entity, string $action, array $parameters = []): array;
 

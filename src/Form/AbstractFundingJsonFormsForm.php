@@ -21,6 +21,8 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Form;
 
 use Assert\Assertion;
+use Drupal\civiremote_funding\Api\Exception\ApiCallFailedException;
+use Drupal\civiremote_funding\Api\Form\FundingForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\json_forms\Form\AbstractJsonFormsForm;
 use Drupal\json_forms\Form\FormArrayFactoryInterface;
@@ -52,7 +54,13 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
     \stdClass $uiSchema = NULL
   ): array {
     if (!$form_state->has('jsonSchema') || !$form_state->has('uiSchema')) {
-      $fundingForm = $this->formRequestHandler->getForm($this->getRequest());
+      try {
+        $fundingForm = $this->formRequestHandler->getForm($this->getRequest());
+      }
+      catch (ApiCallFailedException $e) {
+        $this->messenger()->addError($this->t('Loading form failed: @error', ['@error' => $e->getMessage()]));
+        $fundingForm = new FundingForm(new \stdClass(), new \stdClass(), []);
+      }
       $form_state->set('jsonSchema', $fundingForm->getJsonSchema());
       $form_state->set('uiSchema', $fundingForm->getUiSchema());
       $form_state->set('data', $fundingForm->getData());
@@ -74,7 +82,18 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
     parent::validateForm($form, $formState);
     if ([] === $formState->getErrors()) {
       $data = $this->getSubmittedData($formState);
-      $validationResponse = $this->formRequestHandler->validateForm($this->getRequest(), $data);
+      try {
+        $validationResponse = $this->formRequestHandler->validateForm($this->getRequest(), $data);
+      }
+      catch (ApiCallFailedException $e) {
+        $formState->setErrorByName(
+          '',
+          $this->t('Error validating form: @error', ['@error' => $e->getMessage()])->render()
+        );
+
+        return;
+      }
+
       if (!$validationResponse->isValid()) {
         $this->mapResponseErrors($validationResponse->getErrors(), $formState);
       }
@@ -89,7 +108,14 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
    */
   public function submitForm(array &$form, FormStateInterface $formState): void {
     $data = $this->getSubmittedData($formState);
-    $submitResponse = $this->formRequestHandler->submitForm($this->getRequest(), $data);
+    try {
+      $submitResponse = $this->formRequestHandler->submitForm($this->getRequest(), $data);
+    }
+    catch (ApiCallFailedException $e) {
+      $this->messenger()->addError($this->t('Submitting form failed: @error', ['@error' => $e->getMessage()]));
+
+      return;
+    }
 
     if ('showValidation' === $submitResponse->getAction()) {
       // We cannot add errors at this stage, though this actually cannot happen

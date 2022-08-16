@@ -27,6 +27,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface FormRequestHandlerInterface {
 
+  /**
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
   public function getForm(Request $request): FundingForm;
 
   /**
@@ -35,6 +38,8 @@ interface FormRequestHandlerInterface {
    *   JSON serializable array.
    *
    * @return \Drupal\civiremote_funding\Api\Form\FormValidationResponse
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
    */
   public function validateForm(Request $request, array $data): FormValidationResponse;
 
@@ -44,7 +49,8 @@ interface FormRequestHandlerInterface {
    *   JSON serializable array.
    *
    * @return \Drupal\civiremote_funding\Api\Form\FormSubmitResponse
-   * @throws \JsonException
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
    */
   public function submitForm(Request $request, array $data): FormSubmitResponse;
 

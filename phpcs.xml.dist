@@ -18,6 +18,7 @@
     <exclude name="Drupal.Commenting.FunctionComment.ParamTypeSpaces"/>
     <exclude name="Drupal.Commenting.FunctionComment.ReturnTypeSpaces"/>
     <exclude name="Drupal.Commenting.VariableComment.IncorrectVarType"/>
+    <exclude name="Drupal.Commenting.InlineComment.DocBlock"/>
 
     <!-- False positive with license header -->
     <exclude name="Drupal.Commenting.FileComment.NamespaceNoFileDoc"/>

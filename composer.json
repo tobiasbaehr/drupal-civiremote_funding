@@ -30,7 +30,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "git@github.com:systopia/civiremote.git"
+            "url": "https://github.com/systopia/civiremote"
         },
         {
             "type": "vcs",

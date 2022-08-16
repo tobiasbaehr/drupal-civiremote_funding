@@ -21,7 +21,9 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Api;
 
 use Assert\Assertion;
+use CMRF\Core\Call;
 use CMRF\Core\Core;
+use Drupal\civiremote_funding\Api\Exception\ApiCallFailedException;
 use Drupal\Core\Config\ImmutableConfig;
 
 final class CiviCRMApiClient implements CiviCRMApiClientInterface {
@@ -49,15 +51,23 @@ final class CiviCRMApiClient implements CiviCRMApiClientInterface {
   public function executeV3(string $entity, string $action, array $parameters = [], array $options = []): array {
     $call = $this->cmrfCore->createCallV3($this->connectorId, $entity, $action, $parameters, $options);
 
-    // @todo Throw exception on error
-    return $this->cmrfCore->executeCall($call) ?? [];
+    $result = $this->cmrfCore->executeCall($call);
+    if (NULL === $result || Call::STATUS_FAILED === $call->getStatus()) {
+      throw ApiCallFailedException::fromCall($call);
+    }
+
+    return $result;
   }
 
   public function executeV4(string $entity, string $action, array $parameters = []): array {
     $call = $this->cmrfCore->createCallV4($this->connectorId, $entity, $action, $parameters);
 
-    // @todo Throw exception on error
-    return $this->cmrfCore->executeCall($call) ?? [];
+    $result = $this->cmrfCore->executeCall($call);
+    if (NULL === $result || Call::STATUS_FAILED === $call->getStatus()) {
+      throw ApiCallFailedException::fromCall($call);
+    }
+
+    return $result;
   }
 
 }

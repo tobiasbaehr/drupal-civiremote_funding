@@ -32,6 +32,51 @@ class FundingApi {
     $this->apiClient = $apiClient;
   }
 
+  /**
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function getApplicationForm(string $remoteContactId, int $applicationProcessId): FundingForm {
+    $result = $this->apiClient->executeV4('RemoteFundingApplicationProcess', 'getForm', [
+      'remoteContactId' => $remoteContactId,
+      'applicationProcessId' => $applicationProcessId,
+    ]);
+
+    return FundingForm::fromApiResultValue($result['values']);
+  }
+
+  /**
+   * @phpstan-param array<int|string, mixed> $data
+   *   JSON serializable array.
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function validateApplicationForm(string $remoteContactId, array $data): FormValidationResponse {
+    $result = $this->apiClient->executeV4('RemoteFundingApplicationProcess', 'validateForm', [
+      'remoteContactId' => $remoteContactId,
+      'data' => $data,
+    ]);
+
+    return FormValidationResponse::fromApiResultValue($result['values']);
+  }
+
+  /**
+   * @phpstan-param array<int|string, mixed> $data
+   *   JSON serializable array.
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function submitApplicationForm(string $remoteContactId, array $data): FormSubmitResponse {
+    $result = $this->apiClient->executeV4('RemoteFundingApplicationProcess', 'submitForm', [
+      'remoteContactId' => $remoteContactId,
+      'data' => $data,
+    ]);
+
+    return FormSubmitResponse::fromApiResultValue($result['values']);
+  }
+
+  /**
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
   public function getNewApplicationForm(
     string $remoteContactId,
     int $fundingProgramId,
@@ -43,14 +88,14 @@ class FundingApi {
       'fundingCaseTypeId' => $fundingCaseTypeId,
     ]);
 
-    // @todo error handling
     return FundingForm::fromApiResultValue($result['values']);
   }
 
   /**
-   * @param string $remoteContactId
-   * @param array<int|string, mixed> $data
+   * @phpstan-param array<int|string, mixed> $data
    *   JSON serializable array.
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
    */
   public function validateNewApplicationForm(string $remoteContactId, array $data): FormValidationResponse {
     $result = $this->apiClient->executeV4('RemoteFundingCase', 'validateNewApplicationForm', [
@@ -58,14 +103,14 @@ class FundingApi {
       'data' => $data,
     ]);
 
-    // @todo error handling
     return FormValidationResponse::fromApiResultValue($result['values']);
   }
 
   /**
-   * @param string $remoteContactId
-   * @param array<int|string, mixed> $data
+   * @phpstan-param array<int|string, mixed> $data
    *   JSON serializable array.
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
    */
   public function submitNewApplicationForm(string $remoteContactId, array $data): FormSubmitResponse {
     $result = $this->apiClient->executeV4('RemoteFundingCase', 'submitNewApplicationForm', [
@@ -73,7 +118,6 @@ class FundingApi {
       'data' => $data,
     ]);
 
-    // @todo error handling
     return FormSubmitResponse::fromApiResultValue($result['values']);
   }
 

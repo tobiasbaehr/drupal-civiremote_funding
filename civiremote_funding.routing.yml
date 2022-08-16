@@ -1,7 +1,22 @@
 civiremote_funding.new_application_form:
   path: '/civiremote/funding/application/new/{fundingProgramId}/{fundingCaseTypeId}'
   defaults:
-    _controller: 'Drupal\civiremote_funding\Controller\NewApplicationController:form'
+    _controller: 'Drupal\civiremote_funding\Controller\NewApplicationController::form'
+  options:
+    no_cache: TRUE
+    parameters:
+      fundingProgram:
+        type: int
+      fundingCaseType:
+        type: int
+  requirements:
+    _permission: 'access content'
+    _role: authenticated,administrator
+
+civiremote_funding.application_form:
+  path: '/civiremote/funding/application/{applicationProcessId}'
+  defaults:
+    _controller: 'Drupal\civiremote_funding\Controller\ApplicationController::form'
   options:
     no_cache: TRUE
     parameters:

@@ -20,13 +20,15 @@ services:
   Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface:
     class: \Drupal\civiremote_funding\Access\RemoteContactIdProvider
 
-  Drupal\civiremote_funding\Controller\NewApplicationController:
-    class: Drupal\civiremote_funding\Controller\NewApplicationController
-    arguments:
-      - '@Drupal\civiremote_funding\Api\FundingApi'
-
   Drupal\civiremote_funding\Form\NewApplicationFormRequestHandler:
     class: Drupal\civiremote_funding\Form\NewApplicationFormRequestHandler
     arguments:
       - '@Drupal\civiremote_funding\Api\FundingApi'
       - '@Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface'
+
+  Drupal\civiremote_funding\Form\ApplicationFormRequestHandler:
+    class: Drupal\civiremote_funding\Form\ApplicationFormRequestHandler
+    arguments:
+      - '@Drupal\civiremote_funding\Api\FundingApi'
+      - '@Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface'
+
