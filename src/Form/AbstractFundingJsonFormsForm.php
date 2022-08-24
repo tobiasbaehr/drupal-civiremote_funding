@@ -64,7 +64,6 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
       }
       $form_state->set('jsonSchema', $fundingForm->getJsonSchema());
       $form_state->set('uiSchema', $fundingForm->getUiSchema());
-      $form_state->set('data', $fundingForm->getData());
     }
 
     $form = parent::buildForm(
@@ -82,10 +81,6 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
   }
 
   public function validateForm(array &$form, FormStateInterface $formState): void {
-    if (is_array($formState->get('data'))) {
-      $formState->setValues($formState->getValues() + $formState->get('data'));
-    }
-
     parent::validateForm($form, $formState);
     if (!$formState->isSubmitted() && !$formState->isValidationEnforced()) {
       return;
