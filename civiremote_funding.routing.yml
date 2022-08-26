@@ -5,9 +5,9 @@ civiremote_funding.new_application_form:
   options:
     no_cache: TRUE
     parameters:
-      fundingProgram:
+      fundingProgramId:
         type: int
-      fundingCaseType:
+      fundingCaseTypeId:
         type: int
   requirements:
     _permission: 'access content'
@@ -20,9 +20,7 @@ civiremote_funding.application_form:
   options:
     no_cache: TRUE
     parameters:
-      fundingProgram:
-        type: int
-      fundingCaseType:
+      applicationProcessId:
         type: int
   requirements:
     _permission: 'access content'
