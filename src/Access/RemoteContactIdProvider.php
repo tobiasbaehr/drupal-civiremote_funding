@@ -21,13 +21,18 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Access;
 
 use Assert\Assertion;
-use Drupal;
-use Symfony\Component\HttpFoundation\Request;
+use Drupal\Core\Session\AccountProxyInterface;
 
 final class RemoteContactIdProvider implements RemoteContactIdProviderInterface {
 
+  private AccountProxyInterface $currentUser;
+
+  public function __construct(AccountProxyInterface $currentUser) {
+    $this->currentUser = $currentUser;
+  }
+
   public function getRemoteContactId(): string {
-    $account = Drupal::currentUser()->getAccount();
+    $account = $this->currentUser->getAccount();
     $remoteContactId = $account->get('civiremote_id')->value;
 
     Assertion::string($remoteContactId);

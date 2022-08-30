@@ -19,6 +19,8 @@ services:
 
   Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface:
     class: \Drupal\civiremote_funding\Access\RemoteContactIdProvider
+    arguments:
+      - '@current_user'
 
   Drupal\civiremote_funding\Form\NewApplicationFormRequestHandler:
     class: Drupal\civiremote_funding\Form\NewApplicationFormRequestHandler

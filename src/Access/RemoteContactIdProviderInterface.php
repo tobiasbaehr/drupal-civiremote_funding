@@ -20,7 +20,6 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Access;
 
-use Symfony\Component\HttpFoundation\Request;
 
 interface RemoteContactIdProviderInterface {
 
