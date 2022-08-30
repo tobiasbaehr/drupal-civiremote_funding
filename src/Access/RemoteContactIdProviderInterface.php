@@ -24,6 +24,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 interface RemoteContactIdProviderInterface {
 
-  public function getRemoteContactId(Request $request): string;
+  public function getRemoteContactId(): string;
 
 }

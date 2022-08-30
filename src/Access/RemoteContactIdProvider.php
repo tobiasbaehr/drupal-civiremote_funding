@@ -21,13 +21,15 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Access;
 
 use Assert\Assertion;
+use Drupal;
 use Symfony\Component\HttpFoundation\Request;
 
 final class RemoteContactIdProvider implements RemoteContactIdProviderInterface {
 
-  public function getRemoteContactId(Request $request): string {
-    // @todo Take remote contact id from Drupal account.
-    $remoteContactId = $request->query->get('remoteContactId');
+  public function getRemoteContactId(): string {
+    $account = Drupal::currentUser()->getAccount();
+    $remoteContactId = $account->get('civiremote_id')->value;
+
     Assertion::string($remoteContactId);
     Assertion::notEmpty($remoteContactId);
 

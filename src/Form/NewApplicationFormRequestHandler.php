@@ -50,20 +50,20 @@ final class NewApplicationFormRequestHandler implements FormRequestHandlerInterf
     $fundingCaseTypeId = (int) $fundingCaseTypeId;
 
     return $this->fundingApi->getNewApplicationForm(
-      $this->getRemoteContactId($request), $fundingProgramId, $fundingCaseTypeId
+      $this->getRemoteContactId(), $fundingProgramId, $fundingCaseTypeId
     );
   }
 
   public function validateForm(Request $request, array $data): FormValidationResponse {
-    return $this->fundingApi->validateNewApplicationForm($this->getRemoteContactId($request), $data);
+    return $this->fundingApi->validateNewApplicationForm($this->getRemoteContactId(), $data);
   }
 
   public function submitForm(Request $request, array $data): FormSubmitResponse {
-    return $this->fundingApi->submitNewApplicationForm($this->getRemoteContactId($request), $data);
+    return $this->fundingApi->submitNewApplicationForm($this->getRemoteContactId(), $data);
   }
 
-  private function getRemoteContactId(Request $request): string {
-    return $this->remoteContactIdProvider->getRemoteContactId($request);
+  private function getRemoteContactId(): string {
+    return $this->remoteContactIdProvider->getRemoteContactId();
   }
 
 }

@@ -46,19 +46,19 @@ final class ApplicationFormRequestHandler implements FormRequestHandlerInterface
     Assertion::integerish($applicationProcessId);
     $applicationProcessId = (int) $applicationProcessId;
 
-    return $this->fundingApi->getApplicationForm($this->getRemoteContactId($request), $applicationProcessId);
+    return $this->fundingApi->getApplicationForm($this->getRemoteContactId(), $applicationProcessId);
   }
 
   public function validateForm(Request $request, array $data): FormValidationResponse {
-    return $this->fundingApi->validateApplicationForm($this->getRemoteContactId($request), $data);
+    return $this->fundingApi->validateApplicationForm($this->getRemoteContactId(), $data);
   }
 
   public function submitForm(Request $request, array $data): FormSubmitResponse {
-    return $this->fundingApi->submitApplicationForm($this->getRemoteContactId($request), $data);
+    return $this->fundingApi->submitApplicationForm($this->getRemoteContactId(), $data);
   }
 
-  private function getRemoteContactId(Request $request): string {
-    return $this->remoteContactIdProvider->getRemoteContactId($request);
+  private function getRemoteContactId(): string {
+    return $this->remoteContactIdProvider->getRemoteContactId();
   }
 
 }
