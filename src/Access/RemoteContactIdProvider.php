@@ -33,7 +33,8 @@ final class RemoteContactIdProvider implements RemoteContactIdProviderInterface 
 
   public function getRemoteContactId(): string {
     $account = $this->currentUser->getAccount();
-    $remoteContactId = $account->get('civiremote_id')->value;
+    Assertion::propertyExists($account, 'civiremote_id');
+    $remoteContactId = $account->civiremote_id;
 
     Assertion::string($remoteContactId);
     Assertion::notEmpty($remoteContactId);
