@@ -26,7 +26,6 @@ use Drupal\civiremote_funding\Api\Form\FundingForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\json_forms\Form\AbstractJsonFormsForm;
 use Drupal\json_forms\Form\FormArrayFactoryInterface;
-use Drupal\json_forms\Form\Util\FormValueAccessor;
 use Drupal\json_forms\Form\Validation\FormValidationMapperInterface;
 use Drupal\json_forms\Form\Validation\FormValidatorInterface;
 use Opis\JsonSchema\JsonPointer;
@@ -54,7 +53,7 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
     \stdClass $uiSchema = NULL,
     int $flags = 0
   ): array {
-    if (!$form_state->has('jsonSchema') || !$form_state->has('uiSchema')) {
+    if (!$form_state->isCached()) {
       try {
         $fundingForm = $this->formRequestHandler->getForm($this->getRequest());
       }
@@ -64,20 +63,16 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
       }
       $form_state->set('jsonSchema', $fundingForm->getJsonSchema());
       $form_state->set('uiSchema', $fundingForm->getUiSchema());
+      $form_state->setTemporary($fundingForm->getData());
     }
 
-    $form = parent::buildForm(
+    return parent::buildForm(
       $form,
       $form_state,
       $form_state->get('jsonSchema'),
       $form_state->get('uiSchema'),
       static::FLAG_RECALCULATE_ONCHANGE
     );
-    if (isset($fundingForm) && $this->getRequest()->isMethod('GET')) {
-      FormValueAccessor::setValue($form, [], $fundingForm->getData());
-    }
-
-    return $form;
   }
 
   public function validateForm(array &$form, FormStateInterface $formState): void {
