@@ -1,3 +1,12 @@
+civiremote_funding.choose_funding_program_form:
+  path: '/civiremote/funding/application/new'
+  defaults:
+    _form: 'Drupal\civiremote_funding\Form\ChooseFundingProgramForm'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'civiremote_funding: access'
+
 civiremote_funding.new_application_form:
   path: '/civiremote/funding/application/new/{fundingProgramId}/{fundingCaseTypeId}'
   defaults:

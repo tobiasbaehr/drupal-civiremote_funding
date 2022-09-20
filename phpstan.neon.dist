@@ -21,9 +21,16 @@ parameters:
 		# Note paths are prefixed with ""*/" to wirk with inspections in PHPStorm because of:
 		# https://youtrack.jetbrains.com/issue/WI-63891/PHPStan-ignoreErrors-configuration-isnt-working-with-inspections
 		- '/^Parameter #1 \$form \(array<int\|string, mixed>\) of method [^\s]+::(build|validate|submit)Form\(\) should be contravariant with parameter \$form \(array\) of method Drupal\\Core\\Form\\(FormInterface|FormBase)::(build|validate|submit)Form\(\)$/'
+		- '#^Method Drupal\\civiremote_funding\\Form\\[^\s]+Form::(buildForm|submitForm)\(\) has parameter \$form with no value type specified in iterable type array.$#'
+		- '#^Method Drupal\\civiremote_funding\\Form\\[^\s]+Form::buildForm\(\) return type has no value type specified in iterable type array.$#'
 		- '/^Parameter #(3|4) \$(jsonSchema|uiSchema) of method Drupal\\json_forms\\Form\\AbstractJsonFormsForm::buildForm\(\) expects stdClass\|null, mixed given.$/'
 		- '/^Parameter #\d+ \$[^\s]+ of class Drupal\\civiremote_funding\\Form\\[^\s]+Form constructor expects [^\s]+, object\|null given.$/'
+		- '#^Class Drupal\\civiremote_funding\\Api\\DTO\\[^\s]+ has an uninitialized property \$values. Give it default value or assign it in the constructor.$#'
+		- '#^PHPDoc type array\{.+\} of property Drupal\\civiremote_funding\\Api\\DTO\\[^:]+::\$values is not the same as PHPDoc type array\{.+\} of overridden property Drupal\\civiremote_funding\\Api\\DTO\\AbstractDTO::\$values.$#'
 		-
 			message: '/^Parameter #1 \$value of static method Drupal\\civiremote_funding\\Api\\[^:]+::fromApiResultValue\(\) expects array\{.+\}, array<int\|string, mixed> given.$/'
+			path: */Api/FundingApi.php
+		-
+			message: '/^Parameter #1 \$values of static method Drupal\\civiremote_funding\\Api\\DTO\\[^:]+::fromArray\(\) expects array\{.+\}, mixed given.$/'
 			path: */Api/FundingApi.php
 	tmpDir: .phpstan

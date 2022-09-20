@@ -20,11 +20,50 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Api;
 
+use Drupal\civiremote_funding\Api\DTO\FundingCaseType;
+use Drupal\civiremote_funding\Api\DTO\FundingProgram;
 use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
 use Drupal\civiremote_funding\Api\Form\FormValidationResponse;
 use Drupal\civiremote_funding\Api\Form\FundingForm;
 
 class FundingApi {
+
+  /**
+   * @return array<FundingCaseType>
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function getFundingCaseTypesByFundingProgramId(string $remoteContactId, int $fundingProgramId): array {
+    $result = $this->apiClient->executeV4('RemoteFundingCaseType', 'getByFundingProgramId', [
+      'remoteContactId' => $remoteContactId,
+      'fundingProgramId' => $fundingProgramId,
+    ]);
+
+    $fundingCaseTypes = [];
+    foreach ($result['values'] as $record) {
+      $fundingCaseTypes[] = FundingCaseType::fromArray($record);
+    }
+
+    return $fundingCaseTypes;
+  }
+
+  /**
+   * @phpstan-return array<FundingProgram>
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function getFundingPrograms(string $remoteContactId): array {
+    $result = $this->apiClient->executeV4('RemoteFundingProgram', 'get', [
+      'remoteContactId' => $remoteContactId,
+    ]);
+
+    $fundingPrograms = [];
+    foreach ($result['values'] as $record) {
+      $fundingPrograms[] = FundingProgram::fromArray($record);
+    }
+
+    return $fundingPrograms;
+  }
 
   private CiviCRMApiClientInterface $apiClient;
 
