@@ -10,8 +10,7 @@ civiremote_funding.new_application_form:
       fundingCaseTypeId:
         type: int
   requirements:
-    _permission: 'access content'
-    _role: authenticated,administrator
+    _permission: 'civiremote_funding: access'
 
 civiremote_funding.application_form:
   path: '/civiremote/funding/application/{applicationProcessId}'
@@ -23,5 +22,4 @@ civiremote_funding.application_form:
       applicationProcessId:
         type: int
   requirements:
-    _permission: 'access content'
-    _role: authenticated,administrator
+    _permission: 'civiremote_funding: access'
