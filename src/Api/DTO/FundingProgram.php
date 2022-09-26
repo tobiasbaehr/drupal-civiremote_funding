@@ -33,21 +33,12 @@ namespace Drupal\civiremote_funding\Api\DTO;
  *   permissions: array<string>,
  * }
  *
- * @phpstan-method fundingProgramT toArray()
- * @phpstan-method void setValues(fundingProgramT $values)
+ * @extends AbstractDTO<fundingProgramT>
  */
 final class FundingProgram extends AbstractDTO {
 
-  /**
-   * @phpstan-var fundingProgramT
-   */
-  protected array $values;
-
-  /**
-   * @phpstan-param fundingProgramT $values
-   */
-  public static function fromArray(array $values): self {
-    return new self($values);
+  public function getId(): int {
+    return $this->values['id'];
   }
 
   public function getTitle(): string {

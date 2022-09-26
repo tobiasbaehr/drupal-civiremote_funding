@@ -21,20 +21,25 @@ declare(strict_types = 1);
 namespace Drupal\civiremote_funding\Api\DTO;
 
 /**
- * @phpstan-type dtoT array<string, mixed>&array{
- *   id: int
- * }
+ * @template T of array<string, mixed>
  */
 abstract class AbstractDTO {
 
   /**
    * @var array
-   * @phpstan-var dtoT
+   * @phpstan-var T
    */
   protected array $values;
 
   /**
-   * @phpstan-param dtoT $values
+   * @phpstan-param T $values
+   */
+  public static function fromArray(array $values): self {
+    return new static($values);
+  }
+
+  /**
+   * @phpstan-param T $values
    */
   protected function __construct(array $values) {
     $this->values = $values;
@@ -51,14 +56,7 @@ abstract class AbstractDTO {
   }
 
   /**
-   * @return int Returns -1 for a new, unpersisted entity.
-   */
-  public function getId(): int {
-    return $this->values['id'];
-  }
-
-  /**
-   * @phpstan-return dtoT
+   * @phpstan-return T
    */
   public function toArray(): array {
     return $this->values;
