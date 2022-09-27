@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.funding
+    - system.menu.civiremote-funding
   module:
     - cmrf_views
     - user
-id: funding_case_list
+id: civiremote_funding_case_list
 label: 'CiviCRM Funding Case List'
 module: views
 description: 'List of CiviCRM funding cases via remote API'
 tag: ''
-base_table: cmrf_views_fundingcaseinfo
+base_table: cmrf_views_civiremote_funding_caseinfo
 base_field: ''
 display:
   default:
@@ -24,7 +24,7 @@ display:
       fields:
         funding_program_currency:
           id: funding_program_currency
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: funding_program_currency
           relationship: none
           group_type: group
@@ -79,7 +79,7 @@ display:
           separator: ', '
         application_process_id:
           id: application_process_id
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: application_process_id
           relationship: none
           group_type: group
@@ -136,7 +136,7 @@ display:
           suffix: ''
         funding_case_id:
           id: funding_case_id
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: funding_case_id
           relationship: none
           group_type: group
@@ -195,7 +195,7 @@ display:
           suffix: ''
         funding_program_title:
           id: funding_program_title
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: funding_program_title
           relationship: none
           group_type: group
@@ -250,7 +250,7 @@ display:
           separator: ', '
         application_process_title:
           id: application_process_title
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: application_process_title
           relationship: none
           group_type: group
@@ -305,7 +305,7 @@ display:
           separator: ', '
         application_process_status:
           id: application_process_status
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: application_process_status
           relationship: none
           group_type: group
@@ -360,7 +360,7 @@ display:
           separator: ', '
         application_process_amount_requested:
           id: application_process_amount_requested
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: application_process_amount_requested
           relationship: none
           group_type: group
@@ -417,7 +417,7 @@ display:
           suffix: ''
         application_process_creation_date:
           id: application_process_creation_date
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: application_process_creation_date
           relationship: none
           group_type: group
@@ -469,7 +469,7 @@ display:
           timezone: ''
         application_process_modification_date:
           id: application_process_modification_date
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: application_process_modification_date
           relationship: none
           group_type: group
@@ -521,7 +521,7 @@ display:
           timezone: ''
         application_process_start_date:
           id: application_process_start_date
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: application_process_start_date
           relationship: none
           group_type: group
@@ -573,7 +573,7 @@ display:
           timezone: ''
         application_process_end_date:
           id: application_process_end_date
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: application_process_end_date
           relationship: none
           group_type: group
@@ -774,7 +774,7 @@ display:
       sorts:
         funding_case_id:
           id: funding_case_id
-          table: cmrf_views_fundingcaseinfo
+          table: cmrf_views_civiremote_funding_caseinfo
           field: funding_case_id
           relationship: none
           group_type: group
@@ -940,7 +940,7 @@ display:
         description: ''
         weight: 0
         expanded: false
-        menu_name: funding
+        menu_name: civiremote-funding
         parent: ''
         context: '0'
     cache_metadata:

@@ -1,0 +1,7 @@
+langcode: en
+status: true
+dependencies: {  }
+id: civiremote-funding
+label: Funding
+description: 'CiviRemote Funding'
+locked: false
