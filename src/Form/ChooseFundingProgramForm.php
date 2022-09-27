@@ -20,9 +20,9 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Form;
 
-use Assert\Assertion;
 use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
 use Drupal\civiremote_funding\Api\DTO\FundingProgram;
+use Drupal\civiremote_funding\Api\Exception\ApiCallFailedException;
 use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -56,10 +56,22 @@ final class ChooseFundingProgramForm extends FormBase {
   }
 
   public function buildForm(array $form, FormStateInterface $form_state): array {
+    try {
+      $fundingProgramOptions = $this->getFundingProgramOptions();
+    }
+    catch (ApiCallFailedException $e) {
+      $this->messenger()->addError(
+        $this->t('Failed to load available funding case programs: @error', ['@error' => $e->getMessage()])
+      );
+
+      return [];
+    }
+
     return [
       'fundingProgramId' => [
         '#type' => 'select',
-        '#options' => $this->getFundingProgramOptions(),
+        '#options' => $fundingProgramOptions,
+        '#required' => TRUE,
       ],
       'actions' => [
         'submit' => [
@@ -71,12 +83,22 @@ final class ChooseFundingProgramForm extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $formState): void {
-    Assertion::integerish($formState->getValue('fundingProgramId'));
-    $fundingProgramId = (int) $formState->getValue('fundingProgramId');
-    $fundingCaseTypes = $this->fundingApi->getFundingCaseTypesByFundingProgramId(
-      $this->getRemoteContactId(),
-      $fundingProgramId
-    );
+    /** @phpstan-var numeric-string $fundingProgramIdStr */
+    $fundingProgramIdStr = $formState->getValue('fundingProgramId');
+    $fundingProgramId = (int) $fundingProgramIdStr;
+    try {
+      $fundingCaseTypes = $this->fundingApi->getFundingCaseTypesByFundingProgramId(
+        $this->getRemoteContactId(),
+        $fundingProgramId
+      );
+    }
+    catch (ApiCallFailedException $e) {
+      $this->messenger()->addError(
+        $this->t('Failed to load funding case types: @error', ['@error' => $e->getMessage()])
+      );
+
+      return;
+    }
 
     if (0 === count($fundingCaseTypes)) {
       $this->messenger()->addError($this->t('No funding case type available in the selected funding program'));
