@@ -105,10 +105,7 @@ final class ChooseFundingProgramForm extends FormBase {
     }
     else {
       // @todo Support funding programs with multiple funding case types.
-      $formState->setRedirect('civiremote_funding.new_application_form', [
-        'fundingProgramId' => $fundingProgramId,
-        'fundingCaseTypeId' => $fundingCaseTypes[0]->getId(),
-      ]);
+      $this->redirectToApplicationForm($fundingProgramId, $fundingCaseTypes[0]->getId(), $formState);
     }
   }
 
@@ -136,6 +133,13 @@ final class ChooseFundingProgramForm extends FormBase {
     $now = new \DateTime(date('Y-m-d H:i:s'));
 
     return $now > $fundingProgram->getRequestsStartDate() && $now < $fundingProgram->getRequestsEndDate();
+  }
+
+  private function redirectToApplicationForm(int $fundingProgramId, int $fundingCaseTypeId, FormStateInterface $formState): void {
+    $formState->setRedirect('civiremote_funding.new_application_form', [
+      'fundingProgramId' => $fundingProgramId,
+      'fundingCaseTypeId' => $fundingCaseTypeId,
+    ]);
   }
 
 }
