@@ -22,6 +22,7 @@ namespace Drupal\civiremote_funding\Form;
 
 use Assert\Assertion;
 use Drupal\civiremote_funding\Api\Exception\ApiCallFailedException;
+use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
 use Drupal\civiremote_funding\Api\Form\FundingForm;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\json_forms\Form\AbstractJsonFormsForm;
@@ -118,6 +119,10 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
       return;
     }
 
+    $this->handleSubmitResponse($submitResponse, $formState);
+  }
+
+  protected function handleSubmitResponse(FormSubmitResponse $submitResponse, FormStateInterface $formState): void {
     if ('showValidation' === $submitResponse->getAction()) {
       // We cannot add errors at this stage, though this actually cannot happen
       // because we have called the remote validation in the validation step.
@@ -131,7 +136,15 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
       if ('closeForm' === $submitResponse->getAction()) {
         $formState->setRedirect('<front>');
       }
-      elseif ('showForm' !== $submitResponse->getAction()) {
+      elseif ('showForm' === $submitResponse->getAction()) {
+        $form = $submitResponse->getForm();
+        Assertion::notNull($form);
+        $formState->set('jsonSchema', $form->getJsonSchema());
+        $formState->set('uiSchema', $form->getUiSchema());
+        $formState->setTemporary($form->getData());
+        $formState->setRebuild();
+      }
+      else {
         throw new \RuntimeException(sprintf('Unknown response action "%s"', $submitResponse->getAction()));
       }
     }
