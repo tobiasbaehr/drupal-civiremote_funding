@@ -50,8 +50,8 @@ final class FormSubmitResponse {
    * @return self
    */
   public static function fromApiResultValue(array $value): self {
-    if (isset($value['form'])) {
-      $form = FundingForm::fromApiResultValue($value['form']);
+    if ('showForm' === $value['action']) {
+      $form = FundingForm::fromApiResultValue($value);
     }
     else {
       $form = NULL;
