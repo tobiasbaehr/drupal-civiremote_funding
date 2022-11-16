@@ -1,5 +1,5 @@
 civiremote_funding.choose_funding_program_form:
-  path: '/civiremote/funding/application/new'
+  path: '/civiremote/funding/application/add'
   defaults:
     _form: 'Drupal\civiremote_funding\Form\ChooseFundingProgramForm'
   options:
@@ -8,7 +8,7 @@ civiremote_funding.choose_funding_program_form:
     _permission: 'civiremote_funding: access'
 
 civiremote_funding.new_application_form:
-  path: '/civiremote/funding/application/new/{fundingProgramId}/{fundingCaseTypeId}'
+  path: '/civiremote/funding/application/add/{fundingProgramId}/{fundingCaseTypeId}'
   defaults:
     _controller: 'Drupal\civiremote_funding\Controller\NewApplicationController::form'
   options:
