@@ -23,6 +23,7 @@ namespace Drupal\civiremote_funding\Api\DTO;
 /**
  * @phpstan-type fundingCaseTypeT array{
  *   id: int,
+ *   abbreviation: string,
  *   title: string,
  *   name: string,
  *   properties: array<string, mixed>
@@ -42,6 +43,16 @@ final class FundingCaseType extends AbstractDTO {
 
   public function setTitle(string $title): self {
     $this->values['title'] = $title;
+
+    return $this;
+  }
+
+  public function getAbbreviation(): string {
+    return $this->values['abbreviation'];
+  }
+
+  public function setAbbreviation(string $abbreviation): self {
+    $this->values['abbreviation'] = $abbreviation;
 
     return $this;
   }

@@ -144,8 +144,8 @@ display:
           entity_type: null
           entity_field: null
           plugin_id: numeric
-          label: ID
-          exclude: false
+          label: ''
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -193,6 +193,61 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
+        application_process_identifier:
+          id: application_process_identifier
+          table: cmrf_views_civiremote_funding_caseinfo
+          field: application_process_identifier
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: cmrf_views_standard
+          label: Identifier
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
         funding_program_title:
           id: funding_program_title
           table: cmrf_views_civiremote_funding_caseinfo
@@ -798,6 +853,7 @@ display:
             application_process_id: application_process_id
             funding_case_id: funding_case_id
             funding_program_title: funding_program_title
+            application_process_identifier: application_process_identifier
             application_process_title: application_process_title
             application_process_status: application_process_status
             application_process_amount_requested: application_process_amount_requested
@@ -832,6 +888,13 @@ display:
               responsive: ''
             funding_program_title:
               sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            application_process_identifier:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
