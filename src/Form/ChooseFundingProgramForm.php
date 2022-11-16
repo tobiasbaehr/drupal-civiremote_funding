@@ -118,7 +118,7 @@ final class ChooseFundingProgramForm extends FormBase {
   private function getFundingProgramOptions(): array {
     $options = [];
     foreach ($this->fundingApi->getFundingPrograms($this->getRemoteContactId()) as $fundingProgram) {
-      if ($this->isInRequestPeriod($fundingProgram)) {
+      if ($this->isNewApplicationPossible($fundingProgram)) {
         $options[$fundingProgram->getId()] = $fundingProgram->getTitle();
       }
     }
@@ -136,7 +136,16 @@ final class ChooseFundingProgramForm extends FormBase {
     return $now > $fundingProgram->getRequestsStartDate() && $now < $fundingProgram->getRequestsEndDate();
   }
 
-  private function redirectToApplicationForm(int $fundingProgramId, int $fundingCaseTypeId, FormStateInterface $formState): void {
+  private function isNewApplicationPossible(FundingProgram $fundingProgram): bool {
+    return \in_array('application_create', $fundingProgram->getPermissions(), TRUE) &&
+      $this->isInRequestPeriod($fundingProgram);
+  }
+
+  private function redirectToApplicationForm(
+    int $fundingProgramId,
+    int $fundingCaseTypeId,
+    FormStateInterface $formState
+  ): void {
     $formState->setRedirect('civiremote_funding.new_application_form', [
       'fundingProgramId' => $fundingProgramId,
       'fundingCaseTypeId' => $fundingCaseTypeId,
