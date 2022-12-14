@@ -1,0 +1,52 @@
+<?php
+
+/*
+ * Copyright (C) 2022 SYSTOPIA GmbH
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 3 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+use Drupal\civiremote_funding\ViewTranslator;
+use Drupal\language\ConfigurableLanguageManagerInterface;
+
+function translateViews(): void {
+  /** @var ViewTranslator $viewTranslator */
+  $viewTranslator = \Drupal::service(ViewTranslator::class);
+  $viewTranslator->translateViews('views.view.civiremote_funding_');
+}
+
+/**
+ * Implements hook_rebuild().
+ */
+function civiremote_funding_rebuild(): void {
+  // Provides a way to (re-)set the view translations. (Might not be necessary.)
+  translateViews();
+}
+
+/**
+ * Implements hook_batch_alter().
+ */
+function civiremote_funding_batch_alter(array &$batch): void {
+  // Translate views when language is added
+  foreach ($batch['sets'] ?? [] as &$set) {
+    if ('locale_translation_batch_fetch_finished' === ($set['finished'] ?? NULL)) {
+      $batch['sets'][] = [
+        'operations' => [],
+        'finished' => 'translateViews',
+        'results' => [],
+        'elapsed' => 0,
+      ];
+      break;
+    }
+  }
+}

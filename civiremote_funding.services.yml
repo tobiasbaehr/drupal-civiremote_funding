@@ -34,3 +34,16 @@ services:
       - '@Drupal\civiremote_funding\Api\FundingApi'
       - '@Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface'
 
+  Drupal\civiremote_funding\ViewTranslator:
+    class: Drupal\civiremote_funding\ViewTranslator
+    arguments:
+      - '@config.factory'
+      - '@language_manager'
+      - '@string_translation'
+
+  Drupal\civiremote_funding\EventSubscriber\ViewTranslationSubscriber:
+    class: Drupal\civiremote_funding\EventSubscriber\ViewTranslationSubscriber
+    arguments:
+      - '@Drupal\civiremote_funding\ViewTranslator'
+    tags:
+      - { name: event_subscriber }
