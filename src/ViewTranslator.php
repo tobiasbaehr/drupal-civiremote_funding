@@ -21,6 +21,7 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding;
 
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Language\LanguageManagerInterface;
 use Drupal\Core\StringTranslation\Translator\TranslatorInterface;
 use Drupal\language\ConfigurableLanguageManagerInterface;
 
@@ -28,7 +29,7 @@ final class ViewTranslator {
 
   private ConfigFactoryInterface $configFactory;
 
-  private ConfigurableLanguageManagerInterface $languageManager;
+  private LanguageManagerInterface $languageManager;
 
   private TranslatorInterface $translator;
 
@@ -41,7 +42,7 @@ final class ViewTranslator {
    * @phpstan-param array<string> $translatableKeys
    */
   public function __construct(ConfigFactoryInterface $configFactory,
-    ConfigurableLanguageManagerInterface $languageManager,
+    LanguageManagerInterface $languageManager,
     TranslatorInterface $translator,
     array $translatableKeys = ['label', 'title', 'description']
   ) {
@@ -52,6 +53,10 @@ final class ViewTranslator {
   }
 
   public function translateView(string $viewName): void {
+    if (!$this->languageManager instanceof ConfigurableLanguageManagerInterface) {
+      return;
+    }
+
     $viewConfig = $this->configFactory->get($viewName);
     /** @var string $viewLangcode */
     $viewLangcode = $viewConfig->get('langcode') ?? 'en';
