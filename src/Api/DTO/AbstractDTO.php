@@ -22,6 +22,8 @@ namespace Drupal\civiremote_funding\Api\DTO;
 
 /**
  * @template T of array<string, mixed>
+ *
+ * @phpstan-consistent-constructor
  */
 abstract class AbstractDTO {
 
@@ -33,6 +35,8 @@ abstract class AbstractDTO {
 
   /**
    * @phpstan-param T $values
+   *
+   * @return static
    */
   public static function fromArray(array $values): self {
     return new static($values);

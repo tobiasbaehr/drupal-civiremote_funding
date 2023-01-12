@@ -21,10 +21,11 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Api\Form;
 
 /**
- * @phpstan-type form array{
+ * @phpstan-type showFormValueT array{
+ *   action: string, message?: string,
  *   jsonSchema: array<string, mixed>,
  *   uiSchema: array<string, mixed>,
- *   data: array<string, mixed>,
+ *   data?: array<string, mixed>,
  * }
  */
 final class FormSubmitResponse {
@@ -44,13 +45,16 @@ final class FormSubmitResponse {
    * @phpstan-param array{
    *   action: string, message?: string,
    *   errors?: array<string, non-empty-array<string>>,
-   *   form?: form,
+   *   jsonSchema?: array<string, mixed>,
+   *   uiSchema?: array<string, mixed>,
+   *   data?: array<string, mixed>,
    * } $value
    *
    * @return self
    */
   public static function fromApiResultValue(array $value): self {
     if ('showForm' === $value['action']) {
+      /** @phpstan-var showFormValueT $value */
       $form = FundingForm::fromApiResultValue($value);
     }
     else {

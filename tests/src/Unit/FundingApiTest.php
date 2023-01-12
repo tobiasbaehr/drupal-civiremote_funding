@@ -113,6 +113,7 @@ final class FundingApiTest extends UnitTestCase {
 
   /**
    * @covers \Drupal\civiremote_funding\Api\Form\FormSubmitResponse
+   * @covers \Drupal\civiremote_funding\Api\Form\FundingForm
    */
   public function testSubmitNewApplicationFormShowForm(): void {
     $this->apiClientMock->expects($this->once())->method('executeV4')
@@ -122,11 +123,9 @@ final class FundingApiTest extends UnitTestCase {
       ])->willReturn([
         'values' => [
           'action' => 'showForm',
-          'form' => [
-            'jsonSchema' => ['type' => 'string'],
-            'uiSchema' => ['type' => 'Control'],
-            'data' => ['foo' => 'bar'],
-          ],
+          'jsonSchema' => ['type' => 'string'],
+          'uiSchema' => ['type' => 'Control'],
+          'data' => ['foo' => 'bar'],
         ],
       ]);
 
