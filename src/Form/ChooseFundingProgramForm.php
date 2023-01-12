@@ -61,7 +61,7 @@ final class ChooseFundingProgramForm extends FormBase {
     }
     catch (ApiCallFailedException $e) {
       $this->messenger()->addError(
-        $this->t('Failed to load available funding case programs: @error', ['@error' => $e->getMessage()])
+        $this->t('Failed to load available funding programs: @error', ['@error' => $e->getMessage()])
       );
 
       return [];
@@ -102,7 +102,7 @@ final class ChooseFundingProgramForm extends FormBase {
     }
 
     if (0 === count($fundingCaseTypes)) {
-      $this->messenger()->addError($this->t('No funding case type available in the selected funding program'));
+      $this->messenger()->addError($this->t('No funding case type available in the selected funding program.'));
     }
     else {
       // @todo Support funding programs with multiple funding case types.
