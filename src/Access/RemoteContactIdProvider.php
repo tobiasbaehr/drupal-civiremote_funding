@@ -34,6 +34,7 @@ final class RemoteContactIdProvider implements RemoteContactIdProviderInterface 
   public function getRemoteContactId(): string {
     $account = $this->currentUser->getAccount();
     Assertion::propertyExists($account, 'civiremote_id');
+    // @phpstan-ignore-next-line
     $remoteContactId = $account->civiremote_id;
 
     Assertion::string($remoteContactId);
