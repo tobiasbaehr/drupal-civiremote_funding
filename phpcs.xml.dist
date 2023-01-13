@@ -3,6 +3,7 @@
          xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
 
   <file>src</file>
+  <file>tests</file>
 
   <arg name="extensions" value="php"/>
   <arg name="cache" value=".phpcs.cache"/>

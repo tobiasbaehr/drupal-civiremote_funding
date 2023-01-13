@@ -47,7 +47,7 @@ final class FundingApiTest extends UnitTestCase {
    * @covers \Drupal\civiremote_funding\Api\Form\FormValidationResponse
    */
   public function testValidateNewApplicationForm(): void {
-    $this->apiClientMock->expects($this->once())->method('executeV4')
+    $this->apiClientMock->expects(static::once())->method('executeV4')
       ->with('RemoteFundingCase', 'validateNewApplicationForm', [
         'remoteContactId' => 'cid',
         'data' => ['foo' => 'bar'],
@@ -60,15 +60,15 @@ final class FundingApiTest extends UnitTestCase {
 
     $validationResponse = $this->fundingApi->validateNewApplicationForm('cid', ['foo' => 'bar']);
 
-    $this->assertFalse($validationResponse->isValid());
-    $this->assertSame(['/foo' => ['invalid']], $validationResponse->getErrors());
+    static::assertFalse($validationResponse->isValid());
+    static::assertSame(['/foo' => ['invalid']], $validationResponse->getErrors());
   }
 
   /**
    * @covers \Drupal\civiremote_funding\Api\Form\FundingForm
    */
   public function testGetNewApplicationForm(): void {
-    $this->apiClientMock->expects($this->once())->method('executeV4')
+    $this->apiClientMock->expects(static::once())->method('executeV4')
       ->with('RemoteFundingCase', 'getNewApplicationForm', [
         'remoteContactId' => 'cid',
         'fundingProgramId' => 1,
@@ -83,16 +83,16 @@ final class FundingApiTest extends UnitTestCase {
 
     $form = $this->fundingApi->getNewApplicationForm('cid', 1, 2);
 
-    $this->assertEquals((object) ['type' => 'string'], $form->getJsonSchema());
-    $this->assertEquals((object) ['type' => 'Control'], $form->getUiSchema());
-    $this->assertSame(['foo' => 'bar'], $form->getData());
+    static::assertEquals((object) ['type' => 'string'], $form->getJsonSchema());
+    static::assertEquals((object) ['type' => 'Control'], $form->getUiSchema());
+    static::assertSame(['foo' => 'bar'], $form->getData());
   }
 
   /**
    * @covers \Drupal\civiremote_funding\Api\Form\FormSubmitResponse
    */
   public function testSubmitNewApplicationFormShowValidation(): void {
-    $this->apiClientMock->expects($this->once())->method('executeV4')
+    $this->apiClientMock->expects(static::once())->method('executeV4')
       ->with('RemoteFundingCase', 'submitNewApplicationForm', [
         'remoteContactId' => 'cid',
         'data' => ['foo' => 'bar'],
@@ -106,9 +106,9 @@ final class FundingApiTest extends UnitTestCase {
 
     $submitResponse = $this->fundingApi->submitNewApplicationForm('cid', ['foo' => 'bar']);
 
-    $this->assertSame('showValidation', $submitResponse->getAction());
-    $this->assertSame('Validation failed.', $submitResponse->getMessage());
-    $this->assertSame(['/foo' => ['invalid']], $submitResponse->getErrors());
+    static::assertSame('showValidation', $submitResponse->getAction());
+    static::assertSame('Validation failed.', $submitResponse->getMessage());
+    static::assertSame(['/foo' => ['invalid']], $submitResponse->getErrors());
   }
 
   /**
@@ -116,7 +116,7 @@ final class FundingApiTest extends UnitTestCase {
    * @covers \Drupal\civiremote_funding\Api\Form\FundingForm
    */
   public function testSubmitNewApplicationFormShowForm(): void {
-    $this->apiClientMock->expects($this->once())->method('executeV4')
+    $this->apiClientMock->expects(static::once())->method('executeV4')
       ->with('RemoteFundingCase', 'submitNewApplicationForm', [
         'remoteContactId' => 'cid',
         'data' => ['foo' => 'bar'],
@@ -131,13 +131,14 @@ final class FundingApiTest extends UnitTestCase {
 
     $submitResponse = $this->fundingApi->submitNewApplicationForm('cid', ['foo' => 'bar']);
 
-    $this->assertSame('showForm', $submitResponse->getAction());
-    $this->assertNull($submitResponse->getMessage());
-    $this->assertSame([], $submitResponse->getErrors());
+    static::assertSame('showForm', $submitResponse->getAction());
+    static::assertNull($submitResponse->getMessage());
+    static::assertSame([], $submitResponse->getErrors());
     $form = $submitResponse->getForm();
-    $this->assertEquals((object) ['type' => 'string'], $form->getJsonSchema());
-    $this->assertEquals((object) ['type' => 'Control'], $form->getUiSchema());
-    $this->assertSame(['foo' => 'bar'], $form->getData());
+    static::assertNotNull($form);
+    static::assertEquals((object) ['type' => 'string'], $form->getJsonSchema());
+    static::assertEquals((object) ['type' => 'Control'], $form->getUiSchema());
+    static::assertSame(['foo' => 'bar'], $form->getData());
   }
 
 }

@@ -1,6 +1,7 @@
 parameters:
 	paths:
 		- src
+		- tests
 	scanFiles:
 		- vendor/drupal/core/tests/Drupal/Tests/UnitTestCase.php
 	bootstrapFiles:
