@@ -1,4 +1,15 @@
+parameters:
+  civiremote_funding.cmrf_connector_config_key: cmrf_connector
+
 services:
+  _defaults:
+    autowire: true
+    public: false # Controller classes and services directly fetched from container need to be public
+
+  civiremote_funding.logger:
+    parent: logger.channel_base
+    arguments: [ 'civiremote_funding' ]
+
   civiremote_funding.civiremote.settings:
     class: Drupal\Core\Config\ImmutableConfig
     factory: ['Drupal', 'config']
@@ -8,38 +19,111 @@ services:
     class: Drupal\civiremote_funding\Api\CiviCRMApiClient
     factory: ['Drupal\civiremote_funding\Api\CiviCRMApiClient', 'create']
     arguments:
-      - '@cmrf_core.core'
-      - '@civiremote_funding.civiremote.settings'
-      - 'cmrf_connector'
+      $cmrfCore: '@cmrf_core.core'
+      $config: '@civiremote_funding.civiremote.settings'
+      $connectorConfigKey: '%civiremote_funding.cmrf_connector_config_key%'
 
   Drupal\civiremote_funding\Api\FundingApi:
     class: Drupal\civiremote_funding\Api\FundingApi
-    arguments:
-      - '@Drupal\civiremote_funding\Api\CiviCRMApiClientInterface'
+    public: true
 
   Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface:
-    class: \Drupal\civiremote_funding\Access\RemoteContactIdProvider
+    class: Drupal\civiremote_funding\Access\RemoteContactIdProvider
     arguments:
       - '@current_user'
+    public: true
 
-  Drupal\civiremote_funding\Form\NewApplicationFormRequestHandler:
-    class: Drupal\civiremote_funding\Form\NewApplicationFormRequestHandler
-    arguments:
-      - '@Drupal\civiremote_funding\Api\FundingApi'
-      - '@Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface'
+  Drupal\civiremote_funding\Form\RequestHandler\NewApplicationFormRequestHandler:
+    class: Drupal\civiremote_funding\Form\RequestHandler\NewApplicationFormRequestHandler
+    public: true
 
-  Drupal\civiremote_funding\Form\ApplicationFormRequestHandler:
-    class: Drupal\civiremote_funding\Form\ApplicationFormRequestHandler
+  Drupal\civiremote_funding\Form\RequestHandler\ApplicationFormRequestHandler:
+    class: Drupal\civiremote_funding\Form\RequestHandler\ApplicationFormRequestHandler
+    public: true
+
+  Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerFiles:
+    class: Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerFiles
     arguments:
-      - '@Drupal\civiremote_funding\Api\FundingApi'
-      - '@Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface'
+      $logger: '@civiremote_funding.logger'
+
+  Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerAction:
+    class: Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerAction
+    arguments:
+      $messenger: '@messenger'
+
+  Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerInterface:
+    class: Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerChain
+    arguments:
+      - '@Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerFiles'
+      - '@Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerAction'
+    public: true
+
+  Drupal\civiremote_funding\Form\ResponseHandler\NewApplicationFormResponseHandler:
+    class: Drupal\civiremote_funding\Form\ResponseHandler\NewApplicationFormResponseHandler
+    arguments:
+      $messenger: '@messenger'
+    public: true
+
+  Drupal\civiremote_funding\File\FundingFileStorage:
+    class: Drupal\civiremote_funding\File\FundingFileStorage
+    factory: ['@entity_type.manager', 'getStorage']
+    arguments:
+      - 'civiremote_funding_file'
+
+  Drupal\civiremote_funding\File\TokenGenerator: ~
+
+  Drupal\civiremote_funding\File\FundingFileManager:
+    class: Drupal\civiremote_funding\File\FundingFileManager
+    arguments:
+      $fileRepository: '@file.repository'
+      $fileStorage: '@civiremote_funding.drupal.file.storage'
+      $fileUsage: '@file.usage'
+    public: true
+
+  Drupal\civiremote_funding\File\FundingFileHttpClient:
+    class: Drupal\civiremote_funding\File\FundingFileHttpClient
+    factory: ['Drupal\civiremote_funding\File\FundingFileHttpClient', 'create']
+    arguments:
+      $cmrfCore: '@cmrf_core.core'
+      $config: '@civiremote_funding.civiremote.settings'
+      $connectorConfigKey: '%civiremote_funding.cmrf_connector_config_key%'
+      $httpClient: '@http_client'
+
+  civiremote_funding.drupal.file.storage:
+    class: Drupal\file\FileStorage
+    factory: ['@entity_type.manager', 'getStorage']
+    arguments:
+      - 'file'
+
+  Drupal\civiremote_funding\File\FundingFileDownloader:
+    class: Drupal\civiremote_funding\File\FundingFileDownloader
+    arguments:
+      $fileRepository: '@file.repository'
+      $fileStorage: '@civiremote_funding.drupal.file.storage'
+      $logger: '@civiremote_funding.logger'
+      $mimeTypeGuesser: '@file.mime_type.guesser'
+
+  Drupal\civiremote_funding\File\FundingFileRouter:
+    class: Drupal\civiremote_funding\File\FundingFileRouter
+    arguments:
+      $router: '@router.no_access_checks'
+    public: true
+
+  Drupal\civiremote_funding\File\FundingFileDownloadHook:
+    class: Drupal\civiremote_funding\File\FundingFileDownloadHook
+    public: true
+
+  Drupal\civiremote_funding\Controller\TokenFileDownloadController:
+    class: Drupal\civiremote_funding\Controller\TokenFileDownloadController
+    public: true
 
   Drupal\civiremote_funding\ViewTranslator:
     class: Drupal\civiremote_funding\ViewTranslator
     arguments:
-      - '@config.factory'
-      - '@language_manager'
-      - '@string_translation'
+      $configFactory: '@config.factory'
+      $languageManager: '@language_manager'
+      $translator: '@string_translation'
+    public: true
 
   Drupal\civiremote_funding\EventSubscriber\ViewTranslationSubscriber:
     class: Drupal\civiremote_funding\EventSubscriber\ViewTranslationSubscriber
@@ -51,4 +135,3 @@ services:
   Drupal\civiremote_funding\Controller\ApplicationHistoryController:
     class: Drupal\civiremote_funding\Controller\ApplicationHistoryController
     public: true
-    autowire: true

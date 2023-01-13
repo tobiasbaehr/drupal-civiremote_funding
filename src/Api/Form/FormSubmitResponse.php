@@ -26,6 +26,7 @@ namespace Drupal\civiremote_funding\Api\Form;
  *   jsonSchema: array<string, mixed>,
  *   uiSchema: array<string, mixed>,
  *   data?: array<string, mixed>,
+ *   files?: array<string, string>,
  * }
  */
 final class FormSubmitResponse {
@@ -42,12 +43,18 @@ final class FormSubmitResponse {
   private ?string $message;
 
   /**
+   * @var array<string, string>
+   */
+  private array $files;
+
+  /**
    * @phpstan-param array{
    *   action: string, message?: string,
    *   errors?: array<string, non-empty-array<string>>,
    *   jsonSchema?: array<string, mixed>,
    *   uiSchema?: array<string, mixed>,
    *   data?: array<string, mixed>,
+   *   files?: array<string, string>,
    * } $value
    *
    * @return self
@@ -61,20 +68,32 @@ final class FormSubmitResponse {
       $form = NULL;
     }
 
-    return new self($value['action'], $value['message'] ?? NULL, $value['errors'] ?? [], $form);
+    return new self(
+      $value['action'],
+        $value['message'] ?? NULL,
+        $value['errors'] ?? [],
+      $form,
+      $value['files'] ?? [],
+    );
   }
 
   /**
-   * @param string $action
-   * @param string|null $message
    * @param array<string, non-empty-array<string>> $errors
-   * @param \Drupal\civiremote_funding\Api\Form\FundingForm|null $form
+   * @param array<string, string> $files
+   *   Submitted file URIs mapped to CiviCRM file URIs.
    */
-  public function __construct(string $action, ?string $message, array $errors, ?FundingForm $form) {
+  public function __construct(
+    string $action,
+    ?string $message,
+    array $errors,
+    ?FundingForm $form,
+    array $files
+  ) {
     $this->action = $action;
     $this->errors = $errors;
     $this->message = $message;
     $this->form = $form;
+    $this->files = $files;
   }
 
   public function getAction(): string {
@@ -94,6 +113,14 @@ final class FormSubmitResponse {
 
   public function getMessage(): ?string {
     return $this->message;
+  }
+
+  /**
+   * @return array<string, string>
+   *   Submitted file URIs mapped to CiviCRM file URIs.
+   */
+  public function getFiles(): array {
+    return $this->files;
   }
 
 }

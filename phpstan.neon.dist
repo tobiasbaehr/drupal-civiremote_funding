@@ -2,8 +2,10 @@ parameters:
 	paths:
 		- src
 		- tests
+		- civiremote_funding.module
 	scanFiles:
 		- vendor/drupal/core/tests/Drupal/Tests/UnitTestCase.php
+		- vendor/drupal/core/modules/file/file.module
 	bootstrapFiles:
 		- vendor/autoload.php
 	level: 9
@@ -25,11 +27,23 @@ parameters:
 		- '#^Method Drupal\\civiremote_funding\\Form\\[^\s]+Form::(buildForm|submitForm)\(\) has parameter \$form with no value type specified in iterable type array.$#'
 		- '#^Method Drupal\\civiremote_funding\\Form\\[^\s]+Form::buildForm\(\) return type has no value type specified in iterable type array.$#'
 		- '/^Parameter #(3|4) \$(jsonSchema|uiSchema) of method Drupal\\json_forms\\Form\\AbstractJsonFormsForm::buildForm\(\) expects stdClass\|null, mixed given.$/'
-		- '/^Parameter #\d+ \$[^\s]+ of class Drupal\\civiremote_funding\\Form\\[^\s]+Form constructor expects [^\s]+, object\|null given.$/'
+		# Happens in classes implementing ContainerInjectionInterface::create()
+		- '/ constructor expects [^\s]+, object\|null given.$/'
 		-
 			message: '/^Parameter #1 \$value of static method Drupal\\civiremote_funding\\Api\\[^:]+::fromApiResultValue\(\) expects array\{.+\}, array<int\|string, mixed> given.$/'
 			path: */Api/FundingApi.php
 		-
 			message: '/^Parameter #1 \$arrays of static method Drupal\\civiremote_funding\\Api\\DTO\\[^:]+::allFromArrays\(\) expects array<.+>, array<int\|string, mixed> given.$/'
 			path: */Api/FundingApi.php
+		- '/ no value type specified in iterable type Drupal\\file\\FileInterface/'
+		- '/^Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$(value|entity|target_id).$/'
+		- '/^Parameter #1 [^\s]+ of method Drupal\\Core\\TypedData\\DataDefinition::set[^\s]+\(\) expects string, Drupal\\Core\\StringTranslation\\TranslatableMarkup given.$/'
+		- '/::delete\(\) should be contravariant with parameter \$entities \(array\) of method Drupal\\Core\\Entity\\[^\s]+::delete\(\)$/'
+
+		-
+			message: '/ no value type specified in iterable type /'
+			path: '*/tests/src/Unit/File/Entity/AbstractEntityMock.php'
+		-
+			message: '/ never returns [^\s]+ so it can be removed from the return type.$/'
+			path: '*/tests/src/Unit/File/Entity/*Mock.php'
 	tmpDir: .phpstan

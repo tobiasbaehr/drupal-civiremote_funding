@@ -20,6 +20,8 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Form;
 
+use Drupal\civiremote_funding\Form\RequestHandler\ApplicationFormRequestHandler;
+use Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerInterface;
 use Drupal\json_forms\Form\FormArrayFactoryInterface;
 use Drupal\json_forms\Form\Validation\FormValidationMapperInterface;
 use Drupal\json_forms\Form\Validation\FormValidatorInterface;
@@ -38,6 +40,7 @@ final class ApplicationForm extends AbstractFundingJsonFormsForm {
       $container->get(FormValidatorInterface::class),
       $container->get(FormValidationMapperInterface::class),
       $container->get(ApplicationFormRequestHandler::class),
+      $container->get(FormResponseHandlerInterface::class),
     );
   }
 
