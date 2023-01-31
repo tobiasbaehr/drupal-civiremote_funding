@@ -1,0 +1,139 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: civiremote_funding\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.3\n"
+"X-Poedit-KeywordsList: t;title;label;description\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: config\n"
+"X-Poedit-SearchPath-1: src\n"
+"X-Poedit-SearchPath-2: civiremote_funding.info.yml\n"
+"X-Poedit-SearchPath-3: civiremote_funding.module\n"
+"X-Poedit-SearchPath-4: civiremote_funding.permissions.yml\n"
+"X-Poedit-SearchPath-5: civiremote_funding.routing.yml\n"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Modification date"
+msgstr "Änderungsdatum"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Title"
+msgstr "Titel"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Funding Cases"
+msgstr "Förderfälle"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "funding_case_id"
+msgstr ""
+
+#: civiremote_funding.permissions.yml
+msgid "Grants access to CiviCRM Funding via CiviRemote."
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "End date"
+msgstr "Enddatum"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+#: src/Form/ChooseFundingProgramForm.php:73
+msgid "Funding program"
+msgstr "Förderprogramm"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Start date"
+msgstr "Startdatum"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Creation date"
+msgstr "Erstellungsdatum"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Identifier"
+msgstr "Nummer"
+
+#: civiremote_funding.info.yml
+msgid "Drupal frontend for funding applications of CiviCRM Funding Manager."
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "List of CiviCRM funding cases via remote API"
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Application process link"
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Status"
+msgstr "Status"
+
+#: config/optional/cmrf_views.cmrf_dataset.civiremote_funding_caseinfo.yml
+msgid "CiviRemote FundingCaseInfo"
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Requested funding"
+msgstr "Beantragte Förderung"
+
+#: config/optional/system.menu.civiremote-funding.yml
+msgid "CiviRemote Funding"
+msgstr "Förderung beantragen"
+
+#: config/optional/system.menu.civiremote-funding.yml
+msgid "Funding"
+msgstr "Förderung"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "CiviCRM Funding Case List"
+msgstr "CiviCRM Förderfallliste"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Actions"
+msgstr "Aktionen"
+
+#: civiremote_funding.permissions.yml
+msgid "Access CiviCRM Funding"
+msgstr ""
+
+#: src/Form/AbstractFundingJsonFormsForm.php:62
+msgid "Loading form failed: @error"
+msgstr "Laden des Formulars fehlgeschlagen: @error"
+
+#: src/Form/AbstractFundingJsonFormsForm.php:93
+msgid "Error validating form: @error"
+msgstr "Fehler bei der Formularvalidierung: @error"
+
+#: src/Form/AbstractFundingJsonFormsForm.php:117
+msgid "Submitting form failed: @error"
+msgstr "Senden des Formulars fehlgeschlagen: @error"
+
+#: src/Form/AbstractFundingJsonFormsForm.php:129
+msgid "Validation failed."
+msgstr "Validierung fehlgeschlagen."
+
+#: src/Form/ChooseFundingProgramForm.php:64
+msgid "Failed to load available funding programs: @error"
+msgstr "Laden der verfügbaren Förderprogramme fehlgeschlagen: @error"
+
+#: src/Form/ChooseFundingProgramForm.php:80
+msgid "Next"
+msgstr "Weiter"
+
+#: src/Form/ChooseFundingProgramForm.php:98
+msgid "Failed to load funding case types: @error"
+msgstr "Laden der Förderfalltypen fehlgeschlagen: @error"
+
+#: src/Form/ChooseFundingProgramForm.php:105
+msgid "No funding case type available in the selected funding program."
+msgstr "Kein Förderfalltyp im gewählten Förderprogramm verfügbar."
+
