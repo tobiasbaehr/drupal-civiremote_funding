@@ -24,6 +24,7 @@ use Drupal\civiremote_funding\File\FundingFileManager;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class TokenFileDownloadController extends ControllerBase {
@@ -37,7 +38,7 @@ final class TokenFileDownloadController extends ControllerBase {
   public function download(string $token, string $filename): Response {
     $fundingFile = $this->fundingFileManager->loadByTokenAndFilename($token, $filename);
     if (NULL === $fundingFile) {
-      return new Response(Response::$statusTexts[Response::HTTP_NOT_FOUND], Response::HTTP_NOT_FOUND);
+      throw new NotFoundHttpException();
     }
 
     /** @var \Drupal\file\FileInterface $file */
@@ -51,6 +52,7 @@ final class TokenFileDownloadController extends ControllerBase {
       Response::HTTP_OK,
       ['Content-Type' => $file->getMimeType()],
       FALSE,
+      ResponseHeaderBag::DISPOSITION_ATTACHMENT,
     );
   }
 
