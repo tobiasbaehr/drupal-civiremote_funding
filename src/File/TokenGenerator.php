@@ -20,21 +20,14 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\File;
 
+use Drupal\Component\Utility\Crypt;
+
 final class TokenGenerator {
 
-  private const LENGTH = 22;
+  private const BYTES_COUNT = 22;
 
   public function generateToken(): string {
-    // Numbers and letters.
-    $values = array_merge(range(65, 90), range(97, 122), range(48, 57));
-    $max = count($values) - 1;
-
-    $str = '';
-    for ($i = 0; $i < self::LENGTH; $i++) {
-      $str .= chr($values[random_int(0, $max)]);
-    }
-
-    return $str;
+    return Crypt::randomBytesBase64(self::BYTES_COUNT);
   }
 
 }
