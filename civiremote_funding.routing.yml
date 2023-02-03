@@ -46,7 +46,7 @@ civiremote_funding.application_history:
     _permission: 'civiremote_funding: access'
 
 civiremote_funding.token_file_download:
-  path: '/civiremote/funding/files/{token}/{filename}'
+  path: '/civiremote/funding/file/{token}/{filename}'
   defaults:
     _controller: 'Drupal\civiremote_funding\Controller\TokenFileDownloadController:download'
   options:
