@@ -20,25 +20,30 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\JsonForms\Callbacks;
 
+use Assert\Assertion;
 use Drupal\civiremote_funding\File\FundingFileManager;
 use Drupal\civiremote_funding\File\FundingFileRouter;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\file\Element\ManagedFile;
+use Drupal\file\FileStorageInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class FileUploadCallback implements ContainerInjectionInterface {
 
   public const FILES_PROPERTY_KEY = 'files';
 
+  private FileStorageInterface $fileStorage;
+
   private FundingFileManager $fundingFileManager;
 
   private FundingFileRouter $fundingFileRouter;
 
   public function __construct(
+    FileStorageInterface $fileStorage,
     FundingFileManager $fundingFileManager,
     FundingFileRouter $fundingFileRouter
   ) {
+    $this->fileStorage = $fileStorage;
     $this->fundingFileManager = $fundingFileManager;
     $this->fundingFileRouter = $fundingFileRouter;
   }
@@ -52,72 +57,56 @@ final class FileUploadCallback implements ContainerInjectionInterface {
    */
   public static function create(ContainerInterface $container) {
     return new static(
+      $container->get('civiremote_funding.drupal.file.storage'),
       $container->get(FundingFileManager::class),
       $container->get(FundingFileRouter::class),
     );
   }
 
   /**
-   * @param array<string, mixed> $element
-   * @param array<string, mixed> $completeForm
+   * Converts the value set by the managed_file form element at the given key.
+   *
+   * The file ID will be converted to a URI.
+   *
+   * @phpstan-param array<int|string> $elementKey
    */
-  public static function validate(array &$element, FormStateInterface $formState, array &$completeForm): void {
-    static::create(\Drupal::getContainer())->doValidate($element, $formState, $completeForm);
+  public static function convertValue(FormStateInterface $formState, string $callbackKey, array $elementKey): void {
+    static::create(\Drupal::getContainer())->doConvertValue($formState, $callbackKey, $elementKey);
   }
 
   /**
-   * @param array<string, mixed> $element
-   * @param array<string, mixed> $completeForm
+   * @phpstan-param array<int|string> $elementKey
    */
-  public function doValidate(array &$element, FormStateInterface $formState, array &$completeForm): void {
-    ManagedFile::validateManagedFile($element, $formState, $completeForm);
-
-    $files = $element['#files'] ?? [];
-    // #multiple is not used, so we can use just the first file.
-    $file = reset($files);
-    if (FALSE === $file) {
-      // No file set.
-      $formState->unsetValue($element['#parents']);
+  public function doConvertValue(FormStateInterface $formState, string $callbackKey, array $elementKey): void {
+    /** @phpstan-var array<string|int> $fileIds */
+    $fileIds = $formState->getValue($elementKey, []);
+    if ([] === $fileIds) {
+      // No file => remove value from JSON data.
+      $formState->unsetValue($elementKey);
 
       return;
     }
 
-    /** @var \Drupal\file\FileInterface $file */
-    if ($file->isPermanent()) {
-      // File unchanged.
-      $formState->setValueForElement($element, $element['#_original_value']);
-
-      return;
-    }
-
-    /** @phpstan-var array<string, array{uri: string, fundingFile: \Drupal\civiremote_funding\Entity\FundingFileInterface}> $filesProperty */
-    $filesProperty = $formState->get(self::FILES_PROPERTY_KEY) ?? [];
-
-    // @phpstan-ignore-next-line
-    $clickedButton = end($formState->getTriggeringElement()['#parents']);
-    if ('remove_button' === $clickedButton) {
-      // New file just removed.
-      $formState->unsetValue($element['#parents']);
-      unset($filesProperty[$file->id()]);
-      $formState->set(self::FILES_PROPERTY_KEY, $filesProperty);
+    $fileId = (string) $fileIds[0];
+    $fundingFile = $this->fundingFileManager->loadByFileId($fileId);
+    if (NULL === $fundingFile) {
+      // New file. $fundingFile is saved on successful form submit.
+      $file = $this->fileStorage->load($fileId);
+      Assertion::notNull($file);
+      /** @var \Drupal\file\FileInterface $file */
+      $fundingFile = $this->fundingFileManager->create($file);
+      $uri = $this->fundingFileRouter->generate($fundingFile);
     }
     else {
-      // New file. $fundingFile is saved on successful form submit.
-      if (isset($filesProperty[$file->id()])) {
-        $uri = $filesProperty[$file->id()]['uri'];
-      }
-      else {
-        $fundingFile = $this->fundingFileManager->create($file);
-        $uri = $this->fundingFileRouter->generate($fundingFile);
-        $filesProperty[$file->id()] = [
-          'uri' => $uri,
-          'fundingFile' => $fundingFile,
-        ];
-        $formState->set(self::FILES_PROPERTY_KEY, $filesProperty);
-      }
-
-      $formState->setValueForElement($element, $uri);
+      // File unchanged.
+      $uri = $fundingFile->getCiviUri();
     }
+
+    $formState->setValue($elementKey, $uri);
+    $formState->set([self::FILES_PROPERTY_KEY, $fileId], [
+      'uri' => $uri,
+      'fundingFile' => $fundingFile,
+    ]);
   }
 
 }

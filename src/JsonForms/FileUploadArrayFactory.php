@@ -29,6 +29,7 @@ use Drupal\json_forms\Form\AbstractConcreteFormArrayFactory;
 use Drupal\json_forms\Form\Control\UrlArrayFactory;
 use Drupal\json_forms\Form\Control\Util\BasicFormPropertiesFactory;
 use Drupal\json_forms\Form\FormArrayFactoryInterface;
+use Drupal\json_forms\Form\Util\FormCallbackRegistrator;
 use Drupal\json_forms\JsonForms\Definition\Control\ControlDefinition;
 use Drupal\json_forms\JsonForms\Definition\DefinitionInterface;
 
@@ -52,23 +53,26 @@ final class FileUploadArrayFactory extends AbstractConcreteFormArrayFactory {
     FormArrayFactoryInterface $formArrayFactory
   ): array {
     Assertion::isInstanceOf($definition, ControlDefinition::class);
+    /** @var \Drupal\json_forms\JsonForms\Definition\Control\ControlDefinition $definition $form */
     $form = [
       '#type' => 'managed_file',
       '#upload_location' => FundingFileInterface::UPLOAD_LOCATION,
-      '#element_validate' => [
-        [FileUploadCallback::class, 'validate'],
-      ],
     ] + BasicFormPropertiesFactory::createFieldProperties($definition, $formState);
 
     if (is_string($form['#default_value'] ?? NULL)) {
-      $form['#_original_value'] = $form['#default_value'];
       $form['#default_value'] = $this->getValueForCiviUri($form['#default_value']);
     }
 
     if (is_string($form['#value'] ?? NULL)) {
-      $form['#_original_value'] = $form['#value'];
       $form['#value'] = $this->getValueForCiviUri($form['#value']);
     }
+
+    FormCallbackRegistrator::registerPreSchemaValidationCallback(
+      $formState,
+      $definition->getFullScope(),
+      [FileUploadCallback::class, 'convertValue'],
+      $form['#parents'],
+    );
 
     return $form;
   }
