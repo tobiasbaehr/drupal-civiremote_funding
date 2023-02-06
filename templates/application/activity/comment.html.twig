@@ -1,0 +1,11 @@
+<div class="panel" data-activity-kind="comment">
+  <div class="panel__title">{{ 'Comment'|trans }}</div>
+  <div class="panel__content">
+    <div>{{ 'Date: @date'|trans({'@date': activity.createdDate.timestamp|format_date('medium')}) }}</div>
+    <div>{{ 'Performed by: @name'|trans({'@name': activity.sourceContactName}) }}</div>
+    <div>
+      {{ 'Text:'|trans }}<br>
+      {{ activity.details|raw }}
+    </div>
+  </div>
+</div>

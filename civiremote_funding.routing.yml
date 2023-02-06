@@ -32,3 +32,15 @@ civiremote_funding.application_form:
         type: int
   requirements:
     _permission: 'civiremote_funding: access'
+
+civiremote_funding.application_history:
+  path: '/civiremote/funding/application/{applicationProcessId}/history'
+  defaults:
+    _controller: 'Drupal\civiremote_funding\Controller\ApplicationHistoryController:content'
+  options:
+    no_cache: TRUE
+    parameters:
+      applicationProcessId:
+        type: int
+  requirements:
+    _permission: 'civiremote_funding: access'

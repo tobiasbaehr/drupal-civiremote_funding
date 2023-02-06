@@ -17,7 +17,6 @@
  */
 
 use Drupal\civiremote_funding\ViewTranslator;
-use Drupal\language\ConfigurableLanguageManagerInterface;
 
 function translateViews(): void {
   /** @var ViewTranslator $viewTranslator */
@@ -49,4 +48,19 @@ function civiremote_funding_batch_alter(array &$batch): void {
       break;
     }
   }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function civiremote_funding_theme(): array {
+  return [
+    'civiremote_funding_application_history' => [
+      'template' => 'application/history',
+      'variables' => [
+        'activities' => NULL,
+        'statusLabels' => NULL,
+      ],
+    ],
+  ];
 }
