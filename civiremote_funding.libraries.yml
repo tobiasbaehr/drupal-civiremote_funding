@@ -1,5 +1,5 @@
 application_history:
   js:
-    js/application/history: {}
+    js/application/history.js: {}
   dependencies:
     - core/once
