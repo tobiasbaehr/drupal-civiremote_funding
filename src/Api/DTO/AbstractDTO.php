@@ -34,6 +34,18 @@ abstract class AbstractDTO {
   protected array $values;
 
   /**
+   * @phpstan-param array<T> $arrays
+   *
+   * @return array<static>
+   */
+  public static function allFromArrays(array $arrays): array {
+    return array_map(
+      fn (array $values) => static::fromArray($values),
+      $arrays,
+    );
+  }
+
+  /**
    * @phpstan-param T $values
    *
    * @return static

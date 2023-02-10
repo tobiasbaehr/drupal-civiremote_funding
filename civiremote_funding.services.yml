@@ -47,3 +47,8 @@ services:
       - '@Drupal\civiremote_funding\ViewTranslator'
     tags:
       - { name: event_subscriber }
+
+  Drupal\civiremote_funding\Controller\ApplicationHistoryController:
+    class: Drupal\civiremote_funding\Controller\ApplicationHistoryController
+    public: true
+    autowire: true

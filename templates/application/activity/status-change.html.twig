@@ -1,0 +1,7 @@
+<div class="panel" data-activity-kind="workflow">
+  <div class="panel__title">{{ 'Status: @status'|trans({'@status': statusLabels[activity.toStatus] ?? 'Unknown'|trans}) }}</div>
+  <div class="panel__content">
+    <div>{{ 'Date: @date'|trans({'@date': activity.createdDate.timestamp|format_date('medium')}) }}</div>
+    <div>{{ 'Performed by: @name'|trans({'@name': activity.sourceContactName}) }}</div>
+  </div>
+</div>

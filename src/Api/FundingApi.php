@@ -20,6 +20,7 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Api;
 
+use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
 use Drupal\civiremote_funding\Api\DTO\FundingCaseType;
 use Drupal\civiremote_funding\Api\DTO\FundingProgram;
 use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
@@ -27,6 +28,10 @@ use Drupal\civiremote_funding\Api\Form\FormValidationResponse;
 use Drupal\civiremote_funding\Api\Form\FundingForm;
 
 class FundingApi {
+
+  public function __construct(CiviCRMApiClientInterface $apiClient) {
+    $this->apiClient = $apiClient;
+  }
 
   /**
    * @return array<FundingCaseType>
@@ -39,12 +44,7 @@ class FundingApi {
       'fundingProgramId' => $fundingProgramId,
     ]);
 
-    $fundingCaseTypes = [];
-    foreach ($result['values'] as $record) {
-      $fundingCaseTypes[] = FundingCaseType::fromArray($record);
-    }
-
-    return $fundingCaseTypes;
+    return FundingCaseType::allFromArrays($result['values']);
   }
 
   /**
@@ -57,18 +57,37 @@ class FundingApi {
       'remoteContactId' => $remoteContactId,
     ]);
 
-    $fundingPrograms = [];
-    foreach ($result['values'] as $record) {
-      $fundingPrograms[] = FundingProgram::fromArray($record);
-    }
-
-    return $fundingPrograms;
+    return FundingProgram::allFromArrays($result['values']);
   }
 
   private CiviCRMApiClientInterface $apiClient;
 
-  public function __construct(CiviCRMApiClientInterface $apiClient) {
-    $this->apiClient = $apiClient;
+  /**
+   * @phpstan-return array<ApplicationProcessActivity>
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function getApplicationActivities(string $remoteContactId, int $applicationProcessId): array {
+    $result = $this->apiClient->executeV4('RemoteFundingApplicationProcessActivity', 'get', [
+      'remoteContactId' => $remoteContactId,
+      'applicationProcessId' => $applicationProcessId,
+    ]);
+
+    return ApplicationProcessActivity::allFromArrays($result['values']);
+  }
+
+  /**
+   * @phpstan-return array<string, string>
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function getApplicationStatusLabels(string $remoteContactId, int $applicationProcessId): array {
+    return FieldOptionsLoader::new($this->apiClient)->getOptions(
+      $remoteContactId,
+      'RemoteFundingApplicationProcess',
+      'status',
+      ['id' => $applicationProcessId],
+    );
   }
 
   /**
