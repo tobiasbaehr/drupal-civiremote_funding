@@ -44,3 +44,17 @@ civiremote_funding.application_history:
         type: int
   requirements:
     _permission: 'civiremote_funding: access'
+
+civiremote_funding.token_file_download:
+  path: '/civiremote/funding/file/{token}/{filename}'
+  defaults:
+    _controller: 'Drupal\civiremote_funding\Controller\TokenFileDownloadController:download'
+  options:
+    no_cache: TRUE
+    parameters:
+      token:
+        type: string
+      filename:
+        type: string
+  requirements:
+    _access: 'TRUE'

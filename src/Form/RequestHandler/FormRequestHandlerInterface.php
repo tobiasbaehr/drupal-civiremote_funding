@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2022 SYSTOPIA GmbH
+ * Copyright (C) 2023 SYSTOPIA GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -18,7 +18,7 @@
 
 declare(strict_types = 1);
 
-namespace Drupal\civiremote_funding\Form;
+namespace Drupal\civiremote_funding\Form\RequestHandler;
 
 use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
 use Drupal\civiremote_funding\Api\Form\FormValidationResponse;

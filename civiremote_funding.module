@@ -16,7 +16,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+declare(strict_types=1);
+
+use Drupal\civiremote_funding\File\FundingFileDownloadHook;
+use Drupal\civiremote_funding\File\FundingFileManager;
 use Drupal\civiremote_funding\ViewTranslator;
+use Drupal\file\FileInterface;
 
 function translateViews(): void {
   /** @var ViewTranslator $viewTranslator */
@@ -34,11 +39,18 @@ function civiremote_funding_rebuild(): void {
 
 /**
  * Implements hook_batch_alter().
+ *
+ * @param array<string, mixed> $batch See \batch_set() for details.
+ *
+ * @see \batch_set()
  */
 function civiremote_funding_batch_alter(array &$batch): void {
   // Translate views when language is added
+  // @phpstan-ignore-next-line
   foreach ($batch['sets'] ?? [] as &$set) {
+    // @phpstan-ignore-next-line
     if ('locale_translation_batch_fetch_finished' === ($set['finished'] ?? NULL)) {
+      // @phpstan-ignore-next-line
       $batch['sets'][] = [
         'operations' => [],
         'finished' => 'translateViews',
@@ -52,6 +64,8 @@ function civiremote_funding_batch_alter(array &$batch): void {
 
 /**
  * Implements hook_theme().
+ *
+ * @return array<string, mixed>
  */
 function civiremote_funding_theme(): array {
   return [
@@ -63,4 +77,41 @@ function civiremote_funding_theme(): array {
       ],
     ],
   ];
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete().
+ */
+function civiremote_funding_file_predelete(FileInterface $file): void {
+  /** @var \Drupal\civiremote_funding\File\FundingFileManager $fundingFileManager */
+  $fundingFileManager = \Drupal::service(FundingFileManager::class);
+  $fundingFileManager->onFilePreDelete($file);
+}
+
+/**
+ * Implements hook_file_download().
+ *
+ * @return array<string, mixed>
+ */
+function civiremote_funding_file_download(string $uri): array {
+  /** @var \Drupal\civiremote_funding\File\FundingFileDownloadHook $fundingFileDownloadHook */
+  $fundingFileDownloadHook = \Drupal::service(FundingFileDownloadHook::class);
+
+  return $fundingFileDownloadHook($uri);
+}
+
+/**
+ * Implements hook_cron().
+ */
+function civiremote_funding_cron(): void {
+  $cleanupDelay = \Drupal::config('civiremote_funding.settings')->get('file_cleanup_delay') ?? 0;
+  if (!is_int($cleanupDelay) || 0 === $cleanupDelay) {
+    return;
+  }
+
+  /** @var \Drupal\civiremote_funding\File\FundingFileManager $fundingFileManager */
+  $fundingFileManager = \Drupal::service(FundingFileManager::class);
+  foreach ($fundingFileManager->loadByLastAccessBefore(time() - $cleanupDelay) as $fundingFile) {
+    $fundingFileManager->delete($fundingFile);
+  }
 }

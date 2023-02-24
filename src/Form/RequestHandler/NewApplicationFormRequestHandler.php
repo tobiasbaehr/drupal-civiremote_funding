@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (C) 2022 SYSTOPIA GmbH
+ * Copyright (C) 2023 SYSTOPIA GmbH
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as
@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\civiremote_funding\Form;
+namespace Drupal\civiremote_funding\Form\RequestHandler;
 
 use Assert\Assertion;
 use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
@@ -29,7 +29,7 @@ use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\Core\Routing\RouteMatch;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ApplicationFormRequestHandler implements FormRequestHandlerInterface {
+final class NewApplicationFormRequestHandler implements FormRequestHandlerInterface {
 
   private FundingApi $fundingApi;
 
@@ -42,19 +42,24 @@ final class ApplicationFormRequestHandler implements FormRequestHandlerInterface
 
   public function getForm(Request $request): FundingForm {
     $routeMatch = RouteMatch::createFromRequest($request);
-    $applicationProcessId = $routeMatch->getParameter('applicationProcessId');
-    Assertion::integerish($applicationProcessId);
-    $applicationProcessId = (int) $applicationProcessId;
+    $fundingProgramId = $routeMatch->getParameter('fundingProgramId');
+    Assertion::integerish($fundingProgramId);
+    $fundingProgramId = (int) $fundingProgramId;
+    $fundingCaseTypeId = $routeMatch->getParameter('fundingCaseTypeId');
+    Assertion::integerish($fundingCaseTypeId);
+    $fundingCaseTypeId = (int) $fundingCaseTypeId;
 
-    return $this->fundingApi->getApplicationForm($this->getRemoteContactId(), $applicationProcessId);
+    return $this->fundingApi->getNewApplicationForm(
+      $this->getRemoteContactId(), $fundingProgramId, $fundingCaseTypeId
+    );
   }
 
   public function validateForm(Request $request, array $data): FormValidationResponse {
-    return $this->fundingApi->validateApplicationForm($this->getRemoteContactId(), $data);
+    return $this->fundingApi->validateNewApplicationForm($this->getRemoteContactId(), $data);
   }
 
   public function submitForm(Request $request, array $data): FormSubmitResponse {
-    return $this->fundingApi->submitApplicationForm($this->getRemoteContactId(), $data);
+    return $this->fundingApi->submitNewApplicationForm($this->getRemoteContactId(), $data);
   }
 
   private function getRemoteContactId(): string {

@@ -20,9 +20,8 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Form;
 
-use Assert\Assertion;
-use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\civiremote_funding\Form\RequestHandler\NewApplicationFormRequestHandler;
+use Drupal\civiremote_funding\Form\ResponseHandler\NewApplicationFormResponseHandler;
 use Drupal\json_forms\Form\FormArrayFactoryInterface;
 use Drupal\json_forms\Form\Validation\FormValidationMapperInterface;
 use Drupal\json_forms\Form\Validation\FormValidatorInterface;
@@ -41,21 +40,8 @@ final class NewApplicationForm extends AbstractFundingJsonFormsForm {
       $container->get(FormValidatorInterface::class),
       $container->get(FormValidationMapperInterface::class),
       $container->get(NewApplicationFormRequestHandler::class),
+      $container->get(NewApplicationFormResponseHandler::class),
     );
-  }
-
-  protected function handleSubmitResponse(FormSubmitResponse $submitResponse, FormStateInterface $formState): void {
-    if ('showForm' === $submitResponse->getAction()) {
-      $form = $submitResponse->getForm();
-      Assertion::notNull($form);
-      Assertion::keyExists($form->getData(), 'applicationProcessId');
-      $formState->setRedirect('civiremote_funding.application_form', [
-        'applicationProcessId' => $form->getData()['applicationProcessId'],
-      ]);
-    }
-    else {
-      parent::handleSubmitResponse($submitResponse, $formState);
-    }
   }
 
 }
