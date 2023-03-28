@@ -33,11 +33,17 @@ use Symfony\Component\HttpKernel\Exception\ServiceUnavailableHttpException;
 use Symfony\Component\Mime\MimeTypeGuesserInterface;
 
 class FundingFileDownloader {
+
   private FileRepositoryInterface $fileRepository;
+
   private FileStorageInterface $fileStorage;
+
   private FundingFileHttpClient $fundingFileHttpClient;
+
   private FundingFileManager $fundingFileManager;
+
   private LoggerInterface $logger;
+
   private MimeTypeGuesserInterface $mimeTypeGuesser;
 
   public function __construct(

@@ -21,50 +21,15 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\File;
 
 use Assert\Assertion;
-use CMRF\Core\Core;
-use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
 use Drupal\civiremote_funding\Entity\FundingFileInterface;
-use Drupal\Core\Config\ImmutableConfig;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\RequestOptions;
+use Drupal\civiremote_funding\RemotePage\RemotePageClient;
 use Psr\Http\Message\ResponseInterface;
 
-/**
- * @codeCoverageIgnore
- */
 class FundingFileHttpClient {
-  private string $apiKey;
-  private ClientInterface $httpClient;
-  private RemoteContactIdProviderInterface $remoteContactIdProvider;
-  private string $siteKey;
+  private RemotePageClient $remotePageClient;
 
-  public static function create(
-    Core $cmrfCore,
-    ImmutableConfig $config,
-    string $connectorConfigKey,
-    ClientInterface $httpClient,
-    RemoteContactIdProviderInterface $remoteContactIdProvider
-  ): self {
-    $connectorId = $config->get($connectorConfigKey);
-    Assertion::string($connectorId);
-
-    $profile = $cmrfCore->getConnectionProfile($connectorId);
-    Assertion::string($profile['api_key'] ?? NULL);
-    Assertion::string($profile['site_key'] ?? NULL);
-
-    return new self($profile['api_key'], $httpClient, $remoteContactIdProvider, $profile['site_key']);
-  }
-
-  public function __construct(
-    string $apiKey,
-    ClientInterface $httpClient,
-    RemoteContactIdProviderInterface $remoteContactIdProvider,
-    string $siteKey
-  ) {
-    $this->apiKey = $apiKey;
-    $this->httpClient = $httpClient;
-    $this->remoteContactIdProvider = $remoteContactIdProvider;
-    $this->siteKey = $siteKey;
+  public function __construct(RemotePageClient $remotePageClient) {
+    $this->remotePageClient = $remotePageClient;
   }
 
   /**
@@ -73,14 +38,9 @@ class FundingFileHttpClient {
   public function get(FundingFileInterface $fundingFile): ResponseInterface {
     Assertion::notEmpty($fundingFile->getCiviUri());
 
-    return $this->httpClient->request('GET', $fundingFile->getCiviUri(), [
-      'timeout'  => 3.0,
-      'http_errors' => FALSE,
-      RequestOptions::HEADERS => [
+    return $this->remotePageClient->request('GET', $fundingFile->getCiviUri(), [
+      'headers' => [
         'If-Modified-Since' => $fundingFile->getLastModified(),
-        'X-Civi-Auth' => 'Bearer ' . $this->apiKey,
-        'X-Civi-Key' => $this->siteKey,
-        'X-Civi-Remote-Contact-Id' => $this->remoteContactIdProvider->getRemoteContactId(),
       ],
     ]);
 

@@ -15,6 +15,20 @@ services:
     factory: ['Drupal', 'config']
     arguments: ['civiremote.settings']
 
+  Drupal\civiremote_funding\RemotePage\RemotePageClient:
+    class: Drupal\civiremote_funding\RemotePage\RemotePageClient
+    factory: ['Drupal\civiremote_funding\RemotePage\RemotePageClient', 'create']
+    arguments:
+      $cmrfCore: '@cmrf_core.core'
+      $config: '@civiremote_funding.civiremote.settings'
+      $connectorConfigKey: '%civiremote_funding.cmrf_connector_config_key%'
+      $httpClient: '@http_client'
+
+  Drupal\civiremote_funding\RemotePage\RemotePageProxy:
+    class: Drupal\civiremote_funding\RemotePage\RemotePageProxy
+    arguments:
+      $logger: '@civiremote_funding.logger'
+
   Drupal\civiremote_funding\Api\CiviCRMApiClientInterface:
     class: Drupal\civiremote_funding\Api\CiviCRMApiClient
     factory: ['Drupal\civiremote_funding\Api\CiviCRMApiClient', 'create']
@@ -82,12 +96,6 @@ services:
 
   Drupal\civiremote_funding\File\FundingFileHttpClient:
     class: Drupal\civiremote_funding\File\FundingFileHttpClient
-    factory: ['Drupal\civiremote_funding\File\FundingFileHttpClient', 'create']
-    arguments:
-      $cmrfCore: '@cmrf_core.core'
-      $config: '@civiremote_funding.civiremote.settings'
-      $connectorConfigKey: '%civiremote_funding.cmrf_connector_config_key%'
-      $httpClient: '@http_client'
 
   civiremote_funding.drupal.file.storage:
     class: Drupal\file\FileStorage
@@ -134,4 +142,8 @@ services:
 
   Drupal\civiremote_funding\Controller\ApplicationHistoryController:
     class: Drupal\civiremote_funding\Controller\ApplicationHistoryController
+    public: true
+
+  Drupal\civiremote_funding\Controller\TransferContractDownloadController:
+    class: Drupal\civiremote_funding\Controller\TransferContractDownloadController
     public: true

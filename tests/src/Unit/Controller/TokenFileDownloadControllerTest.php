@@ -80,8 +80,8 @@ final class TokenFileDownloadControllerTest extends TestCase {
     $this->fundingFileManagerMock->expects(static::once())->method('loadByTokenAndFilename')
       ->with('token', 'filename')
       ->willReturn(NULL);
-    $response = $this->controller->download('token', 'filename');
-    static::assertSame(404, $response->getStatusCode());
+    static::expectException(NotFoundHttpException::class);
+    $this->controller->download('token', 'filename');
   }
 
   public function testDownloadFileNotExists(): void {

@@ -59,6 +59,9 @@ fi
 
 declare -A strings=()
 
+# Required for the "!!str" in yq expression. (Escaping the "!" does not work.)
+histchars=
+
 for file in "${files[@]}"; do
 	for keyword in "${keywords[@]}"; do
 		while read -r string; do
@@ -69,16 +72,13 @@ for file in "${files[@]}"; do
       else
         strings["$string"]=" $file"
       fi
-		done < <("$YQ" ".. | select(has(\"$keyword\")) | select(.$keyword != \"\") | .$keyword" "$file")
+		done < <("$YQ" ".. | select(has(\"$keyword\")) | select(.$keyword|tag == \"!!str\") | select(.$keyword != \"\") | .$keyword" "$file")
 	done
 done
 
 for string in "${!strings[@]}"; do
   srcFiles="${strings["$string"]}"
   echo "#:$srcFiles"
-  #while read -r srcFile; do
-  #  echo "#: $srcFile"
-  #done < <(echo -e "$srcFiles")
   echo "msgid \"$string\""
   echo 'msgstr ""'
   echo ""

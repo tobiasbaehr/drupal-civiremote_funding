@@ -21,6 +21,7 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Api;
 
 use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
+use Drupal\civiremote_funding\Api\DTO\FundingCase;
 use Drupal\civiremote_funding\Api\DTO\FundingCaseType;
 use Drupal\civiremote_funding\Api\DTO\FundingProgram;
 use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
@@ -31,6 +32,15 @@ class FundingApi {
 
   public function __construct(CiviCRMApiClientInterface $apiClient) {
     $this->apiClient = $apiClient;
+  }
+
+  public function getFundingCase(string $remoteContactId, int $fundingCaseId): ?FundingCase {
+    $result = $this->apiClient->executeV4('RemoteFundingCase', 'get', [
+      'remoteContactId' => $remoteContactId,
+      'where' => [['id', '=', $fundingCaseId]],
+    ]);
+
+    return FundingCase::oneOrNullFromApiResult($result);
   }
 
   /**

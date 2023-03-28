@@ -18,20 +18,7 @@
 
 declare(strict_types=1);
 
-namespace Drupal\Tests\civiremote_funding\Unit\File;
+namespace Drupal\civiremote_funding\Api\Exception;
 
-use Drupal\civiremote_funding\File\TokenGenerator;
-use PHPUnit\Framework\TestCase;
-
-/**
- * @covers \Drupal\civiremote_funding\File\TokenGenerator
- */
-final class TokenGeneratorTest extends TestCase {
-
-  public function testGenerateToken(): void {
-    $tokenGenerator = new TokenGenerator();
-    $token = $tokenGenerator->generateToken();
-    static::assertTrue(strlen($token) >= 22);
-  }
-
+interface ExceptionInterface extends \Throwable {
 }
