@@ -20,10 +20,15 @@ declare(strict_types = 1);
 
 namespace Drupal\civiremote_funding\Api\DTO;
 
+use Assert\Assertion;
+use Drupal\civiremote_funding\Api\Exception\NonUniqueResultException;
+
 /**
  * @template T of array<string, mixed>
  *
  * @phpstan-consistent-constructor
+ *
+ * @codeCoverageIgnore
  */
 abstract class AbstractDTO {
 
@@ -52,6 +57,32 @@ abstract class AbstractDTO {
    */
   public static function fromArray(array $values): self {
     return new static($values);
+  }
+
+  /**
+   * @phpstan-param array{values: array<mixed>} $result
+   *
+   * @return static|null
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\NonUniqueResultException
+   */
+  public static function oneOrNullFromApiResult(array $result): ?self {
+    $values = $result['values'];
+    switch (count($values)) {
+      case 0:
+        return NULL;
+
+      case 1:
+        Assertion::keyIsset($values, 0);
+        return new static($values[0]);
+
+      default:
+        throw new NonUniqueResultException(sprintf(
+          'Expected one or no result for "%s", got %d.',
+          static::class,
+          count($values),
+        ));
+    }
   }
 
   /**

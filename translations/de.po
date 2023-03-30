@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: \n"
+"POT-Creation-Date: 2023-03-30 10:22+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3\n"
-"X-Poedit-KeywordsList: t;title;label;description\n"
+"X-Poedit-KeywordsList: t;title;label;description;text\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: config\n"
 "X-Poedit-SearchPath-1: src\n"
@@ -19,12 +19,27 @@ msgstr ""
 "X-Poedit-SearchPath-3: civiremote_funding.module\n"
 "X-Poedit-SearchPath-4: civiremote_funding.permissions.yml\n"
 "X-Poedit-SearchPath-5: civiremote_funding.routing.yml\n"
+"X-Poedit-SearchPathExcluded-0: config/optional/cmrf_views.cmrf_dataset.*."
+"yml\n"
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Amount approved"
+msgstr "Bewilligter Betrag"
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Funding Program"
+msgstr "Förderprogramm"
 
 #: config/optional/views.view.civiremote_funding_case_list.yml
 msgid "Modification date"
 msgstr "Änderungsdatum"
 
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Transfer Contracts"
+msgstr "Weiterleitungsverträge"
+
 #: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Title"
 msgstr "Titel"
 
@@ -33,7 +48,19 @@ msgid "Funding Cases"
 msgstr "Förderfälle"
 
 #: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Open"
+msgstr "Öffnen"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
 msgid "funding_case_id"
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "{{ amount_approved }} {{currency}}"
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Link to application history"
 msgstr ""
 
 #: civiremote_funding.permissions.yml
@@ -53,6 +80,10 @@ msgstr "Förderprogramm"
 msgid "Start date"
 msgstr "Startdatum"
 
+#: config/schema/civiremote_funding.schema.yml
+msgid "File clean up delay (seconds)"
+msgstr ""
+
 #: config/optional/views.view.civiremote_funding_case_list.yml
 msgid "Creation date"
 msgstr "Erstellungsdatum"
@@ -61,25 +92,49 @@ msgstr "Erstellungsdatum"
 msgid "Identifier"
 msgstr "Nummer"
 
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "List of CiviCRM funding transfer contracts via remote API"
+msgstr "Liste der CiviCRM Weiterleitungsverträge via Remote API"
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "{{amount_payed_out}} {{currency}}"
+msgstr ""
+
 #: civiremote_funding.info.yml
 msgid "Drupal frontend for funding applications of CiviCRM Funding Manager."
 msgstr ""
 
 #: config/optional/views.view.civiremote_funding_case_list.yml
 msgid "List of CiviCRM funding cases via remote API"
-msgstr ""
+msgstr "Liste der CiviCRM Förderfälle via Remote API"
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Download"
+msgstr "Herunterladen"
 
 #: config/optional/views.view.civiremote_funding_case_list.yml
-msgid "Application process link"
-msgstr ""
+msgid "Show history"
+msgstr "Verlauf anzeigen"
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Amount payed out"
+msgstr "Ausgezahlter Betrag"
 
 #: config/optional/views.view.civiremote_funding_case_list.yml
 msgid "Status"
 msgstr "Status"
 
-#: config/optional/cmrf_views.cmrf_dataset.civiremote_funding_caseinfo.yml
-msgid "CiviRemote FundingCaseInfo"
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Amount available"
+msgstr "Verfügbarer Betrag"
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "{{amount_available}} {{currency}}"
 msgstr ""
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "CiviCRM Funding Transfer Contract List"
+msgstr "CiviCRM Weiterleitungsvertragsliste"
 
 #: config/optional/views.view.civiremote_funding_case_list.yml
 msgid "Requested funding"
@@ -101,25 +156,58 @@ msgstr "CiviCRM Förderfallliste"
 msgid "Actions"
 msgstr "Aktionen"
 
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Currency"
+msgstr "Währung"
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid "Link to application form"
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_case_list.yml
+msgid ""
+"{{ application_process_amount_requested }} {{ funding_program_currency }}"
+msgstr ""
+
 #: civiremote_funding.permissions.yml
 msgid "Access CiviCRM Funding"
 msgstr ""
 
-#: src/Form/AbstractFundingJsonFormsForm.php:62
+#: src/Entity/FundingFile.php:54
+msgid "Referenced file"
+msgstr ""
+
+#: src/Entity/FundingFile.php:55
+msgid "Referenced File entity"
+msgstr ""
+
+#: src/Entity/FundingFile.php:81
+msgid "Created"
+msgstr ""
+
+#: src/Entity/FundingFile.php:82
+msgid "The time that the entity was created."
+msgstr ""
+
+#: src/Entity/FundingFile.php:85
+msgid "Changed"
+msgstr ""
+
+#: src/Entity/FundingFile.php:86
+msgid "The time that the entity was last edited."
+msgstr ""
+
+#: src/Form/AbstractFundingJsonFormsForm.php:67
 msgid "Loading form failed: @error"
 msgstr "Laden des Formulars fehlgeschlagen: @error"
 
-#: src/Form/AbstractFundingJsonFormsForm.php:93
+#: src/Form/AbstractFundingJsonFormsForm.php:98
 msgid "Error validating form: @error"
 msgstr "Fehler bei der Formularvalidierung: @error"
 
-#: src/Form/AbstractFundingJsonFormsForm.php:117
+#: src/Form/AbstractFundingJsonFormsForm.php:122
 msgid "Submitting form failed: @error"
 msgstr "Senden des Formulars fehlgeschlagen: @error"
-
-#: src/Form/AbstractFundingJsonFormsForm.php:129
-msgid "Validation failed."
-msgstr "Validierung fehlgeschlagen."
 
 #: src/Form/ChooseFundingProgramForm.php:64
 msgid "Failed to load available funding programs: @error"
@@ -137,3 +225,6 @@ msgstr "Laden der Förderfalltypen fehlgeschlagen: @error"
 msgid "No funding case type available in the selected funding program."
 msgstr "Kein Förderfalltyp im gewählten Förderprogramm verfügbar."
 
+#: src/Form/ResponseHandler/FormResponseHandlerAction.php:42
+msgid "Validation failed."
+msgstr "Validierung fehlgeschlagen."

@@ -22,7 +22,7 @@ namespace Drupal\civiremote_funding\Api\Exception;
 
 use CMRF\Core\Call;
 
-final class ApiCallFailedException extends \RuntimeException {
+final class ApiCallFailedException extends \RuntimeException implements ExceptionInterface {
 
   private Call $call;
 

@@ -44,7 +44,7 @@ final class ViewTranslator {
   public function __construct(ConfigFactoryInterface $configFactory,
     LanguageManagerInterface $languageManager,
     TranslatorInterface $translator,
-    array $translatableKeys = ['label', 'title', 'description']
+    array $translatableKeys = ['label', 'title', 'description', 'text']
   ) {
     $this->configFactory = $configFactory;
     $this->languageManager = $languageManager;
