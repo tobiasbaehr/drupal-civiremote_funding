@@ -499,7 +499,7 @@ display:
         options:
           perm: 'civiremote_funding: access'
       cache:
-        type: tag
+        type: none
         options: {  }
       empty: {  }
       sorts:
