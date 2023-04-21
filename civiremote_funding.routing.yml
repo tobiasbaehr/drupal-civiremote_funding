@@ -70,3 +70,15 @@ civiremote_funding.transfer_contract_download:
         type: int
   requirements:
     _permission: 'civiremote_funding: access'
+
+civiremote_funding.new_drawdown_form:
+  path: '/civiremote/funding/payout-process/{payoutProcessId}/drawdown/add'
+  defaults:
+    _controller: 'Drupal\civiremote_funding\Controller\NewDrawdownController::form'
+  options:
+    no_cache: TRUE
+    parameters:
+      payoutProcessId:
+        type: int
+  requirements:
+    _permission: 'civiremote_funding: access'

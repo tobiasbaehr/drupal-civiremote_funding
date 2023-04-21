@@ -72,7 +72,7 @@ for file in "${files[@]}"; do
       else
         strings["$string"]=" $file"
       fi
-		done < <("$YQ" ".. | select(has(\"$keyword\")) | select(.$keyword|tag == \"!!str\") | select(.$keyword != \"\") | .$keyword" "$file")
+		done < <("$YQ" ".. | select(has(\"$keyword\")) | select(.$keyword|tag == \"!!str\") | select(.$keyword != \"\") | select(.$keyword != \"0\") | .$keyword" "$file")
 	done
 done
 

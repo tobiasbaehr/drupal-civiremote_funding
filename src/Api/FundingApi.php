@@ -24,6 +24,8 @@ use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
 use Drupal\civiremote_funding\Api\DTO\FundingCase;
 use Drupal\civiremote_funding\Api\DTO\FundingCaseType;
 use Drupal\civiremote_funding\Api\DTO\FundingProgram;
+use Drupal\civiremote_funding\Api\DTO\PayoutProcess;
+use Drupal\civiremote_funding\Api\DTO\TransferContract;
 use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
 use Drupal\civiremote_funding\Api\Form\FormValidationResponse;
 use Drupal\civiremote_funding\Api\Form\FundingForm;
@@ -55,6 +57,15 @@ class FundingApi {
     ]);
 
     return FundingCaseType::allFromArrays($result['values']);
+  }
+
+  public function getFundingProgram(string $remoteContactId, int $fundingProgramId): ?FundingProgram {
+    $result = $this->apiClient->executeV4('RemoteFundingProgram', 'get', [
+      'remoteContactId' => $remoteContactId,
+      'where' => [['id', '=', $fundingProgramId]],
+    ]);
+
+    return FundingProgram::oneOrNullFromApiResult($result);
   }
 
   /**
@@ -187,6 +198,41 @@ class FundingApi {
     ]);
 
     return FormSubmitResponse::fromApiResultValue($result['values']);
+  }
+
+  /**
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function getTransferContract(string $remoteContactId, int $fundingCaseId): ?TransferContract {
+    $result = $this->apiClient->executeV4('RemoteFundingTransferContract', 'get', [
+      'remoteContactId' => $remoteContactId,
+      'where' => [['funding_case_id', '=', $fundingCaseId]],
+    ]);
+
+    return TransferContract::oneOrNullFromApiResult($result);
+  }
+
+  /**
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function getPayoutProcess(string $remoteContactId, int $payoutProcessId): ?PayoutProcess {
+    $result = $this->apiClient->executeV4('RemoteFundingPayoutProcess', 'get', [
+      'remoteContactId' => $remoteContactId,
+      'where' => [['id', '=', $payoutProcessId]],
+    ]);
+
+    return PayoutProcess::oneOrNullFromApiResult($result);
+  }
+
+  /**
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function createDrawdown(string $remoteContactId, int $payoutProcessId, float $amount): void {
+    $this->apiClient->executeV4('RemoteFundingDrawdown', 'create', [
+      'remoteContactId' => $remoteContactId,
+      'payoutProcessId' => $payoutProcessId,
+      'amount' => $amount,
+    ]);
   }
 
 }
