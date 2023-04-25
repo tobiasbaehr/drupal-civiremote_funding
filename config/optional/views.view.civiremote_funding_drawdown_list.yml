@@ -5,7 +5,7 @@ dependencies:
     - cmrf_views
     - user
 id: civiremote_funding_drawdown_list
-label: 'CiviCRM Funding  Drawdown List'
+label: 'CiviCRM Funding Drawdown List'
 module: views
 description: ''
 tag: ''
