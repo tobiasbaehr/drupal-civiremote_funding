@@ -42,7 +42,8 @@ final class ApplicationHistoryController extends ControllerBase {
    */
   public function content(int $applicationProcessId): array {
     return [
-      '#theme' => 'civiremote_funding_application_history',
+      '#type' => 'civiremote_funding_application_history',
+      '#title' => $this->t('History'),
       '#activities' => $this->fundingApi->getApplicationActivities(
         $this->contactIdProvider->getRemoteContactId(),
         $applicationProcessId
