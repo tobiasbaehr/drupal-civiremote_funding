@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: 2023-03-30 10:22+0200\n"
+"POT-Creation-Date: 2023-04-25 16:42+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -35,6 +35,23 @@ msgid "Modification date"
 msgstr "Änderungsdatum"
 
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "{{amount_paid_out}} {{currency}}"
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Amount paid out"
+msgstr "Ausgezahlter Betrag"
+
+#: config/optional/views.view.civiremote_funding_drawdown_list.yml
+#: src/Form/NewDrawdownForm.php:104
+msgid "Amount"
+msgstr "Betrag"
+
+#: config/optional/views.view.civiremote_funding_drawdown_list.yml
+msgid "Creation Date"
+msgstr "Erstellungsdatum"
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Transfer Contracts"
 msgstr "Weiterleitungsverträge"
 
@@ -51,12 +68,20 @@ msgstr "Förderfälle"
 msgid "Open"
 msgstr "Öffnen"
 
+#: config/optional/views.view.civiremote_funding_drawdown_list.yml
+msgid "Acception Date"
+msgstr "Annahmedatum"
+
 #: config/optional/views.view.civiremote_funding_case_list.yml
 msgid "funding_case_id"
 msgstr ""
 
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "{{ amount_approved }} {{currency}}"
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_drawdown_list.yml
+msgid "{{ amount }} {{currency}}"
 msgstr ""
 
 #: config/optional/views.view.civiremote_funding_case_list.yml
@@ -76,6 +101,10 @@ msgstr "Enddatum"
 msgid "Funding program"
 msgstr "Förderprogramm"
 
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Link to drawdown list"
+msgstr ""
+
 #: config/optional/views.view.civiremote_funding_case_list.yml
 msgid "Start date"
 msgstr "Startdatum"
@@ -88,6 +117,10 @@ msgstr ""
 msgid "Creation date"
 msgstr "Erstellungsdatum"
 
+#: config/optional/views.view.civiremote_funding_drawdown_list.yml
+msgid "CiviCRM Funding Drawdown List"
+msgstr "CiviCRM Mittelabrufliste"
+
 #: config/optional/views.view.civiremote_funding_case_list.yml
 msgid "Identifier"
 msgstr "Nummer"
@@ -97,8 +130,9 @@ msgid "List of CiviCRM funding transfer contracts via remote API"
 msgstr "Liste der CiviCRM Weiterleitungsverträge via Remote API"
 
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
-msgid "{{amount_payed_out}} {{currency}}"
-msgstr ""
+#: src/Form/NewDrawdownForm.php:96
+msgid "Create Drawdown"
+msgstr "Mittelabruf erstellen"
 
 #: civiremote_funding.info.yml
 msgid "Drupal frontend for funding applications of CiviCRM Funding Manager."
@@ -116,11 +150,12 @@ msgstr "Herunterladen"
 msgid "Show history"
 msgstr "Verlauf anzeigen"
 
-#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
-msgid "Amount payed out"
-msgstr "Ausgezahlter Betrag"
+#: config/optional/views.view.civiremote_funding_drawdown_list.yml
+msgid "All"
+msgstr "Alle"
 
 #: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_drawdown_list.yml
 msgid "Status"
 msgstr "Status"
 
@@ -132,6 +167,10 @@ msgstr "Verfügbarer Betrag"
 msgid "{{amount_available}} {{currency}}"
 msgstr ""
 
+#: config/optional/views.view.civiremote_funding_drawdown_list.yml
+msgid "Drawdowns"
+msgstr "Mittelabrufe"
+
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "CiviCRM Funding Transfer Contract List"
 msgstr "CiviCRM Weiterleitungsvertragsliste"
@@ -139,6 +178,10 @@ msgstr "CiviCRM Weiterleitungsvertragsliste"
 #: config/optional/views.view.civiremote_funding_case_list.yml
 msgid "Requested funding"
 msgstr "Beantragte Förderung"
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Link to download transfer contract"
+msgstr ""
 
 #: config/optional/system.menu.civiremote-funding.yml
 msgid "CiviRemote Funding"
@@ -152,10 +195,16 @@ msgstr "Förderung"
 msgid "CiviCRM Funding Case List"
 msgstr "CiviCRM Förderfallliste"
 
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Link to create drawdown form"
+msgstr ""
+
 #: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Actions"
 msgstr "Aktionen"
 
+#: config/optional/views.view.civiremote_funding_drawdown_list.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Currency"
 msgstr "Währung"
@@ -171,6 +220,14 @@ msgstr ""
 
 #: civiremote_funding.permissions.yml
 msgid "Access CiviCRM Funding"
+msgstr ""
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Show Drawdowns"
+msgstr "Mittelabrufe anzeigen"
+
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "payout_process_id"
 msgstr ""
 
 #: src/Entity/FundingFile.php:54
@@ -225,6 +282,29 @@ msgstr "Laden der Förderfalltypen fehlgeschlagen: @error"
 msgid "No funding case type available in the selected funding program."
 msgstr "Kein Förderfalltyp im gewählten Förderprogramm verfügbar."
 
+#: src/Form/NewDrawdownForm.php:89
+msgid "API request failed: @error"
+msgstr "API-Anfrage fehlgeschlagen: @error"
+
+#: src/Form/NewDrawdownForm.php:99
+msgid "Transfer contract"
+msgstr "Weiterleitungsvertrag"
+
+#: src/Form/NewDrawdownForm.php:113
+msgid "Submit"
+msgstr "Absenden"
+
+#: src/Form/NewDrawdownForm.php:127
+msgid "Drawdown created."
+msgstr "Mittelabruf erstellt."
+
+#: src/Form/NewDrawdownForm.php:134
+msgid "Failed to create drawdown: @error"
+msgstr "Erstellung des Mittelabrufs fehlgeschlagen: @error"
+
 #: src/Form/ResponseHandler/FormResponseHandlerAction.php:42
 msgid "Validation failed."
 msgstr "Validierung fehlgeschlagen."
+
+#~ msgid "Create drawdown"
+#~ msgstr "Mittelabruf erstellen"
