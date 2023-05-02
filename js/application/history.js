@@ -19,7 +19,7 @@
 (function (once) {
   Drupal.behaviors.civiremote_funding_application_history = {
     attach: function (context, settings) {
-      once('civiremote_funding_application_history_filter', 'button[data-activity-filter]', context).forEach(
+      once('civiremote_funding_application_history_filter', 'input[type="submit"][data-activity-filter]', context).forEach(
         function (button) {
           button.addEventListener('click', function() { toggleActivityVisibility(button); });
         }
@@ -33,11 +33,13 @@
             .forEach((activity) =>  { activity.style.display = 'block'; });
           button.classList.remove('active');
           button.classList.remove('button--primary');
+          button.removeAttribute('aria-pressed');
         } else {
           document.querySelectorAll('[data-activity-kind="' + kind + '"]')
             .forEach((activity) => activity.style.display = 'none');
           button.classList.add('active');
           button.classList.add('button--primary');
+          button.setAttribute('aria-pressed', 'true');
         }
       }
     }
