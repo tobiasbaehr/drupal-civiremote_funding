@@ -25,9 +25,9 @@ use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
 use Drupal\Core\Render\Element\RenderElement;
 
 /**
- * @RenderElement("civiremote_funding_application_history_status_change")
+ * @RenderElement("civiremote_funding_application_history_create")
  */
-final class ApplicationHistoryStatusChangeRenderElement extends RenderElement {
+final class CiviremoteFundingApplicationHistoryCreate extends RenderElement {
 
   /**
    * @inheritDoc
@@ -36,40 +36,27 @@ final class ApplicationHistoryStatusChangeRenderElement extends RenderElement {
     return [
       // Instance of ApplicationProcessActivity.
       '#activity' => NULL,
-      // Array mapping status to label.
-      '#status_labels' => [],
-      '#title' => 'Status: @status',
+      '#title' => $this->t('Created'),
       '#created_date_title' => $this->t('Date'),
       '#source_contact_title' => $this->t('Performed by'),
-      '#unknown_status_label' => $this->t('Unknown'),
       '#pre_render' => [
         [__CLASS__, 'preRenderActivity'],
       ],
     ];
   }
 
-  /**
-   * @phpstan-param array<string, mixed> $element
-   *
-   * @phpstan-return array<string, mixed>
-   */
   public static function preRenderActivity(array $element): array {
     /** @var \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter */
     $dateFormatter = \Drupal::service('date.formatter');
 
-    Assertion::string($element['#title']);
     Assertion::isInstanceOf($element['#activity'], ApplicationProcessActivity::class);
     $activity = $element['#activity'];
-    /** @phpstan-var array<string, string> $statusLabels */
-    $statusLabels = $element['#status_labels'];
 
     $element['activity'] = [
       '#type' => 'details',
       '#open' => TRUE,
       '#attributes' => ['data-activity-kind' => 'workflow'],
-      '#title' => \Drupal::translation()->translate($element['#title'], [
-        '@status' => $statusLabels[$activity->getToStatus()] ?? $element['#unknown_status_label'],
-      ]),
+      '#title' => $element['#title'],
       'created_date' => [
         '#type' => 'item',
         '#title' => $element['#created_date_title'],

@@ -25,26 +25,34 @@ use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
 use Drupal\Core\Render\Element\RenderElement;
 
 /**
- * @RenderElement("civiremote_funding_application_history_create")
+ * @RenderElement("civiremote_funding_application_history_comment")
  */
-final class ApplicationHistoryCreateRenderElement extends RenderElement {
+final class CiviremoteFundingApplicationHistoryComment extends RenderElement {
 
   /**
    * @inheritDoc
+   *
+   * @phpstan-return array<string, mixed>
    */
   public function getInfo(): array {
     return [
       // Instance of ApplicationProcessActivity.
       '#activity' => NULL,
-      '#title' => $this->t('Created'),
+      '#title' => $this->t('Comment'),
       '#created_date_title' => $this->t('Date'),
       '#source_contact_title' => $this->t('Performed by'),
+      '#text_title' => $this->t('Text'),
       '#pre_render' => [
         [__CLASS__, 'preRenderActivity'],
       ],
     ];
   }
 
+  /**
+   * @phpstan-param array<string, mixed> $element
+   *
+   * @phpstan-return array<string, mixed>
+   */
   public static function preRenderActivity(array $element): array {
     /** @var \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter */
     $dateFormatter = \Drupal::service('date.formatter');
@@ -55,7 +63,7 @@ final class ApplicationHistoryCreateRenderElement extends RenderElement {
     $element['activity'] = [
       '#type' => 'details',
       '#open' => TRUE,
-      '#attributes' => ['data-activity-kind' => 'workflow'],
+      '#attributes' => ['data-activity-kind' => 'comment'],
       '#title' => $element['#title'],
       'created_date' => [
         '#type' => 'item',
@@ -66,6 +74,11 @@ final class ApplicationHistoryCreateRenderElement extends RenderElement {
         '#type' => 'item',
         '#title' => $element['#source_contact_title'],
         '#markup' => htmlentities($activity->getSourceContactName()),
+      ],
+      'text' => [
+        '#type' => 'item',
+        '#title' => $element['text_title'],
+        '#markup' => $activity->getDetails(),
       ],
     ];
 

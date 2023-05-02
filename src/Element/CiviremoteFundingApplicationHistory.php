@@ -26,7 +26,7 @@ use Drupal\Core\Render\Element\RenderElement;
 /**
  * @RenderElement("civiremote_funding_application_history")
  */
-final class ApplicationHistoryRenderElement extends RenderElement {
+final class CiviremoteFundingApplicationHistory extends RenderElement {
 
   /**
    * @inheritDoc

@@ -25,23 +25,23 @@ use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
 use Drupal\Core\Render\Element\RenderElement;
 
 /**
- * @RenderElement("civiremote_funding_application_history_comment")
+ * @RenderElement("civiremote_funding_application_history_status_change")
  */
-final class ApplicationHistoryCommentRenderElement extends RenderElement {
+final class CiviremoteFundingApplicationHistoryStatusChange extends RenderElement {
 
   /**
    * @inheritDoc
-   *
-   * @phpstan-return array<string, mixed>
    */
   public function getInfo(): array {
     return [
       // Instance of ApplicationProcessActivity.
       '#activity' => NULL,
-      '#title' => $this->t('Comment'),
+      // Array mapping status to label.
+      '#status_labels' => [],
+      '#title' => 'Status: @status',
       '#created_date_title' => $this->t('Date'),
       '#source_contact_title' => $this->t('Performed by'),
-      '#text_title' => $this->t('Text'),
+      '#unknown_status_label' => $this->t('Unknown'),
       '#pre_render' => [
         [__CLASS__, 'preRenderActivity'],
       ],
@@ -57,14 +57,19 @@ final class ApplicationHistoryCommentRenderElement extends RenderElement {
     /** @var \Drupal\Core\Datetime\DateFormatterInterface $dateFormatter */
     $dateFormatter = \Drupal::service('date.formatter');
 
+    Assertion::string($element['#title']);
     Assertion::isInstanceOf($element['#activity'], ApplicationProcessActivity::class);
     $activity = $element['#activity'];
+    /** @phpstan-var array<string, string> $statusLabels */
+    $statusLabels = $element['#status_labels'];
 
     $element['activity'] = [
       '#type' => 'details',
       '#open' => TRUE,
-      '#attributes' => ['data-activity-kind' => 'comment'],
-      '#title' => $element['#title'],
+      '#attributes' => ['data-activity-kind' => 'workflow'],
+      '#title' => \Drupal::translation()->translate($element['#title'], [
+        '@status' => $statusLabels[$activity->getToStatus()] ?? $element['#unknown_status_label'],
+      ]),
       'created_date' => [
         '#type' => 'item',
         '#title' => $element['#created_date_title'],
@@ -74,11 +79,6 @@ final class ApplicationHistoryCommentRenderElement extends RenderElement {
         '#type' => 'item',
         '#title' => $element['#source_contact_title'],
         '#markup' => htmlentities($activity->getSourceContactName()),
-      ],
-      'text' => [
-        '#type' => 'item',
-        '#title' => $element['text_title'],
-        '#markup' => $activity->getDetails(),
       ],
     ];
 
