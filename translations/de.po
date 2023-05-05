@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: 2023-04-28 12:32+0200\n"
+"POT-Creation-Date: 2023-05-05 10:00+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -26,16 +26,12 @@ msgstr ""
 msgid "Amount paid out"
 msgstr "Ausgezahlter Betrag"
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Title"
 msgstr "Titel"
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
-msgid "Creation date"
-msgstr "Erstellungsdatum"
-
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 #: config/optional/views.view.civiremote_funding_drawdown_list.yml
 msgid "Status"
 msgstr "Status"
@@ -52,19 +48,15 @@ msgstr ""
 msgid "CiviRemote Funding"
 msgstr "Förderung beantragen"
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
-msgid "CiviCRM Funding Case List"
-msgstr "CiviCRM Förderfallliste"
-
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 msgid "Link to application form"
 msgstr ""
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 msgid "Funding Cases"
 msgstr "Förderfälle"
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 msgid "Identifier"
 msgstr "Nummer"
 
@@ -72,9 +64,9 @@ msgstr "Nummer"
 msgid "Download"
 msgstr "Herunterladen"
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
-msgid "Requested funding"
-msgstr "Beantragte Förderung"
+#: config/optional/views.view.civiremote_funding_application_list.yml
+msgid "Funding Applications"
+msgstr "Förderanträge"
 
 #: config/optional/system.menu.civiremote-funding.yml
 msgid "Funding"
@@ -84,7 +76,7 @@ msgstr "Förderung"
 msgid "payout_process_id"
 msgstr ""
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 msgid "funding_case_id"
 msgstr ""
 
@@ -109,7 +101,7 @@ msgstr "Mittelabruf erstellen"
 msgid "Drupal frontend for funding applications of CiviCRM Funding Manager."
 msgstr ""
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Actions"
 msgstr "Aktionen"
@@ -121,6 +113,12 @@ msgstr ""
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Amount approved"
 msgstr "Bewilligter Betrag"
+
+#: config/optional/views.view.civiremote_funding_application_list.yml
+#, fuzzy
+#| msgid "Requested funding"
+msgid "Requested Funding"
+msgstr "Beantragte Förderung"
 
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "{{amount_paid_out}} {{currency}}"
@@ -134,20 +132,11 @@ msgstr "Annahmedatum"
 msgid "{{ amount_approved }} {{currency}}"
 msgstr ""
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
-#: src/Form/ChooseFundingProgramForm.php:73
-msgid "Funding program"
-msgstr "Förderprogramm"
-
 #: config/optional/views.view.civiremote_funding_drawdown_list.yml
 msgid "CiviCRM Funding Drawdown List"
 msgstr "CiviCRM Mittelabrufliste"
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
-msgid "List of CiviCRM funding cases via remote API"
-msgstr "Liste der CiviCRM Förderfälle via Remote API"
-
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 msgid "Show history"
 msgstr "Verlauf anzeigen"
 
@@ -155,9 +144,13 @@ msgstr "Verlauf anzeigen"
 msgid "All"
 msgstr "Alle"
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
-msgid "Modification date"
-msgstr "Änderungsdatum"
+#: config/optional/views.view.civiremote_funding_application_list.yml
+msgid "List of CiviCRM funding applications via remote API"
+msgstr "Liste der CiviCRM Förderanträge via Remote API"
+
+#: config/optional/views.view.civiremote_funding_application_list.yml
+msgid "CiviCRM Funding Application List"
+msgstr "CiviCRM Fördermittelabrufliste"
 
 #: config/optional/views.view.civiremote_funding_drawdown_list.yml
 #: src/Form/NewDrawdownForm.php:104
@@ -189,15 +182,16 @@ msgstr "Währung"
 msgid "Show Drawdowns"
 msgstr "Mittelabrufe anzeigen"
 
+#: config/optional/views.view.civiremote_funding_application_list.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Funding Program"
 msgstr "Förderprogramm"
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 msgid "Open"
 msgstr "Öffnen"
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 msgid "Link to application history"
 msgstr ""
 
@@ -205,9 +199,9 @@ msgstr ""
 msgid "Grants access to CiviCRM Funding via CiviRemote."
 msgstr ""
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
-msgid "End date"
-msgstr "Enddatum"
+#: config/optional/views.view.civiremote_funding_application_list.yml
+msgid "Modification Date"
+msgstr "Änderungsdatum"
 
 #: config/optional/views.view.civiremote_funding_drawdown_list.yml
 msgid "Creation Date"
@@ -217,15 +211,11 @@ msgstr "Erstellungsdatum"
 msgid "Transfer Contracts"
 msgstr "Weiterleitungsverträge"
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
-msgid "Start date"
-msgstr "Startdatum"
-
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Link to create drawdown form"
 msgstr ""
 
-#: config/optional/views.view.civiremote_funding_case_list.yml
+#: config/optional/views.view.civiremote_funding_application_list.yml
 msgid ""
 "{{ application_process_amount_requested }} {{ funding_program_currency }}"
 msgstr ""
@@ -234,44 +224,44 @@ msgstr ""
 msgid "History"
 msgstr "Verlauf"
 
-#: src/Element/ApplicationHistoryCommentRenderElement.php:41
+#: src/Element/CiviremoteFundingApplicationHistory.php:41
+msgid "Filter"
+msgstr "Filter"
+
+#: src/Element/CiviremoteFundingApplicationHistory.php:42
+msgid "Hide workflow actions"
+msgstr "Ablaufaktivitäten ausblenden"
+
+#: src/Element/CiviremoteFundingApplicationHistory.php:43
+msgid "Hide comments"
+msgstr "Kommentare ausblenden"
+
+#: src/Element/CiviremoteFundingApplicationHistoryComment.php:41
 msgid "Comment"
 msgstr "Kommentar"
 
-#: src/Element/ApplicationHistoryCommentRenderElement.php:42
-#: src/Element/ApplicationHistoryCreateRenderElement.php:40
-#: src/Element/ApplicationHistoryStatusChangeRenderElement.php:42
+#: src/Element/CiviremoteFundingApplicationHistoryComment.php:42
+#: src/Element/CiviremoteFundingApplicationHistoryCreate.php:40
+#: src/Element/CiviremoteFundingApplicationHistoryStatusChange.php:42
 msgid "Date"
 msgstr "Datum"
 
-#: src/Element/ApplicationHistoryCommentRenderElement.php:43
-#: src/Element/ApplicationHistoryCreateRenderElement.php:41
-#: src/Element/ApplicationHistoryStatusChangeRenderElement.php:43
+#: src/Element/CiviremoteFundingApplicationHistoryComment.php:43
+#: src/Element/CiviremoteFundingApplicationHistoryCreate.php:41
+#: src/Element/CiviremoteFundingApplicationHistoryStatusChange.php:43
 msgid "Performed by"
 msgstr "Durchgeführt von"
 
-#: src/Element/ApplicationHistoryCommentRenderElement.php:44
+#: src/Element/CiviremoteFundingApplicationHistoryComment.php:44
 msgid "Text"
 msgstr "Text"
 
-#: src/Element/ApplicationHistoryCreateRenderElement.php:39
+#: src/Element/CiviremoteFundingApplicationHistoryCreate.php:39
 #: src/Entity/FundingFile.php:81
 msgid "Created"
 msgstr "Erstellt"
 
-#: src/Element/ApplicationHistoryRenderElement.php:41
-msgid "Filter"
-msgstr "Filter"
-
-#: src/Element/ApplicationHistoryRenderElement.php:42
-msgid "Hide workflow actions"
-msgstr "Ablaufaktivitäten ausblenden"
-
-#: src/Element/ApplicationHistoryRenderElement.php:43
-msgid "Hide comments"
-msgstr "Kommentare ausblenden"
-
-#: src/Element/ApplicationHistoryStatusChangeRenderElement.php:44
+#: src/Element/CiviremoteFundingApplicationHistoryStatusChange.php:44
 msgid "Unknown"
 msgstr "Unbekannt"
 
@@ -311,6 +301,10 @@ msgstr "Senden des Formulars fehlgeschlagen: @error"
 msgid "Failed to load available funding programs: @error"
 msgstr "Laden der verfügbaren Förderprogramme fehlgeschlagen: @error"
 
+#: src/Form/ChooseFundingProgramForm.php:73
+msgid "Funding program"
+msgstr "Förderprogramm"
+
 #: src/Form/ChooseFundingProgramForm.php:80
 msgid "Next"
 msgstr "Weiter"
@@ -346,6 +340,3 @@ msgstr "Erstellung des Mittelabrufs fehlgeschlagen: @error"
 #: src/Form/ResponseHandler/FormResponseHandlerAction.php:42
 msgid "Validation failed."
 msgstr "Validierung fehlgeschlagen."
-
-#~ msgid "Create drawdown"
-#~ msgstr "Mittelabruf erstellen"
