@@ -311,7 +311,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: numeric
-          label: 'Amount approved'
+          label: 'Amount Approved'
           exclude: false
           alter:
             alter_text: true
@@ -425,7 +425,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: numeric
-          label: 'Amount paid out'
+          label: 'Amount Paid Out'
           exclude: false
           alter:
             alter_text: true
@@ -535,7 +535,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: 'Create Drawdown'
+            text: 'Create drawdown'
             make_link: true
             path: 'civiremote/funding/payout-process/{{payout_process_id }}/drawdown/add'
             absolute: false
@@ -588,7 +588,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: 'Show Drawdowns'
+            text: 'Show drawdowns'
             make_link: true
             path: 'civiremote/funding/payout-process/{{payout_process_id}}/drawdown/list'
             absolute: false
