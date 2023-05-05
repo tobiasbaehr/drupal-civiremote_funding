@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: 2023-05-05 10:28+0200\n"
+"POT-Creation-Date: 2023-05-05 10:39+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -91,6 +91,10 @@ msgstr ""
 #: config/optional/views.view.civiremote_funding_drawdown_list.yml
 msgid "{{ amount }} {{currency}}"
 msgstr ""
+
+#: config/optional/views.view.civiremote_funding_application_list.yml
+msgid "Open application"
+msgstr "Antrag öffnen"
 
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Link to drawdown list"
@@ -183,10 +187,6 @@ msgstr "Währung"
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Funding Program"
 msgstr "Förderprogramm"
-
-#: config/optional/views.view.civiremote_funding_application_list.yml
-msgid "Open"
-msgstr "Öffnen"
 
 #: config/optional/views.view.civiremote_funding_application_list.yml
 msgid "Link to application history"

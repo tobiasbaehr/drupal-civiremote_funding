@@ -534,7 +534,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: Open
+            text: 'Open application'
             make_link: true
             path: 'civiremote/funding/application/{{ application_process_id }}'
             absolute: false
