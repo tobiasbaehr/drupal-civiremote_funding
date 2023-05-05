@@ -891,7 +891,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: civiremote/funding/aplication/list
+      path: civiremote/funding/application/list
       menu:
         type: normal
         title: 'Funding Cases'
