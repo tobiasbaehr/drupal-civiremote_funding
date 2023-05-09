@@ -41,9 +41,9 @@ parameters:
 		- '/^Parameter #1 [^\s]+ of method Drupal\\Core\\TypedData\\DataDefinition::set[^\s]+\(\) expects string, Drupal\\Core\\StringTranslation\\TranslatableMarkup given.$/'
 		- '/::delete\(\) should be contravariant with parameter \$entities \(array\) of method Drupal\\Core\\Entity\\[^\s]+::delete\(\)$/'
 
-		- '/^Method Drupal\\civiremote_funding\\Element\\[^\s]+RenderElement::getInfo\(\) return type has no value type specified in iterable type array.$/'
-		- '/^Method Drupal\\civiremote_funding\\Element\\[^\s]+RenderElement::preRender[^\s]+\(\) has parameter \$element with no value type specified in iterable type array.$/'
-		- '/^Method Drupal\\civiremote_funding\\Element\\[^\s]+RenderElement::preRender[^\s]+\(\) return type has no value type specified in iterable type array.$/'
+		- '/^Method Drupal\\civiremote_funding\\Element\\[^\s]+::getInfo\(\) return type has no value type specified in iterable type array.$/'
+		- '/^Method Drupal\\civiremote_funding\\Element\\[^\s]+::preRender[^\s]+\(\) has parameter \$element with no value type specified in iterable type array.$/'
+		- '/^Method Drupal\\civiremote_funding\\Element\\[^\s]+::preRender[^\s]+\(\) return type has no value type specified in iterable type array.$/'
 
 		-
 			message: '/ no value type specified in iterable type /'
