@@ -22,6 +22,7 @@ namespace Drupal\civiremote_funding\Element;
 
 use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
 use Drupal\Core\Render\Element\RenderElement;
+use Drupal\Core\Url;
 
 /**
  * @RenderElement("civiremote_funding_application_history")
@@ -38,6 +39,11 @@ final class CiviremoteFundingApplicationHistory extends RenderElement {
       // Array mapping status to label.
       '#status_labels' => [],
       '#theme' => 'civiremote_funding_application_history',
+      '#application_title' => '',
+      // Optional path of back link (without base path,
+      // https://www.drupal.org/project/drupal/issues/2582295)
+      '#back_link_destination' => NULL,
+      '#back_link_title' => $this->t('Back'),
       '#filter_title' => $this->t('Filter'),
       '#workflow_filter_button_title' => $this->t('Hide workflow actions'),
       '#comment_filter_button_title' => $this->t('Hide comments'),
@@ -49,6 +55,16 @@ final class CiviremoteFundingApplicationHistory extends RenderElement {
 
   public static function preRenderHistory(array $element): array {
     $element['#attached']['library'][] = 'civiremote_funding/application_history';
+    $element['application_title'] = [
+      '#plain_text' => $element['#application_title'],
+    ];
+    if (NULL !== $element['#back_link_destination']) {
+      $element['back_link'] = [
+        '#type' => 'link',
+        '#title' => $element['#back_link_title'],
+        '#url' => Url::fromUserInput($element['#back_link_destination'], ['absolute' => TRUE]),
+      ];
+    }
     $element['filter'] = [
       '#type' => 'fieldset',
       '#title' => $element['#filter_title'],

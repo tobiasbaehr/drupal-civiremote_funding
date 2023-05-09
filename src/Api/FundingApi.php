@@ -22,6 +22,7 @@ namespace Drupal\civiremote_funding\Api;
 
 use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
 use Drupal\civiremote_funding\Api\DTO\FundingCase;
+use Drupal\civiremote_funding\Api\DTO\FundingCaseInfo;
 use Drupal\civiremote_funding\Api\DTO\FundingCaseType;
 use Drupal\civiremote_funding\Api\DTO\FundingProgram;
 use Drupal\civiremote_funding\Api\DTO\PayoutProcess;
@@ -43,6 +44,21 @@ class FundingApi {
     ]);
 
     return FundingCase::oneOrNullFromApiResult($result);
+  }
+
+  /**
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function getFundingCaseInfoByApplicationProcessId(
+    string $remoteContactId,
+    int $applicationProcessId
+  ): ?FundingCaseInfo {
+    $result = $this->apiClient->executeV4('RemoteFundingCaseInfo', 'get', [
+      'remoteContactId' => $remoteContactId,
+      'where' => [['application_process_id', '=', $applicationProcessId]],
+    ]);
+
+    return FundingCaseInfo::oneOrNullFromApiResult($result);
   }
 
   /**

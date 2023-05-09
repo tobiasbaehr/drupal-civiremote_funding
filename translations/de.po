@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: 2023-05-05 10:39+0200\n"
+"POT-Creation-Date: 2023-05-09 10:40+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -217,19 +217,23 @@ msgid ""
 "{{ application_process_amount_requested }} {{ funding_program_currency }}"
 msgstr ""
 
-#: src/Controller/ApplicationHistoryController.php:46
-msgid "History"
-msgstr "Verlauf"
+#: src/Controller/ApplicationHistoryController.php:57
+msgid "Application History"
+msgstr "Antragsverlauf"
 
-#: src/Element/CiviremoteFundingApplicationHistory.php:41
+#: src/Element/CiviremoteFundingApplicationHistory.php:46
+msgid "Back"
+msgstr "Zurück"
+
+#: src/Element/CiviremoteFundingApplicationHistory.php:47
 msgid "Filter"
 msgstr "Filter"
 
-#: src/Element/CiviremoteFundingApplicationHistory.php:42
+#: src/Element/CiviremoteFundingApplicationHistory.php:48
 msgid "Hide workflow actions"
 msgstr "Ablaufaktivitäten ausblenden"
 
-#: src/Element/CiviremoteFundingApplicationHistory.php:43
+#: src/Element/CiviremoteFundingApplicationHistory.php:49
 msgid "Hide comments"
 msgstr "Kommentare ausblenden"
 
