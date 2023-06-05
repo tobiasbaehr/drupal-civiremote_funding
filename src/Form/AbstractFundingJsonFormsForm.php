@@ -72,7 +72,7 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
       $form_state->setTemporary($fundingForm->getData());
     }
 
-    return parent::buildForm(
+    return $this->buildJsonFormsForm(
       $form,
       $form_state,
       $form_state->get('jsonSchema'),
