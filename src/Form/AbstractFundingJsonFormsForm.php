@@ -75,7 +75,9 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
     return $this->buildJsonFormsForm(
       $form,
       $form_state,
+      // @phpstan-ignore-next-line
       $form_state->get('jsonSchema'),
+      // @phpstan-ignore-next-line
       $form_state->get('uiSchema'),
       static::FLAG_RECALCULATE_ONCHANGE
     );

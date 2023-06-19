@@ -27,7 +27,6 @@ parameters:
 		- '/^Parameter #1 \$form \(array<int\|string, mixed>\) of method [^\s]+::(build|validate|submit)Form\(\) should be contravariant with parameter \$form \(array\) of method Drupal\\Core\\Form\\(FormInterface|FormBase)::(build|validate|submit)Form\(\)$/'
 		- '#^Method Drupal\\civiremote_funding\\Form\\[^\s]+Form::(buildForm|submitForm)\(\) has parameter \$form with no value type specified in iterable type array.$#'
 		- '#^Method Drupal\\civiremote_funding\\Form\\[^\s]+Form::buildForm\(\) return type has no value type specified in iterable type array.$#'
-		- '/^Parameter #(3|4) \$(jsonSchema|uiSchema) of method Drupal\\json_forms\\Form\\AbstractJsonFormsForm::buildForm\(\) expects stdClass\|null, mixed given.$/'
 		# Happens in classes implementing ContainerInjectionInterface::create()
 		- '/ constructor expects [^\s]+, object\|null given.$/'
 		-
@@ -38,7 +37,6 @@ parameters:
 			path: */Api/FundingApi.php
 		- '/ no value type specified in iterable type Drupal\\file\\FileInterface/'
 		- '/^Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$(value|entity|target_id).$/'
-		- '/^Parameter #1 [^\s]+ of method Drupal\\Core\\TypedData\\DataDefinition::set[^\s]+\(\) expects string, Drupal\\Core\\StringTranslation\\TranslatableMarkup given.$/'
 		- '/::delete\(\) should be contravariant with parameter \$entities \(array\) of method Drupal\\Core\\Entity\\[^\s]+::delete\(\)$/'
 
 		- '/^Method Drupal\\civiremote_funding\\Element\\[^\s]+::getInfo\(\) return type has no value type specified in iterable type array.$/'
