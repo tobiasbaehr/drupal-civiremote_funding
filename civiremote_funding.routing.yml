@@ -1,3 +1,12 @@
+civiremote_funding.dashboard:
+  path: '/civiremote/funding'
+  defaults:
+    _controller:  'Drupal\civiremote_funding\Controller\DashboardController::content'
+  options:
+    no_cache: TRUE
+  requirements:
+    _permission: 'civiremote_funding: access'
+
 civiremote_funding.choose_funding_program_form:
   path: '/civiremote/funding/application/add'
   defaults:
