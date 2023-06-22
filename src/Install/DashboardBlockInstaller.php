@@ -27,14 +27,14 @@ final class DashboardBlockInstaller {
     $dashboardPath = '/civiremote/funding';
 
     $block = Block::create([
-      'id' => 'civiremotefundingdashboardgroupapplications',
+      'id' => 'civiremote_funding_dashboard_group_applications',
       'theme' => $themeName,
       'region' => 'content',
       'weight' => 1,
       'plugin' => 'civiremote_funding_dashboard_group_applications',
       'settings' => [
         'id' => 'civiremote_funding_dashboard_group_applications',
-        'label' => 'CiviRemote Funding Dashboard Group Applications',
+        'label' => 'CiviRemote Funding Dashboard Group "Applications"',
         'label_display' => 'visible',
         'provider' => 'civiremote_funding',
       ],
@@ -49,14 +49,14 @@ final class DashboardBlockInstaller {
     $block->save();
 
     $block = Block::create([
-      'id' => 'civiremotefundingdashboardgroupapprovements',
+      'id' => 'civiremote_funding_dashboard_group_approvements',
       'theme' => $themeName,
       'region' => 'content',
       'weight' => 2,
       'plugin' => 'civiremote_funding_dashboard_group_approvements',
       'settings' => [
         'id' => 'civiremote_funding_dashboard_group_approvements',
-        'label' => 'CiviRemote Funding Dashboard Group Approvements',
+        'label' => 'CiviRemote Funding Dashboard Group "Approvements"',
         'label_display' => 'visible',
         'provider' => 'civiremote_funding',
       ],

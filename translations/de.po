@@ -225,7 +225,7 @@ msgstr "Antragsverlauf"
 
 #: src/Controller/DashboardController.php:33
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "Übersicht"
 
 #: src/Element/CiviremoteFundingApplicationHistory.php:46
 msgid "Back"
@@ -358,7 +358,7 @@ msgstr "Meine Förderanträge"
 
 #: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:48
 msgid "Manage current funding processes"
-msgstr "Verwalten Sie laufende Antragsverfahren"
+msgstr "Laufende Antragsverfahren verwalten"
 
 #: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:53
 msgid "New Application"
@@ -366,7 +366,7 @@ msgstr "Neuer Antrag"
 
 #: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:56
 msgid "Place a new application"
-msgstr "Stellen Sie einen neuen Antrag"
+msgstr "Neuen Antrag stellen"
 
 #: src/Plugin/Block/CiviremoteFundingDashboardGroupApprovements.php:41
 msgid "Approvements"
