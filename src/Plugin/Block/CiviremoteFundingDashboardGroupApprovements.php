@@ -43,7 +43,7 @@ final class CiviremoteFundingDashboardGroupApprovements extends BlockBase {
         [
           '#type' => 'civiremote_funding_dashboard_element',
           '#title' => $this->t('Transfer Contracts'),
-          '#url' => Url::fromUri('base:civiremote/funding/transfer-contract/list'),
+          '#url' => Url::fromUri('base:civiremote/funding/transfer-contract'),
           '#content' => [],
         ],
       ],

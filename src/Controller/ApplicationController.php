@@ -20,16 +20,36 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Controller;
 
+use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
+use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\civiremote_funding\Form\ApplicationForm;
 use Drupal\Core\Controller\ControllerBase;
 
 final class ApplicationController extends ControllerBase {
+
+  private FundingApi $fundingApi;
+
+  private RemoteContactIdProviderInterface $remoteContactIdProvider;
+
+  public function __construct(FundingApi $fundingApi, RemoteContactIdProviderInterface $remoteContactIdProvider) {
+    $this->fundingApi = $fundingApi;
+    $this->remoteContactIdProvider = $remoteContactIdProvider;
+  }
 
   /**
    * @return array<int|string, mixed>
    */
   public function form(): array {
     return $this->formBuilder()->getForm(ApplicationForm::class);
+  }
+
+  public function title(int $applicationProcessId): ?string {
+    $info = $this->fundingApi->getFundingCaseInfoByApplicationProcessId(
+      $this->remoteContactIdProvider->getRemoteContactId(),
+      $applicationProcessId,
+    );
+
+    return NULL === $info ? NULL : $info->getApplicationProcesIdentifier();
   }
 
 }

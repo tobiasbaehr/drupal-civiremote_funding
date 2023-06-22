@@ -15,6 +15,11 @@ services:
     factory: ['Drupal', 'config']
     arguments: ['civiremote.settings']
 
+  Drupal\civiremote_funding\Breadcrumb\CiviremoteFundingBreadcrumbBuilder:
+    class: Drupal\civiremote_funding\Breadcrumb\CiviremoteFundingBreadcrumbBuilder
+    tags:
+      - { name: breadcrumb_builder }
+
   Drupal\civiremote_funding\RemotePage\RemotePageClient:
     class: Drupal\civiremote_funding\RemotePage\RemotePageClient
     factory: ['Drupal\civiremote_funding\RemotePage\RemotePageClient', 'create']
@@ -49,6 +54,10 @@ services:
     class: Drupal\civiremote_funding\Access\RemoteContactIdProvider
     arguments:
       - '@current_user'
+    public: true
+
+  Drupal\civiremote_funding\Controller\ApplicationController:
+    class: Drupal\civiremote_funding\Controller\ApplicationController
     public: true
 
   Drupal\civiremote_funding\Form\RequestHandler\NewApplicationFormRequestHandler:

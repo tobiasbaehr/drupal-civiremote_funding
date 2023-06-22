@@ -6,7 +6,7 @@ dependencies:
   module:
     - cmrf_views
     - user
-id: civiremote_funding_application_list
+id: civiremote_funding_case_list
 label: 'CiviCRM Funding Application List'
 module: views
 description: 'List of CiviCRM funding applications via remote API'
@@ -891,7 +891,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: civiremote/funding/application/list
+      path: civiremote/funding/application
       menu:
         type: normal
         title: 'Funding Cases'

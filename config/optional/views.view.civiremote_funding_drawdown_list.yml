@@ -456,7 +456,7 @@ display:
         filters: false
         filter_groups: false
       display_extenders: {  }
-      path: civiremote/funding/payout-process/%payout_process_id/drawdown/list
+      path: civiremote/funding/transfer-contract/%funding_case_id/payout-process/%payout_process_id/drawdown
     cache_metadata:
       max-age: -1
       contexts:

@@ -1,7 +1,8 @@
 civiremote_funding.dashboard:
   path: '/civiremote/funding'
   defaults:
-    _controller:  'Drupal\civiremote_funding\Controller\DashboardController::content'
+    _controller: 'Drupal\civiremote_funding\Controller\DashboardController::content'
+    _title_callback: 'Drupal\civiremote_funding\Controller\DashboardController::title'
   options:
     no_cache: TRUE
   requirements:
@@ -33,7 +34,8 @@ civiremote_funding.new_application_form:
 civiremote_funding.application_form:
   path: '/civiremote/funding/application/{applicationProcessId}'
   defaults:
-    _controller: 'Drupal\civiremote_funding\Controller\ApplicationController::form'
+    _controller: 'Drupal\civiremote_funding\Controller\ApplicationController:form'
+    _title_callback: 'Drupal\civiremote_funding\Controller\ApplicationController:title'
   options:
     no_cache: TRUE
     parameters:
@@ -81,12 +83,14 @@ civiremote_funding.transfer_contract_download:
     _permission: 'civiremote_funding: access'
 
 civiremote_funding.new_drawdown_form:
-  path: '/civiremote/funding/payout-process/{payoutProcessId}/drawdown/add'
+  path: '/civiremote/funding/transfer-contract/{fundingCaseId}/payout-process/{payoutProcessId}/drawdown/add'
   defaults:
     _controller: 'Drupal\civiremote_funding\Controller\NewDrawdownController::form'
   options:
     no_cache: TRUE
     parameters:
+      fundingCaseId:
+        type: int
       payoutProcessId:
         type: int
   requirements:

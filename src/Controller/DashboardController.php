@@ -21,6 +21,7 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 
 final class DashboardController extends ControllerBase {
 
@@ -32,6 +33,10 @@ final class DashboardController extends ControllerBase {
     return [
       '#title' => $this->t('Dashboard'),
     ];
+  }
+
+  public function title(): TranslatableMarkup {
+    return $this->t('CiviRemote Funding');
   }
 
 }
