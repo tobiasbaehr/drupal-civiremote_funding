@@ -39,6 +39,7 @@ parameters:
 		- '/^Access to an undefined property Drupal\\Core\\Field\\FieldItemListInterface::\$(value|entity|target_id).$/'
 		- '/::delete\(\) should be contravariant with parameter \$entities \(array\) of method Drupal\\Core\\Entity\\[^\s]+::delete\(\)$/'
 
+		- "/^Do not compare objects directly, Drupal\\\\Core\\\\StringTranslation\\\\TranslatableMarkup and '.+' found.$/"
 		- '/^Method Drupal\\civiremote_funding\\Element\\[^\s]+::getInfo\(\) return type has no value type specified in iterable type array.$/'
 		- '/^Method Drupal\\civiremote_funding\\Element\\[^\s]+::preRender[^\s]+\(\) has parameter \$element with no value type specified in iterable type array.$/'
 		- '/^Method Drupal\\civiremote_funding\\Element\\[^\s]+::preRender[^\s]+\(\) return type has no value type specified in iterable type array.$/'

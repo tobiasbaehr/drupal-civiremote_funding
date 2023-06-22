@@ -1,0 +1,14 @@
+a.civiremote-funding-dashboard-element-link {
+  display: block;
+  width: fit-content;
+}
+
+div.civiremote-funding-dashboard-element {
+  width: 300px;
+  max-width: 99%;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #000;
+  padding: 20px;
+  margin: 10px;
+}

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: 2023-05-09 10:40+0200\n"
+"POT-Creation-Date: 2023-06-20 12:02+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -73,6 +73,7 @@ msgid "Download"
 msgstr "Herunterladen"
 
 #: config/optional/views.view.civiremote_funding_application_list.yml
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:41
 msgid "Funding Applications"
 msgstr "Förderanträge"
 
@@ -205,6 +206,7 @@ msgid "Creation Date"
 msgstr "Erstellungsdatum"
 
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApprovements.php:45
 msgid "Transfer Contracts"
 msgstr "Weiterleitungsverträge"
 
@@ -220,6 +222,10 @@ msgstr ""
 #: src/Controller/ApplicationHistoryController.php:57
 msgid "Application History"
 msgstr "Antragsverlauf"
+
+#: src/Controller/DashboardController.php:33
+msgid "Dashboard"
+msgstr "Übersicht"
 
 #: src/Element/CiviremoteFundingApplicationHistory.php:46
 msgid "Back"
@@ -290,11 +296,11 @@ msgstr ""
 msgid "Loading form failed: @error"
 msgstr "Laden des Formulars fehlgeschlagen: @error"
 
-#: src/Form/AbstractFundingJsonFormsForm.php:98
+#: src/Form/AbstractFundingJsonFormsForm.php:100
 msgid "Error validating form: @error"
 msgstr "Fehler bei der Formularvalidierung: @error"
 
-#: src/Form/AbstractFundingJsonFormsForm.php:122
+#: src/Form/AbstractFundingJsonFormsForm.php:124
 msgid "Submitting form failed: @error"
 msgstr "Senden des Formulars fehlgeschlagen: @error"
 
@@ -345,3 +351,23 @@ msgstr "Erstellung des Mittelabrufs fehlgeschlagen: @error"
 #: src/Form/ResponseHandler/FormResponseHandlerAction.php:42
 msgid "Validation failed."
 msgstr "Validierung fehlgeschlagen."
+
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:45
+msgid "My Applications"
+msgstr "Meine Förderanträge"
+
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:48
+msgid "Manage current funding processes"
+msgstr "Laufende Antragsverfahren verwalten"
+
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:53
+msgid "New Application"
+msgstr "Neuer Antrag"
+
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:56
+msgid "Place a new application"
+msgstr "Neuen Antrag stellen"
+
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApprovements.php:41
+msgid "Approvements"
+msgstr "Bewilligungen"

@@ -1,0 +1,9 @@
+{% if civiremote_funding_dashboard_element.url %}
+  <a href="{{ civiremote_funding_dashboard_element.url }}" {{ attributes }}>
+{% endif %}
+
+{{ civiremote_funding_dashboard_element.container }}
+
+{% if civiremote_funding_dashboard_element.url %}
+  </a>
+{% endif %}

@@ -1,3 +1,8 @@
+dashboard:
+  css:
+    theme:
+      css/dashboard.css: {}
+
 application_history:
   js:
     js/application/history.js: {}

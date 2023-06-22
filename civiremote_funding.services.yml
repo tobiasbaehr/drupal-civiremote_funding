@@ -41,6 +41,10 @@ services:
     class: Drupal\civiremote_funding\Api\FundingApi
     public: true
 
+  Drupal\civiremote_funding\Controller\DashboardController:
+    class: Drupal\civiremote_funding\Controller\DashboardController
+    public: true
+
   Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface:
     class: Drupal\civiremote_funding\Access\RemoteContactIdProvider
     arguments:
