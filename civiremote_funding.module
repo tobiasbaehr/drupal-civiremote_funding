@@ -24,18 +24,13 @@ use Drupal\civiremote_funding\Install\DashboardBlockInstaller;
 use Drupal\civiremote_funding\ViewTranslator;
 use Drupal\file\FileInterface;
 
-function civiremoteFundingTranslateViews(): void {
-  /** @var ViewTranslator $viewTranslator */
-  $viewTranslator = \Drupal::service(ViewTranslator::class);
-  $viewTranslator->translateViews('views.view.civiremote_funding_');
-}
-
 /**
  * Implements hook_rebuild().
  */
 function civiremote_funding_rebuild(): void {
-  // Provides a way to (re-)set the view translations. (Might not be necessary.)
-  civiremoteFundingTranslateViews();
+  /** @var ViewTranslator $viewTranslator */
+  $viewTranslator = \Drupal::service(ViewTranslator::class);
+  $viewTranslator->translateViews('views.view.civiremote_funding_');
 }
 
 /**
