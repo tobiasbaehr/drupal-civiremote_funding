@@ -1,13 +1,11 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - system.menu.civiremote-funding
   module:
     - cmrf_views
     - user
-id: civiremote_funding_transfer_contract_list
-label: 'CiviCRM Funding Transfer Contract List'
+id: civiremote_funding_transfer_contract
+label: 'CiviCRM Funding Transfer Contract'
 module: views
 description: 'List of CiviCRM funding transfer contracts via remote API'
 tag: ''
@@ -20,7 +18,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Transfer Contracts'
+      title: 'Transfer Contract'
       fields:
         funding_case_id:
           id: funding_case_id
@@ -202,7 +200,7 @@ display:
           admin_label: ''
           plugin_id: cmrf_views_standard
           label: Title
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -482,8 +480,8 @@ display:
           group_type: group
           admin_label: 'Global: Custom text (Download)'
           plugin_id: custom
-          label: 'Link to download transfer contract'
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: true
             text: Download
@@ -515,7 +513,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -531,8 +529,8 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: boolean
-          label: 'Link to create drawdown form'
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: true
             text: 'Create drawdown'
@@ -548,7 +546,7 @@ display:
             link_class: ''
             prefix: ''
             suffix: ''
-            target: ''
+            target: _blank
             nl2br: false
             max_length: 0
             word_boundary: true
@@ -564,7 +562,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -582,10 +580,10 @@ display:
           field: nothing
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: 'Global: Custom text (Show drawdowns)'
           plugin_id: custom
-          label: 'Link to drawdown list'
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: true
             text: 'Show drawdowns'
@@ -617,7 +615,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -625,68 +623,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: false
-        dropbutton:
-          id: dropbutton
-          table: views
-          field: dropbutton
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: dropbutton
-          label: Actions
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          destination: true
-          fields:
-            nothing: nothing
-            CAN_create_drawdown: CAN_create_drawdown
-            nothing_1: nothing_1
-            funding_case_id: '0'
-            payout_process_id: '0'
-            currency: '0'
-            title: '0'
-            funding_program_title: '0'
-            amount_approved: '0'
-            amount_available: '0'
-            amount_paid_out: '0'
       pager:
         type: mini
         options:
@@ -737,31 +673,52 @@ display:
             label: ''
             field_identifier: ''
           exposed: false
-      arguments: {  }
+      arguments:
+        funding_case_id:
+          id: funding_case_id
+          table: cmrf_views_civiremote_funding_transfer_contract
+          field: funding_case_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: cmrf_views_argument_standard
+          default_action: empty
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: true
+          title: '{{arguments.funding_case_id}}'
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
       filters: {  }
       style:
-        type: table
+        type: grid
         options:
           grouping: {  }
-          row_class: ''
-          default_row_class: true
-          columns:
-            funding_case_id: funding_case_id
-          default: '-1'
-          info:
-            funding_case_id:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          override: true
-          sticky: false
-          summary: ''
-          empty_table: false
-          caption: ''
-          description: ''
+          columns: 1
+          automatic_width: true
+          alignment: vertical
+          row_class_custom: ''
+          row_class_default: true
+          col_class_custom: ''
+          col_class_default: true
       row:
         type: fields
         options:
@@ -782,30 +739,22 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }
-  page_1:
-    id: page_1
-    display_title: Page
-    display_plugin: page
+  embed_1:
+    id: embed_1
+    display_title: Embed
+    display_plugin: embed
     position: 1
     display_options:
       display_extenders: {  }
-      path: civiremote/funding/transfer-contract
-      menu:
-        type: normal
-        title: 'Transfer Contracts'
-        description: ''
-        weight: 0
-        expanded: false
-        menu_name: civiremote-funding
-        parent: ''
-        context: '0'
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }

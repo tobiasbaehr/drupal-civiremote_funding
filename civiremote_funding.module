@@ -18,10 +18,14 @@
 
 declare(strict_types=1);
 
+use Drupal\civiremote_funding\Breadcrumb\BreadcrumbHelper;
 use Drupal\civiremote_funding\File\FundingFileDownloadHook;
 use Drupal\civiremote_funding\File\FundingFileManager;
 use Drupal\civiremote_funding\Install\DashboardBlockInstaller;
 use Drupal\civiremote_funding\ViewTranslator;
+use Drupal\Core\Breadcrumb\Breadcrumb;
+use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\file\FileInterface;
 
 /**
@@ -74,6 +78,17 @@ function civiremote_funding_theme(): array {
       'render element' => 'civiremote_funding_dashboard_element',
     ],
   ];
+}
+
+/**
+ * Implements hook_system_breadcrumb_alter().
+ */
+function civiremote_funding_system_breadcrumb_alter(Breadcrumb $breadcrumb, RouteMatchInterface $routeMatch): void {
+  $route = $routeMatch->getRouteObject();
+  if (NULL !== $route && BreadcrumbHelper::create(\Drupal::getContainer())->containsVariableData($route)) {
+    $cacheableMetadata = (new CacheableMetadata())->setCacheMaxAge(600);
+    $breadcrumb->addCacheableDependency($cacheableMetadata);
+  }
 }
 
 /**
