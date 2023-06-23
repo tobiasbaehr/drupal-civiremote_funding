@@ -86,6 +86,8 @@ function civiremote_funding_theme(): array {
 function civiremote_funding_system_breadcrumb_alter(Breadcrumb $breadcrumb, RouteMatchInterface $routeMatch): void {
   $route = $routeMatch->getRouteObject();
   if (NULL !== $route && BreadcrumbHelper::create(\Drupal::getContainer())->containsVariableData($route)) {
+    // If breadcrumb contains data that might change, i.e. funding case name, it should not take too long until a
+    // change is reflected in breadcrumb.
     $cacheableMetadata = (new CacheableMetadata())->setCacheMaxAge(600);
     $breadcrumb->addCacheableDependency($cacheableMetadata);
   }
