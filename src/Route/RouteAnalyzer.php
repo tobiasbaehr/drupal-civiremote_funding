@@ -24,7 +24,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Routing\RouteProvider;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class RouteHelper implements ContainerInjectionInterface {
+final class RouteAnalyzer implements ContainerInjectionInterface {
 
   private RouteProvider $routeProvider;
 

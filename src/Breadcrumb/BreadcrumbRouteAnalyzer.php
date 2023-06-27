@@ -4,14 +4,14 @@ declare(strict_types = 1);
 
 namespace Drupal\civiremote_funding\Breadcrumb;
 
-use Drupal\civiremote_funding\Route\RouteHelper;
+use Drupal\civiremote_funding\Route\RouteAnalyzer;
 use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Route;
 
-final class BreadcrumbHelper implements ContainerInjectionInterface {
+final class BreadcrumbRouteAnalyzer implements ContainerInjectionInterface {
 
-  private RouteHelper $routeHelper;
+  private RouteAnalyzer $routeAnalyzer;
 
   /**
    * @inheritDoc
@@ -19,11 +19,11 @@ final class BreadcrumbHelper implements ContainerInjectionInterface {
    * @return static
    */
   public static function create(ContainerInterface $container) {
-    return new self(RouteHelper::create($container));
+    return new self(RouteAnalyzer::create($container));
   }
 
-  public function __construct(RouteHelper $routeHelper) {
-    $this->routeHelper = $routeHelper;
+  public function __construct(RouteAnalyzer $routeAnalyzer) {
+    $this->routeAnalyzer = $routeAnalyzer;
   }
 
   /**
@@ -32,7 +32,7 @@ final class BreadcrumbHelper implements ContainerInjectionInterface {
    *   name.
    */
   public function containsFundingCaseName(Route $route): bool {
-    return $this->routeHelper->isSubPath('civiremote_funding.transfer_contract', $route->getPath());
+    return $this->routeAnalyzer->isSubPath('civiremote_funding.transfer_contract', $route->getPath());
   }
 
   /**

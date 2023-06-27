@@ -18,7 +18,7 @@
 
 declare(strict_types=1);
 
-use Drupal\civiremote_funding\Breadcrumb\BreadcrumbHelper;
+use Drupal\civiremote_funding\Breadcrumb\BreadcrumbRouteAnalyzer;
 use Drupal\civiremote_funding\File\FundingFileDownloadHook;
 use Drupal\civiremote_funding\File\FundingFileManager;
 use Drupal\civiremote_funding\Install\DashboardBlockInstaller;
@@ -85,7 +85,7 @@ function civiremote_funding_theme(): array {
  */
 function civiremote_funding_system_breadcrumb_alter(Breadcrumb $breadcrumb, RouteMatchInterface $routeMatch): void {
   $route = $routeMatch->getRouteObject();
-  if (NULL !== $route && BreadcrumbHelper::create(\Drupal::getContainer())->containsVariableData($route)) {
+  if (NULL !== $route && BreadcrumbRouteAnalyzer::create(\Drupal::getContainer())->containsVariableData($route)) {
     // If breadcrumb contains data that might change, i.e. funding case name, it should not take too long until a
     // change is reflected in breadcrumb.
     $cacheableMetadata = (new CacheableMetadata())->setCacheMaxAge(600);
