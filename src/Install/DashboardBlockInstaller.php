@@ -43,7 +43,7 @@ final class DashboardBlockInstaller {
           'id' => 'request_path',
           'negate' => FALSE,
           'pages' => $dashboardPath,
-        ]
+        ],
       ],
     ]);
     $block->save();
@@ -65,7 +65,7 @@ final class DashboardBlockInstaller {
           'id' => 'request_path',
           'negate' => FALSE,
           'pages' => $dashboardPath,
-        ]
+        ],
       ],
     ]);
     $block->save();
