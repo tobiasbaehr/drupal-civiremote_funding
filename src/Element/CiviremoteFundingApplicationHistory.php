@@ -21,6 +21,7 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Element;
 
 use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
+use Drupal\civiremote_funding\Api\DTO\Option;
 use Drupal\Core\Render\Element\RenderElement;
 use Drupal\Core\Url;
 
@@ -36,8 +37,9 @@ final class CiviremoteFundingApplicationHistory extends RenderElement {
     return [
       // Array of ApplicationProcessActivity instances.
       '#activities' => [],
-      // Array mapping status to label.
-      '#status_labels' => [],
+      // Array mapping status to \Drupal\civiremote_funding\Api\DTO\Option.
+      '#status_options' => [],
+      '#unknown_status_label' => $this->t('Unknown'),
       '#theme' => 'civiremote_funding_application_history',
       '#application_title' => '',
       // Optional path of back link (without base path,
@@ -54,7 +56,20 @@ final class CiviremoteFundingApplicationHistory extends RenderElement {
   }
 
   public static function preRenderHistory(array $element): array {
+    $element['#status_options']['unknown'] = Option::fromArray([
+      'id' => 'unknown',
+      'name' => 'unknown',
+      'label' => $element['#unknown_status_label'],
+    ]);
+
     $element['#attached']['library'][] = 'civiremote_funding/application_history';
+
+    // Allows to use https://www.drupal.org/project/fontawesome
+    // @phpstan-ignore-next-line
+    $element['#attached']['library'][] = 'fontawesome/fontawesome.svg.shim';
+    // @phpstan-ignore-next-line
+    $element['#attached']['library'][] = 'fontawesome/fontawesome.webfonts.shim';
+
     $element['application_title'] = [
       '#plain_text' => $element['#application_title'],
     ];
@@ -82,18 +97,18 @@ final class CiviremoteFundingApplicationHistory extends RenderElement {
 
     $element['activities'] = [];
     foreach ($element['#activities'] as $activity) {
-      $element['activities'][] = self::createActivityArray($activity, $element['#status_labels']);
+      $element['activities'][] = self::createActivityArray($activity, $element['#status_options']);
     }
 
     return $element;
   }
 
   /**
-   * @phpstan-param array<string> $statusLabels
+   * @phpstan-param array<string, \Drupal\civiremote_funding\Api\DTO\Option> $statusOptions
    *
    * @phpstan-return array<string, mixed>
    */
-  private static function createActivityArray(ApplicationProcessActivity $activity, array $statusLabels): array {
+  private static function createActivityArray(ApplicationProcessActivity $activity, array $statusOptions): array {
     switch ($activity->getActivityTypeName()) {
       case 'funding_application_comment_external':
         return [
@@ -105,13 +120,14 @@ final class CiviremoteFundingApplicationHistory extends RenderElement {
         return [
           '#type' => 'civiremote_funding_application_history_status_change',
           '#activity' => $activity,
-          '#status_labels' => $statusLabels,
+          '#status_option' => $statusOptions[$activity->getToStatus()] ?? $statusOptions['unknown'],
         ];
 
       case 'funding_application_create':
         return [
           '#type' => 'civiremote_funding_application_history_create',
           '#activity' => $activity,
+          '#status_option' => $statusOptions['new'],
         ];
 
       default:
