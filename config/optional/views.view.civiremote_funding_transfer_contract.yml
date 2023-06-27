@@ -1,17 +1,15 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - system.menu.civiremote-funding
   module:
     - cmrf_views
     - user
-id: civiremote_funding_case_list
-label: 'CiviCRM Funding Application List'
+id: civiremote_funding_transfer_contract
+label: 'CiviCRM Funding Transfer Contract'
 module: views
-description: 'List of CiviCRM funding applications via remote API'
+description: 'CiviCRM funding transfer contract via remote API'
 tag: ''
-base_table: cmrf_views_civiremote_funding_caseinfo
+base_table: cmrf_views_civiremote_funding_transfer_contract
 base_field: ''
 display:
   default:
@@ -20,70 +18,17 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Funding Applications'
+      title: 'Transfer Contract'
       fields:
-        funding_program_currency:
-          id: funding_program_currency
-          table: cmrf_views_civiremote_funding_caseinfo
-          field: funding_program_currency
+        funding_case_id:
+          id: funding_case_id
+          table: cmrf_views_civiremote_funding_transfer_contract
+          field: funding_case_id
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: cmrf_views_standard
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-        application_process_id:
-          id: application_process_id
-          table: cmrf_views_civiremote_funding_caseinfo
-          field: application_process_id
-          relationship: none
-          group_type: group
-          admin_label: ''
+          entity_type: null
+          entity_field: null
           plugin_id: numeric
           label: ''
           exclude: true
@@ -134,17 +79,15 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
-        funding_case_id:
-          id: funding_case_id
-          table: cmrf_views_civiremote_funding_caseinfo
-          field: funding_case_id
+        payout_process_id:
+          id: payout_process_id
+          table: cmrf_views_civiremote_funding_transfer_contract
+          field: payout_process_id
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: null
-          entity_field: null
           plugin_id: numeric
-          label: ''
+          label: payout_process_id
           exclude: true
           alter:
             alter_text: false
@@ -193,16 +136,71 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
-        application_process_identifier:
-          id: application_process_identifier
-          table: cmrf_views_civiremote_funding_caseinfo
-          field: application_process_identifier
+        currency:
+          id: currency
+          table: cmrf_views_civiremote_funding_transfer_contract
+          field: currency
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: cmrf_views_standard
-          label: Identifier
-          exclude: false
+          label: Currency
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+        title:
+          id: title
+          table: cmrf_views_civiremote_funding_transfer_contract
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: cmrf_views_standard
+          label: Title
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -250,7 +248,7 @@ display:
           separator: ', '
         funding_program_title:
           id: funding_program_title
-          table: cmrf_views_civiremote_funding_caseinfo
+          table: cmrf_views_civiremote_funding_transfer_contract
           field: funding_program_title
           relationship: none
           group_type: group
@@ -303,129 +301,133 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-        application_process_title:
-          id: application_process_title
-          table: cmrf_views_civiremote_funding_caseinfo
-          field: application_process_title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: cmrf_views_standard
-          label: Title
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-        application_process_status:
-          id: application_process_status
-          table: cmrf_views_civiremote_funding_caseinfo
-          field: application_process_status
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: cmrf_views_optionlist
-          label: Status
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-        application_process_amount_requested:
-          id: application_process_amount_requested
-          table: cmrf_views_civiremote_funding_caseinfo
-          field: application_process_amount_requested
+        amount_approved:
+          id: amount_approved
+          table: cmrf_views_civiremote_funding_transfer_contract
+          field: amount_approved
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: numeric
-          label: 'Requested Funding'
+          label: 'Amount Approved'
           exclude: false
           alter:
             alter_text: true
-            text: '{{ application_process_amount_requested }} {{ funding_program_currency }}'
+            text: '{{ amount_approved }} {{currency}}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          set_precision: false
+          precision: 2
+          decimal: .
+          separator: ','
+          format_plural: false
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
+        amount_available:
+          id: amount_available
+          table: cmrf_views_civiremote_funding_transfer_contract
+          field: amount_available
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          label: 'Amount Available'
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{amount_available}} {{currency}}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          set_precision: false
+          precision: 2
+          decimal: .
+          separator: ','
+          format_plural: false
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
+        amount_paid_out:
+          id: amount_paid_out
+          table: cmrf_views_civiremote_funding_transfer_contract
+          field: amount_paid_out
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          label: 'Amount Paid Out'
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{amount_paid_out}} {{currency}}'
             make_link: false
             path: ''
             absolute: false
@@ -470,73 +472,21 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
-        application_process_modification_date:
-          id: application_process_modification_date
-          table: cmrf_views_civiremote_funding_caseinfo
-          field: application_process_modification_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: cmrf_views_date
-          label: 'Modification Date'
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          date_format: short
-          custom_date_format: ''
-          timezone: ''
         nothing:
           id: nothing
           table: views
           field: nothing
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: 'Global: Custom text (Download)'
           plugin_id: custom
-          label: 'Link to application form'
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: true
-            text: 'Open application'
+            text: Download
             make_link: true
-            path: 'civiremote/funding/application/{{ application_process_id }}'
+            path: 'civiremote/funding/transfer-contract/{{funding_case_id }}/download'
             absolute: false
             external: false
             replace_spaces: false
@@ -547,7 +497,7 @@ display:
             link_class: ''
             prefix: ''
             suffix: ''
-            target: ''
+            target: _blank
             nl2br: false
             max_length: 0
             word_boundary: true
@@ -563,7 +513,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -571,21 +521,74 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: false
+        CAN_create_drawdown:
+          id: CAN_create_drawdown
+          table: cmrf_views_civiremote_funding_transfer_contract
+          field: CAN_create_drawdown
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: boolean
+          label: ''
+          exclude: false
+          alter:
+            alter_text: true
+            text: 'Create drawdown'
+            make_link: true
+            path: 'civiremote/funding/transfer-contract/{{funding_case_id}}/payout-process/{{payout_process_id }}/drawdown/add'
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: _blank
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: true
+          empty_zero: true
+          hide_alter_empty: true
+          type: boolean
+          type_custom_true: ''
+          type_custom_false: ''
+          not: false
         nothing_1:
           id: nothing_1
           table: views
           field: nothing
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: 'Global: Custom text (Show drawdowns)'
           plugin_id: custom
-          label: 'Link to application history'
-          exclude: true
+          label: ''
+          exclude: false
           alter:
             alter_text: true
-            text: 'Show history'
+            text: 'Show drawdowns'
             make_link: true
-            path: 'civiremote/funding/application/{{ application_process_id }}/history'
+            path: 'civiremote/funding/transfer-contract/{{funding_case_id}}/payout-process/{{payout_process_id}}/drawdown'
             absolute: false
             external: false
             replace_spaces: false
@@ -612,7 +615,7 @@ display:
           element_class: ''
           element_label_type: ''
           element_label_class: ''
-          element_label_colon: true
+          element_label_colon: false
           element_wrapper_type: ''
           element_wrapper_class: ''
           element_default_classes: true
@@ -620,71 +623,6 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: false
-        dropbutton:
-          id: dropbutton
-          table: views
-          field: dropbutton
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: dropbutton
-          label: Actions
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          destination: true
-          fields:
-            nothing: nothing
-            nothing_1: nothing_1
-            funding_program_currency: '0'
-            application_process_id: '0'
-            funding_case_id: '0'
-            application_process_identifier: '0'
-            funding_program_title: '0'
-            application_process_title: '0'
-            application_process_status: '0'
-            application_process_amount_requested: '0'
-            application_process_creation_date: '0'
-            application_process_modification_date: '0'
-            application_process_start_date: '0'
-            application_process_end_date: '0'
       pager:
         type: mini
         options:
@@ -724,7 +662,7 @@ display:
       sorts:
         funding_case_id:
           id: funding_case_id
-          table: cmrf_views_civiremote_funding_caseinfo
+          table: cmrf_views_civiremote_funding_transfer_contract
           field: funding_case_id
           relationship: none
           group_type: group
@@ -732,136 +670,55 @@ display:
           plugin_id: standard
           order: DESC
           expose:
-            label: funding_case_id
-            field_identifier: funding_case_id
+            label: ''
+            field_identifier: ''
           exposed: false
-      arguments: {  }
+      arguments:
+        funding_case_id:
+          id: funding_case_id
+          table: cmrf_views_civiremote_funding_transfer_contract
+          field: funding_case_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: cmrf_views_argument_standard
+          default_action: empty
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: true
+          title: '{{title}}'
+          default_argument_type: fixed
+          default_argument_options:
+            argument: ''
+          default_argument_skip_url: false
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
       filters: {  }
       style:
-        type: table
+        type: grid
         options:
           grouping: {  }
-          row_class: ''
-          default_row_class: true
-          columns:
-            funding_program_currency: funding_program_currency
-            application_process_id: application_process_id
-            funding_case_id: funding_case_id
-            funding_program_title: funding_program_title
-            application_process_identifier: application_process_identifier
-            application_process_title: application_process_title
-            application_process_status: application_process_status
-            application_process_amount_requested: application_process_amount_requested
-            application_process_creation_date: application_process_creation_date
-            application_process_modification_date: application_process_modification_date
-            application_process_start_date: application_process_start_date
-            application_process_end_date: application_process_end_date
-            nothing: nothing
-            dropbutton: dropbutton
-          default: '-1'
-          info:
-            funding_program_currency:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            application_process_id:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            funding_case_id:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            funding_program_title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            application_process_identifier:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            application_process_title:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            application_process_status:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            application_process_amount_requested:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            application_process_creation_date:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            application_process_modification_date:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            application_process_start_date:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            application_process_end_date:
-              sortable: true
-              default_sort_order: desc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            nothing:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            dropbutton:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-          override: true
-          sticky: false
-          summary: ''
-          empty_table: false
-          caption: ''
-          description: ''
+          columns: 1
+          automatic_width: true
+          alignment: vertical
+          row_class_custom: ''
+          row_class_default: true
+          col_class_custom: ''
+          col_class_default: true
       row:
         type: fields
         options:
@@ -876,35 +733,28 @@ display:
       use_ajax: true
       header: {  }
       footer: {  }
+      display_comment: ''
       display_extenders: {  }
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }
-  funding_application_list:
-    id: funding_application_list
-    display_title: Page
-    display_plugin: page
+  embed_1:
+    id: embed_1
+    display_title: Embed
+    display_plugin: embed
     position: 1
     display_options:
       display_extenders: {  }
-      path: civiremote/funding/application
-      menu:
-        type: normal
-        title: 'Funding Cases'
-        description: ''
-        weight: 0
-        expanded: false
-        menu_name: civiremote-funding
-        parent: ''
-        context: '0'
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }

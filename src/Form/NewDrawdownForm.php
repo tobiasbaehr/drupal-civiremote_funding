@@ -61,18 +61,25 @@ final class NewDrawdownForm extends FormBase {
     return 'funding_new_drawdown';
   }
 
-  // phpcs:disable Squiz.PHP.CommentedOutCode.Found
-  public function buildForm(array $form, FormStateInterface $formState/*, int $payoutProcessId */): array {
-  // phpcs:enable
-    Assertion::integer(func_get_arg(2));
-    $this->payoutProcessId = func_get_arg(2);
+  /**
+   * @inheritDoc
+   */
+  public function buildForm(
+    array $form,
+    FormStateInterface $formState,
+    ?int $fundingCaseId = NULL,
+    ?int $payoutProcessId = NULL
+  ): array {
+    Assertion::notNull($fundingCaseId);
+    Assertion::notNull($payoutProcessId);
+    $this->payoutProcessId = $payoutProcessId;
 
     try {
       $payoutProcess = $this->fundingApi->getPayoutProcess(
         $this->remoteContactIdProvider->getRemoteContactId(),
         $this->payoutProcessId,
       );
-      if (NULL === $payoutProcess) {
+      if (NULL === $payoutProcess || $payoutProcess->getFundingCaseId() !== $fundingCaseId) {
         throw new NotFoundHttpException();
       }
 

@@ -368,7 +368,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: numeric
-          label: 'Amount available'
+          label: 'Amount Available'
           exclude: false
           alter:
             alter_text: true
@@ -537,7 +537,7 @@ display:
             alter_text: true
             text: 'Create drawdown'
             make_link: true
-            path: 'civiremote/funding/payout-process/{{payout_process_id }}/drawdown/add'
+            path: 'civiremote/funding/transfer-contract/{{funding_case_id}}/payout-process/{{payout_process_id }}/drawdown/add'
             absolute: false
             external: false
             replace_spaces: false
@@ -590,7 +590,7 @@ display:
             alter_text: true
             text: 'Show drawdowns'
             make_link: true
-            path: 'civiremote/funding/payout-process/{{payout_process_id}}/drawdown/list'
+            path: 'civiremote/funding/transfer-contract/{{funding_case_id}}/payout-process/{{payout_process_id}}/drawdown'
             absolute: false
             external: false
             replace_spaces: false
@@ -792,7 +792,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: civiremote/funding/transfer-contract/list
+      path: civiremote/funding/transfer-contract
       menu:
         type: normal
         title: 'Transfer Contracts'

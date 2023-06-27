@@ -51,6 +51,14 @@ services:
       - '@current_user'
     public: true
 
+  Drupal\civiremote_funding\Controller\ApplicationController:
+    class: Drupal\civiremote_funding\Controller\ApplicationController
+    public: true
+
+  Drupal\civiremote_funding\Controller\TransferContractController:
+    class: Drupal\civiremote_funding\Controller\TransferContractController
+    public: true
+
   Drupal\civiremote_funding\Form\RequestHandler\NewApplicationFormRequestHandler:
     class: Drupal\civiremote_funding\Form\RequestHandler\NewApplicationFormRequestHandler
     public: true

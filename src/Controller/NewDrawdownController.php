@@ -28,8 +28,8 @@ final class NewDrawdownController extends ControllerBase {
   /**
    * @return array<int|string, mixed>
    */
-  public function form(int $payoutProcessId): array {
-    return $this->formBuilder()->getForm(NewDrawdownForm::class, $payoutProcessId);
+  public function form(int $fundingCaseId, int $payoutProcessId): array {
+    return $this->formBuilder()->getForm(NewDrawdownForm::class, $fundingCaseId, $payoutProcessId);
   }
 
 }

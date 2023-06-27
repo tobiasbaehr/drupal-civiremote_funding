@@ -35,6 +35,7 @@ namespace Drupal\civiremote_funding\Api\DTO;
  *   funding_program_currency: string,
  *   funding_program_title: string,
  *   application_process_id: int,
+ *   application_process_identifier: string,
  *   application_process_title: string,
  *   application_process_short_description: string,
  *   application_process_status: string,
@@ -107,6 +108,10 @@ final class FundingCaseInfo extends AbstractDTO {
 
   public function getApplicationProcessId(): int {
     return $this->values['application_process_id'];
+  }
+
+  public function getApplicationProcesIdentifier(): string {
+    return $this->values['application_process_identifier'];
   }
 
   public function getApplicationProcessTitle(): string {
