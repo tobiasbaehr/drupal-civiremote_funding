@@ -77,7 +77,7 @@ final class CiviremoteFundingApplicationHistoryComment extends RenderElement {
       ],
       'text' => [
         '#type' => 'item',
-        '#title' => $element['text_title'],
+        '#title' => $element['#text_title'],
         '#markup' => $activity->getDetails(),
       ],
     ];
