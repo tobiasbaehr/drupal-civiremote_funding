@@ -24,6 +24,12 @@ use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
 use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\Core\Controller\ControllerBase;
 
+/**
+ * This class provides the page content and the title used in breadcrumbs.
+ *
+ * The title shown on the page is prefixed by an additional string. For that
+ * reason it's not possible to use a page in the corresponding View.
+ */
 final class TransferContractController extends ControllerBase {
 
   private FundingApi $fundingApi;
@@ -42,7 +48,7 @@ final class TransferContractController extends ControllerBase {
     return [
       '#title' => $this->t('Transfer Contract: @name', ['@name' => $this->title($fundingCaseId)]),
       '#type' => 'view',
-      '#name' => 'civicrm_funding_transfer_contract',
+      '#name' => 'civiremote_funding_transfer_contract',
       '#display_id' => 'embed_1',
       '#arguments' => [$fundingCaseId],
       '#embed' => TRUE,
