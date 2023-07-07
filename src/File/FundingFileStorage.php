@@ -52,11 +52,16 @@ final class FundingFileStorage extends SqlContentEntityStorage {
    */
   public function loadOneByProperties(array $values): ?FundingFileInterface {
     $fundingFiles = $this->loadByProperties($values);
+
+    if (count($fundingFiles) === 1) {
+      return reset($fundingFiles);
+    }
+
     if (count($fundingFiles) > 1) {
       throw new NoUniqueResultException(sprintf('Got %d results instead of one', count($fundingFiles)));
     }
 
-    return $fundingFiles[0] ?? NULL;
+    return NULL;
   }
 
 }

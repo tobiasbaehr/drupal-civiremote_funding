@@ -28,12 +28,12 @@ interface FundingFileInterface extends EntityInterface {
   /**
    * Location for files downloaded from CiviCRM.
    */
-  public const DOWNLOAD_LOCATION = 'public://civiremote_funding/download/';
+  public const DOWNLOAD_LOCATION = 'private://civiremote_funding/download/';
 
   /**
    * Location for files uploaded through Drupal.
    */
-  public const UPLOAD_LOCATION = 'public://civiremote_funding/upload/';
+  public const UPLOAD_LOCATION = 'private://civiremote_funding/upload/';
 
   public function getFile(): ?FileInterface;
 

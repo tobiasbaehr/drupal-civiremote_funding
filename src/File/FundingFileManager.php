@@ -22,6 +22,7 @@ namespace Drupal\civiremote_funding\File;
 
 use Assert\Assertion;
 use Drupal\civiremote_funding\Entity\FundingFileInterface;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\file\FileInterface;
 use Drupal\file\FileRepositoryInterface;
 use Drupal\file\FileStorageInterface;
@@ -33,6 +34,8 @@ class FundingFileManager {
 
   private FileStorageInterface $fileStorage;
 
+  private FileSystemInterface $fileSystem;
+
   private FileUsageInterface $fileUsage;
 
   private FundingFileStorage $storage;
@@ -42,12 +45,14 @@ class FundingFileManager {
   public function __construct(
     FileRepositoryInterface $fileRepository,
     FileStorageInterface $fileStorage,
+    FileSystemInterface $fileSystem,
     FileUsageInterface $fileUsage,
     FundingFileStorage $storage,
     TokenGenerator $tokenGenerator
   ) {
     $this->fileRepository = $fileRepository;
     $this->fileStorage = $fileStorage;
+    $this->fileSystem = $fileSystem;
     $this->fileUsage = $fileUsage;
     $this->storage = $storage;
     $this->tokenGenerator = $tokenGenerator;
@@ -96,6 +101,12 @@ class FundingFileManager {
     $filename = basename($civiUri);
     Assertion::notEmpty($filename);
     $fileUri = FundingFileInterface::DOWNLOAD_LOCATION . $filename;
+    $downloadDir = dirname($fileUri);
+    $this->fileSystem->prepareDirectory(
+      $downloadDir,
+      FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS
+    );
+
     $file = $this->fileRepository->writeData('', $fileUri);
     $fundingFile = $this->storage->create([
       'file_id' => $file->id(),
