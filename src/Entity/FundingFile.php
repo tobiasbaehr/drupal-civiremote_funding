@@ -66,13 +66,13 @@ final class FundingFile extends ContentEntityBase implements FundingFileInterfac
 
     $fields['last_modified'] = BaseFieldDefinition::create('string')
       ->setSetting('max_length', 255)
-      ->setInitialValue('Thu, 01 Jan 1970 00:00:00 GMT')
+      ->setDefaultValue('Thu, 01 Jan 1970 00:00:00 GMT')
       ->setRequired(TRUE)
       ->setLabel('Last modified date')
       ->setDescription('Value of the Last-Modified header from CiviCRM');
 
     $fields['last_access'] = BaseFieldDefinition::create('integer')
-      ->setInitialValue(0)
+      ->setDefaultValue(0)
       ->setRequired(TRUE)
       ->setLabel('Last access date')
       ->setDescription('Timestamp of the last file access');

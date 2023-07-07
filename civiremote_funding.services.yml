@@ -103,6 +103,7 @@ services:
     arguments:
       $fileRepository: '@file.repository'
       $fileStorage: '@civiremote_funding.drupal.file.storage'
+      $fileSystem: '@file_system'
       $fileUsage: '@file.usage'
     public: true
 
