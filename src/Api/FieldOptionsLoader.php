@@ -20,6 +20,8 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Api;
 
+use Drupal\civiremote_funding\Api\DTO\Option;
+
 final class FieldOptionsLoader {
 
   private CiviCRMApiClientInterface $apiClient;
@@ -35,11 +37,47 @@ final class FieldOptionsLoader {
   /**
    * @phpstan-param array<string, mixed> $values
    *
-   * @phpstan-return array<string, string>
+   * @phpstan-return array<string, Option>
+   *   Options with option name as key.
    *
    * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
    */
   public function getOptions(string $remoteContactId, string $entity, string $field, array $values = []): array {
+    $result = $this->apiClient->executeV4($entity, 'getFields', [
+      'remoteContactId' => $remoteContactId,
+      'loadOptions' => [
+        'id',
+        'name',
+        'label',
+        'abbr',
+        'description',
+        'color',
+        'icon',
+      ],
+      'values' => $values,
+      'where' => [
+        ['name', '=', $field],
+      ],
+      'select' => ['options'],
+    ]);
+
+    $options = [];
+    // @phpstan-ignore-next-line
+    foreach (Option::allFromArrays($result['values'][0]['options']) as $option) {
+      $options[$option->getName()] = $option;
+    }
+
+    return $options;
+  }
+
+  /**
+   * @phpstan-param array<string, mixed> $values
+   *
+   * @phpstan-return array<string, string>
+   *
+   * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
+   */
+  public function getOptionLabels(string $remoteContactId, string $entity, string $field, array $values = []): array {
     $result = $this->apiClient->executeV4($entity, 'getFields', [
       'remoteContactId' => $remoteContactId,
       'loadOptions' => TRUE,

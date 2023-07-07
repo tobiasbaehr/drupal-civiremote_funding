@@ -61,7 +61,7 @@ final class ApplicationHistoryController extends ControllerBase {
         $this->contactIdProvider->getRemoteContactId(),
         $applicationProcessId
       ),
-      '#statusLabels' => $this->fundingApi->getApplicationStatusLabels(
+      '#status_options' => $this->fundingApi->getApplicationStatusOptions(
         $this->contactIdProvider->getRemoteContactId(),
         $applicationProcessId
       ),

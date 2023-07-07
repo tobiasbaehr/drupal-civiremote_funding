@@ -59,6 +59,9 @@
         "drupal/core": "^9.5",
         "drupal/core-dev": "^9.5"
     },
+    "suggest": {
+        "drupal/fontawesome": "To load Font Awesome icons. https://www.drupal.org/project/fontawesome"
+    },
     "scripts": {
         "composer-phpstan": [
             "@composer --working-dir=tools/phpstan"

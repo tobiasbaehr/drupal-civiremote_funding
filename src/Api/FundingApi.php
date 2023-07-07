@@ -114,11 +114,12 @@ class FundingApi {
   }
 
   /**
-   * @phpstan-return array<string, string>
+   * @phpstan-return array<string, \Drupal\civiremote_funding\Api\DTO\Option>
+   *   Options with option ID as key.
    *
    * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
    */
-  public function getApplicationStatusLabels(string $remoteContactId, int $applicationProcessId): array {
+  public function getApplicationStatusOptions(string $remoteContactId, int $applicationProcessId): array {
     return FieldOptionsLoader::new($this->apiClient)->getOptions(
       $remoteContactId,
       'RemoteFundingApplicationProcess',
