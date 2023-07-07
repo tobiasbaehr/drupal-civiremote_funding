@@ -20,6 +20,8 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Install;
 
+use Drupal\block\Entity\Block;
+
 final class DashboardBlockInstaller {
 
   public static function addDashboardBlocks(): void {
