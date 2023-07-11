@@ -1,12 +1,10 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - system.menu.civiremote-funding
   module:
     - cmrf_views
     - user
-id: civiremote_funding_case_list
+id: civiremote_funding_application_list
 label: 'CiviCRM Funding Application List'
 module: views
 description: 'List of CiviCRM funding applications via remote API'
@@ -892,15 +890,6 @@ display:
     display_options:
       display_extenders: {  }
       path: civiremote/funding/application
-      menu:
-        type: normal
-        title: 'Funding Cases'
-        description: ''
-        weight: 0
-        expanded: false
-        menu_name: civiremote-funding
-        parent: ''
-        context: '0'
     cache_metadata:
       max-age: -1
       contexts:
