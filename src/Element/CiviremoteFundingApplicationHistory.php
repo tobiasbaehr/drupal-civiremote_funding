@@ -59,15 +59,13 @@ final class CiviremoteFundingApplicationHistory extends RenderElement {
     $element['#status_options']['unknown'] = Option::fromArray([
       'id' => 'unknown',
       'name' => 'unknown',
-      'label' => $element['#unknown_status_label'],
+      'label' => (string) $element['#unknown_status_label'],
     ]);
 
     $element['#attached']['library'][] = 'civiremote_funding/application_history';
 
     // Allows to use https://www.drupal.org/project/fontawesome
-    // @phpstan-ignore-next-line
     $element['#attached']['library'][] = 'fontawesome/fontawesome.svg.shim';
-    // @phpstan-ignore-next-line
     $element['#attached']['library'][] = 'fontawesome/fontawesome.webfonts.shim';
 
     $element['application_title'] = [
@@ -96,8 +94,14 @@ final class CiviremoteFundingApplicationHistory extends RenderElement {
     ];
 
     $element['activities'] = [];
+    $withIcon = TRUE;
     foreach ($element['#activities'] as $activity) {
-      $element['activities'][] = self::createActivityArray($activity, $element['#status_options']);
+      $element['activities'][] = $activityArray =
+        self::createActivityArray($activity, $element['#status_options'], $withIcon);
+      if ([] !== $activityArray) {
+        // Only first entry shall have an icon.
+        $withIcon = FALSE;
+      }
     }
 
     return $element;
@@ -108,26 +112,40 @@ final class CiviremoteFundingApplicationHistory extends RenderElement {
    *
    * @phpstan-return array<string, mixed>
    */
-  private static function createActivityArray(ApplicationProcessActivity $activity, array $statusOptions): array {
+  private static function createActivityArray(
+    ApplicationProcessActivity $activity,
+    array $statusOptions,
+    bool $withIcon
+  ): array {
     switch ($activity->getActivityTypeName()) {
       case 'funding_application_comment_external':
         return [
           '#type' => 'civiremote_funding_application_history_comment',
           '#activity' => $activity,
+          '#icon' => $withIcon ? 'fa-commenting' : NULL,
         ];
 
       case 'funding_application_status_change':
+        /** @var \Drupal\civiremote_funding\Api\DTO\Option $statusOption */
+        $statusOption = $statusOptions[$activity->getToStatus()] ?? $statusOptions['unknown'];
+
         return [
           '#type' => 'civiremote_funding_application_history_status_change',
           '#activity' => $activity,
-          '#status_option' => $statusOptions[$activity->getToStatus()] ?? $statusOptions['unknown'],
+          '#status_label' => $statusOption->getLabel(),
+          '#icon' => $withIcon ? $statusOption->getIcon() : NULL,
+          '#icon_color' => $statusOption->getColor(),
         ];
 
       case 'funding_application_create':
+        /** @var \Drupal\civiremote_funding\Api\DTO\Option $statusOption */
+        $statusOption = $statusOptions[$activity->getToStatus()] ?? $statusOptions['new'];
+
         return [
           '#type' => 'civiremote_funding_application_history_create',
           '#activity' => $activity,
-          '#status_option' => $statusOptions['new'],
+          '#icon' => $withIcon ? $statusOption->getIcon() : NULL,
+          '#icon_color' => $statusOption->getColor(),
         ];
 
       default:

@@ -22,7 +22,6 @@ namespace Drupal\civiremote_funding\Element;
 
 use Assert\Assertion;
 use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
-use Drupal\civiremote_funding\Api\DTO\Option;
 use Drupal\Core\Render\Element\RenderElement;
 
 /**
@@ -38,10 +37,9 @@ final class CiviremoteFundingApplicationHistoryCreate extends RenderElement {
       // Instance of ApplicationProcessActivity.
       '#activity' => NULL,
       '#title' => $this->t('Created'),
-      '#created_date_title' => $this->t('Date'),
       '#source_contact_title' => $this->t('Performed by'),
-      // Instance of \Drupal\civiremote_funding\Api\DTO\Option.
-      '#status_option' => NULL,
+      '#icon' => NULL,
+      '#icon_color' => NULL,
       '#pre_render' => [
         [__CLASS__, 'preRenderActivity'],
       ],
@@ -55,29 +53,21 @@ final class CiviremoteFundingApplicationHistoryCreate extends RenderElement {
     Assertion::isInstanceOf($element['#activity'], ApplicationProcessActivity::class);
     /** @var \Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity $activity */
     $activity = $element['#activity'];
-    Assertion::isInstanceOf($element['#status_option'], Option::class);
-    /** @var \Drupal\civiremote_funding\Api\DTO\Option $statusOption */
-    $statusOption = $element['#status_option'];
 
     $element['activity'] = [
-      '#type' => 'details',
-      '#open' => TRUE,
+      '#type' => 'civiremote_funding_application_history_entry',
       '#attributes' => ['data-activity-kind' => 'workflow'],
-      '#title' => [
-        '#theme' => 'civiremote_funding_application_history_title',
-        '#title' => $element['#title'],
-        '#icon' => $statusOption->getIcon(),
-        '#icon_color' => $statusOption->getColor(),
-      ],
-      'created_date' => [
-        '#type' => 'item',
-        '#title' => $element['#created_date_title'],
-        '#markup' => $dateFormatter->format($activity->getCreatedDate()->getTimestamp()),
-      ],
-      'source_contact' => [
-        '#type' => 'item',
-        '#title' => $element['#source_contact_title'],
-        '#markup' => htmlentities($activity->getSourceContactName()),
+      '#icon' => $element['#icon'],
+      '#icon_color' => $element['#icon_color'],
+      '#title' => $element['#title'],
+      '#date' => $dateFormatter->format($activity->getCreatedDate()->getTimestamp()),
+      '#content' => [
+        '#type' => 'container',
+        'source_contact' => [
+          '#type' => 'item',
+          '#title' => $element['#source_contact_title'],
+          '#markup' => htmlentities($activity->getSourceContactName()),
+        ],
       ],
     ];
 

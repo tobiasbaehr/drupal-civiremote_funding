@@ -4,6 +4,9 @@ dashboard:
       css/dashboard.css: {}
 
 application_history:
+  css:
+    theme:
+      css/timeline.css: {}
   js:
     js/application/history.js: {}
   dependencies:

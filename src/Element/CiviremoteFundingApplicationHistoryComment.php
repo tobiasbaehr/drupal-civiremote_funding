@@ -39,9 +39,8 @@ final class CiviremoteFundingApplicationHistoryComment extends RenderElement {
       // Instance of ApplicationProcessActivity.
       '#activity' => NULL,
       '#title' => $this->t('Comment'),
-      '#created_date_title' => $this->t('Date'),
       '#source_contact_title' => $this->t('Performed by'),
-      '#text_title' => $this->t('Text'),
+      '#icon' => NULL,
       '#pre_render' => [
         [__CLASS__, 'preRenderActivity'],
       ],
@@ -61,24 +60,21 @@ final class CiviremoteFundingApplicationHistoryComment extends RenderElement {
     $activity = $element['#activity'];
 
     $element['activity'] = [
-      '#type' => 'details',
-      '#open' => TRUE,
+      '#type' => 'civiremote_funding_application_history_entry',
       '#attributes' => ['data-activity-kind' => 'comment'],
+      '#icon' => $element['#icon'],
       '#title' => $element['#title'],
-      'created_date' => [
-        '#type' => 'item',
-        '#title' => $element['#created_date_title'],
-        '#markup' => $dateFormatter->format($activity->getCreatedDate()->getTimestamp()),
-      ],
-      'source_contact' => [
-        '#type' => 'item',
-        '#title' => $element['#source_contact_title'],
-        '#markup' => htmlentities($activity->getSourceContactName()),
-      ],
-      'text' => [
-        '#type' => 'item',
-        '#title' => $element['#text_title'],
-        '#markup' => $activity->getDetails(),
+      '#date' => $dateFormatter->format($activity->getCreatedDate()->getTimestamp()),
+      '#content' => [
+        '#type' => 'container',
+        'source_contact' => [
+          '#type' => 'item',
+          '#title' => $element['#source_contact_title'],
+          '#markup' => htmlentities($activity->getSourceContactName()),
+        ],
+        'text' => [
+          '#markup' => '<hr>' . $activity->getDetails(),
+        ],
       ],
     ];
 
