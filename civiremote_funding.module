@@ -73,12 +73,15 @@ function civiremote_funding_theme(): array {
       'template' => 'application/history',
       'render element' => 'civiremote_funding_application_history',
     ],
-    'civiremote_funding_application_history_title' => [
-      'template' => 'application/history_title',
+    'civiremote_funding_application_history_entry' => [
+      'template' => 'application/history_entry',
       'variables' => [
+        'attributes' => [],
         'title' => NULL,
         'icon' => NULL,
         'icon_color' => NULL,
+        'date' => NULL,
+        'content' => NULL,
       ],
     ],
     'civiremote_funding_dashboard_element' => [

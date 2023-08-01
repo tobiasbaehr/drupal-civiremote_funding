@@ -1,0 +1,18 @@
+<div{{ attributes.addClass('civiremote-funding-timeline-entry') }}>
+  <section>
+    <div class="civiremote-funding-timeline-dot">
+      {% if icon %}
+        <i class="civiremote-funding-timeline-icon fa {{ icon }}" style="color: {{ icon_color ?: 'inherit' }}"></i>
+      {% endif %}
+    </div>
+    <article>
+      <header>
+        <span class="civiremote-funding-timeline-title">{{ title }}</span>
+        <time>{{ date }}</time>
+      </header>
+      <div class="civiremote-funding-timeline-content">
+        {{ content }}
+      </div>
+    </article>
+  </section>
+</div>

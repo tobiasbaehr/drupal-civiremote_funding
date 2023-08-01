@@ -30,13 +30,19 @@
         const hidden = button.classList.contains('active');
         if (hidden) {
           document.querySelectorAll('[data-activity-kind="' + kind + '"]')
-            .forEach((activity) =>  { activity.style.display = 'block'; });
+            .forEach((activity) =>  {
+              activity.style.display = activity.getAttribute('data-_style-display');
+              activity.removeAttribute('data-_style-display');
+            });
           button.classList.remove('active');
           button.classList.remove('button--primary');
           button.removeAttribute('aria-pressed');
         } else {
           document.querySelectorAll('[data-activity-kind="' + kind + '"]')
-            .forEach((activity) => activity.style.display = 'none');
+            .forEach((activity) => {
+              activity.setAttribute('data-_style-display', activity.style.display);
+              activity.style.display = 'none'
+            });
           button.classList.add('active');
           button.classList.add('button--primary');
           button.setAttribute('aria-pressed', 'true');

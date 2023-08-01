@@ -22,7 +22,6 @@ namespace Drupal\civiremote_funding\Element;
 
 use Assert\Assertion;
 use Drupal\civiremote_funding\Api\DTO\ApplicationProcessActivity;
-use Drupal\civiremote_funding\Api\DTO\Option;
 use Drupal\Core\Render\Element\RenderElement;
 
 /**
@@ -41,7 +40,7 @@ final class CiviremoteFundingApplicationHistoryStatusChange extends RenderElemen
       // Instance of \Drupal\civiremote_funding\Api\DTO\Option.
       '#status_option' => NULL,
       '#title' => 'Status: @status',
-      '#created_date_title' => $this->t('Date'),
+      '#status_label' => NULL,
       '#source_contact_title' => $this->t('Performed by'),
       '#pre_render' => [
         [__CLASS__, 'preRenderActivity'],
@@ -61,32 +60,23 @@ final class CiviremoteFundingApplicationHistoryStatusChange extends RenderElemen
     Assertion::string($element['#title']);
     Assertion::isInstanceOf($element['#activity'], ApplicationProcessActivity::class);
     $activity = $element['#activity'];
-    Assertion::isInstanceOf($element['#status_option'], Option::class);
-    /** @var \Drupal\civiremote_funding\Api\DTO\Option $statusOption */
-    $statusOption = $element['#status_option'];
 
     $element['activity'] = [
-      '#type' => 'details',
-      '#open' => TRUE,
+      '#type' => 'civiremote_funding_application_history_entry',
       '#attributes' => ['data-activity-kind' => 'workflow'],
-      // @phpstan-ignore-next-line
-      '#title' => [
-        '#theme' => 'civiremote_funding_application_history_title',
-        '#title' => \Drupal::translation()->translate($element['#title'], [
-          '@status' => $statusOption->getLabel(),
-        ]),
-        '#icon' => $statusOption->getIcon(),
-        '#icon_color' => $statusOption->getColor(),
-      ],
-      'created_date' => [
-        '#type' => 'item',
-        '#title' => $element['#created_date_title'],
-        '#markup' => $dateFormatter->format($activity->getCreatedDate()->getTimestamp()),
-      ],
-      'source_contact' => [
-        '#type' => 'item',
-        '#title' => $element['#source_contact_title'],
-        '#markup' => htmlentities($activity->getSourceContactName()),
+      '#icon' => $element['#icon'],
+      '#icon_color' => $element['#icon_color'],
+      '#title' => \Drupal::translation()->translate($element['#title'], [
+        '@status' => $element['#status_label'],
+      ]),
+      '#date' => $dateFormatter->format($activity->getCreatedDate()->getTimestamp()),
+      '#content' => [
+        '#type' => 'container',
+        'source_contact' => [
+          '#type' => 'item',
+          '#title' => $element['#source_contact_title'],
+          '#markup' => htmlentities($activity->getSourceContactName()),
+        ],
       ],
     ];
 
