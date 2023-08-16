@@ -122,6 +122,7 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
     }
     catch (ApiCallFailedException $e) {
       $this->messenger()->addError($this->t('Submitting form failed: @error', ['@error' => $e->getMessage()]));
+      $formState->disableRedirect();
 
       return;
     }
