@@ -41,7 +41,6 @@ class FormResponseHandlerFiles implements FormResponseHandlerInterface {
   }
 
   public function handleSubmitResponse(FormSubmitResponse $submitResponse, FormStateInterface $formState): void {
-
     $fundingFilesByUri = $this->getFundingFilesByUri($formState);
 
     foreach ($submitResponse->getFiles() as $submittedUri => $civiUri) {
