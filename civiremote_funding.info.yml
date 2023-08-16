@@ -5,6 +5,7 @@ package: CiviCRM
 core_version_requirement: ^9.5
 php: 7.4
 dependencies:
+  - cmrf_views
   - civiremote
   - json_forms
 version: 0.2.0
