@@ -20,15 +20,33 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Controller;
 
+use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\civiremote_funding\Form\NewApplicationForm;
+use Drupal\civiremote_funding\Form\NewFundingCaseForm;
 use Drupal\Core\Controller\ControllerBase;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class NewApplicationController extends ControllerBase {
+
+  private FundingApi $fundingApi;
+
+  public function __construct(FundingApi $fundingApi) {
+    $this->fundingApi = $fundingApi;
+  }
 
   /**
    * @return array<int|string, mixed>
    */
-  public function form(): array {
+  public function form(int $fundingCaseTypeId): array {
+    $fundingCaseType = $this->fundingApi->getFundingCaseType($fundingCaseTypeId);
+    if (NULL === $fundingCaseType) {
+      throw new NotFoundHttpException();
+    }
+
+    if ($fundingCaseType->getIsSummaryApplication()) {
+      return $this->formBuilder()->getForm(NewFundingCaseForm::class);
+    }
+
     return $this->formBuilder()->getForm(NewApplicationForm::class);
   }
 

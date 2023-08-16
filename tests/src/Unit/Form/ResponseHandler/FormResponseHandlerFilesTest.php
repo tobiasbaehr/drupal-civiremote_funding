@@ -63,7 +63,7 @@ final class FormResponseHandlerFilesTest extends TestCase {
 
   public function testFileUnchanged(): void {
     $files = ['https://unchanged' => 'https://unchanged'];
-    $submitResponse = new FormSubmitResponse('closeForm', NULL, [], NULL, $files);
+    $submitResponse = new FormSubmitResponse('closeForm', NULL, [], $files, NULL, NULL);
 
     $this->fundingFileManagerMock->expects(static::never())->method('save');
     $this->handler->handleSubmitResponse($submitResponse, $this->formStateMock);
@@ -71,7 +71,7 @@ final class FormResponseHandlerFilesTest extends TestCase {
 
   public function testFileSubmitted(): void {
     $files = ['https://submitted' => 'https://civicrm'];
-    $submitResponse = new FormSubmitResponse('closeForm', NULL, [], NULL, $files);
+    $submitResponse = new FormSubmitResponse('closeForm', NULL, [], $files, NULL, NULL);
 
     $fileMock = $this->createMock(FileInterface::class);
     $fileMock->method('id')->willReturn('2');
@@ -92,7 +92,7 @@ final class FormResponseHandlerFilesTest extends TestCase {
 
   public function testFileSubmittedNotFound(): void {
     $files = ['https://returned-by-civicrm' => 'https://civicrm'];
-    $submitResponse = new FormSubmitResponse('closeForm', NULL, [], NULL, $files);
+    $submitResponse = new FormSubmitResponse('closeForm', NULL, [], $files, NULL, NULL);
 
     $fileMock = $this->createMock(FileInterface::class);
     $fileMock->method('id')->willReturn('2');

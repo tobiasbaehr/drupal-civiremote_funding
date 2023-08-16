@@ -20,7 +20,6 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Controller;
 
-use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
 use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\civiremote_funding\RemotePage\RemotePageProxy;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,17 +29,13 @@ final class TransferContractDownloadController {
 
   private FundingApi $fundingApi;
 
-  private RemoteContactIdProviderInterface $remoteContactIdProvider;
-
   private RemotePageProxy $remotePageProxy;
 
   public function __construct(
     FundingApi $fundingApi,
-    RemoteContactIdProviderInterface $remoteContactIdProvider,
     RemotePageProxy $remotePageProxy
   ) {
     $this->fundingApi = $fundingApi;
-    $this->remoteContactIdProvider = $remoteContactIdProvider;
     $this->remotePageProxy = $remotePageProxy;
   }
 
@@ -51,10 +46,7 @@ final class TransferContractDownloadController {
   }
 
   private function getDownloadUri(int $fundingCaseId): string {
-    $fundingCase = $this->fundingApi->getFundingCase(
-      $this->remoteContactIdProvider->getRemoteContactId(),
-      $fundingCaseId
-    );
+    $fundingCase = $this->fundingApi->getFundingCase($fundingCaseId);
     if (NULL === $fundingCase || NULL === $fundingCase->getTransferContractUri()) {
       throw new NotFoundHttpException();
     }

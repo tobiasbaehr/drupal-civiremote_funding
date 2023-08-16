@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies: {  }
+id: civiremote_fundingcase
+label: 'CiviRemote FundingCase'
+connector: civiremote
+entity: RemoteFundingCase
+action: get
+getcount: getcount
+getfields: getFields
+params: "{\r\n    \"remoteContactId\": \"[current-user:civiremote-id]\"\r\n}"
+api_version: 4

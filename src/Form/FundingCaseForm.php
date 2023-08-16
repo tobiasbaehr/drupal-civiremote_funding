@@ -20,14 +20,14 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Form;
 
-use Drupal\civiremote_funding\Form\RequestHandler\NewApplicationFormRequestHandler;
+use Drupal\civiremote_funding\Form\RequestHandler\FundingCaseFormRequestHandler;
 use Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerInterface;
 use Drupal\json_forms\Form\FormArrayFactoryInterface;
 use Drupal\json_forms\Form\Validation\FormValidationMapperInterface;
 use Drupal\json_forms\Form\Validation\FormValidatorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-final class NewApplicationForm extends AbstractFundingJsonFormsForm {
+final class FundingCaseForm extends AbstractFundingJsonFormsForm {
 
   /**
    * @inheritDoc
@@ -39,7 +39,7 @@ final class NewApplicationForm extends AbstractFundingJsonFormsForm {
       $container->get(FormArrayFactoryInterface::class),
       $container->get(FormValidatorInterface::class),
       $container->get(FormValidationMapperInterface::class),
-      $container->get(NewApplicationFormRequestHandler::class),
+      $container->get(FundingCaseFormRequestHandler::class),
       $container->get(FormResponseHandlerInterface::class),
     );
   }

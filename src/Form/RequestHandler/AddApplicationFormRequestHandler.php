@@ -28,7 +28,7 @@ use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\Core\Routing\RouteMatch;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ApplicationFormRequestHandler implements FormRequestHandlerInterface {
+final class AddApplicationFormRequestHandler implements FormRequestHandlerInterface {
 
   private FundingApi $fundingApi;
 
@@ -37,23 +37,29 @@ final class ApplicationFormRequestHandler implements FormRequestHandlerInterface
   }
 
   public function getForm(Request $request): FundingForm {
-    return $this->fundingApi->getApplicationForm($this->getApplicationProcessId($request));
+    return $this->fundingApi->getAddApplicationForm($this->getFundingCaseId($request));
   }
 
   public function validateForm(Request $request, array $data): FormValidationResponse {
-    return $this->fundingApi->validateApplicationForm($this->getApplicationProcessId($request), $data);
+    return $this->fundingApi->validateAddApplicationForm(
+      $this->getFundingCaseId($request),
+      $data,
+    );
   }
 
   public function submitForm(Request $request, array $data): FormSubmitResponse {
-    return $this->fundingApi->submitApplicationForm($this->getApplicationProcessId($request), $data);
+    return $this->fundingApi->submitAddApplicationForm(
+      $this->getFundingCaseId($request),
+      $data,
+    );
   }
 
-  private function getApplicationProcessId(Request $request): int {
+  private function getFundingCaseId(Request $request): int {
     $routeMatch = RouteMatch::createFromRequest($request);
-    $applicationProcessId = $routeMatch->getParameter('applicationProcessId');
-    Assertion::integerish($applicationProcessId);
+    $fundingCaseId = $routeMatch->getParameter('fundingCaseId');
+    Assertion::integerish($fundingCaseId);
 
-    return (int) $applicationProcessId;
+    return (int) $fundingCaseId;
   }
 
 }

@@ -20,19 +20,24 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Form\ResponseHandler;
 
-use Assert\Assertion;
 use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
+use Drupal\civiremote_funding\FundingRedirectResponse;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Http\RequestStack;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 class FormResponseHandlerAction implements FormResponseHandlerInterface {
 
   use StringTranslationTrait;
+
   private MessengerInterface $messenger;
 
-  public function __construct(MessengerInterface $messenger) {
+  private RequestStack $requestStack;
+
+  public function __construct(MessengerInterface $messenger, RequestStack $requestStack) {
     $this->messenger = $messenger;
+    $this->requestStack = $requestStack;
   }
 
   public function handleSubmitResponse(FormSubmitResponse $submitResponse, FormStateInterface $formState): void {
@@ -40,6 +45,7 @@ class FormResponseHandlerAction implements FormResponseHandlerInterface {
       // We cannot add errors at this stage, though this actually cannot happen
       // because we have called the remote validation in the validation step.
       $this->messenger->addWarning($submitResponse->getMessage() ?? $this->t('Validation failed.'));
+      $formState->disableRedirect();
     }
     else {
       if (NULL !== $submitResponse->getMessage()) {
@@ -49,13 +55,25 @@ class FormResponseHandlerAction implements FormResponseHandlerInterface {
       if ('closeForm' === $submitResponse->getAction()) {
         $formState->setRedirect('<front>');
       }
-      elseif ('showForm' === $submitResponse->getAction()) {
-        $form = $submitResponse->getForm();
-        Assertion::notNull($form);
-        $formState->set('jsonSchema', $form->getJsonSchema());
-        $formState->set('uiSchema', $form->getUiSchema());
-        $formState->setTemporary($form->getData());
-        $formState->setRebuild();
+      elseif ('loadEntity' === $submitResponse->getAction()) {
+        if ('FundingCase' === $submitResponse->getEntityType()) {
+          $formState->setRedirect(
+            'civiremote_funding.case',
+            ['fundingCaseId' => $submitResponse->getEntityId()],
+          );
+        }
+        else {
+          // Unknown entity type.
+          $formState->setRedirect('<front>');
+        }
+      }
+      elseif ('reloadForm' === $submitResponse->getAction()) {
+        $request = $this->requestStack->getCurrentRequest();
+        // The standard redirect cannot be used, if "destination" query
+        // parameter is set. Drupal would then replace the redirect URL.
+        $formState->setResponse(
+          new FundingRedirectResponse($request->getUri(), FundingRedirectResponse::HTTP_SEE_OTHER)
+        );
       }
       else {
         throw new \RuntimeException(sprintf('Unknown response action "%s"', $submitResponse->getAction()));

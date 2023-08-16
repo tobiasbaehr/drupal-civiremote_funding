@@ -20,7 +20,6 @@ declare(strict_types=1);
 
 namespace Drupal\Tests\civiremote_funding\Unit\Controller;
 
-use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
 use Drupal\civiremote_funding\Api\DTO\FundingCase;
 use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\civiremote_funding\Controller\TransferContractDownloadController;
@@ -43,11 +42,6 @@ final class TransferContractDownloadControllerTest extends TestCase {
   private MockObject $fundingApiMock;
 
   /**
-   * @var \Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface&\PHPUnit\Framework\MockObject\MockObject
-   */
-  private MockObject $remoteContactIdProviderMock;
-
-  /**
    * @var \Drupal\civiremote_funding\RemotePage\RemotePageProxy&\PHPUnit\Framework\MockObject\MockObject
    */
   private MockObject $remotePageProxyMock;
@@ -55,22 +49,17 @@ final class TransferContractDownloadControllerTest extends TestCase {
   protected function setUp(): void {
     parent::setUp();
     $this->fundingApiMock = $this->createMock(FundingApi::class);
-    $this->remoteContactIdProviderMock = $this->createMock(RemoteContactIdProviderInterface::class);
     $this->remotePageProxyMock = $this->createMock(RemotePageProxy::class);
     $this->controller = new TransferContractDownloadController(
       $this->fundingApiMock,
-      $this->remoteContactIdProviderMock,
       $this->remotePageProxyMock,
     );
-
-    $this->remoteContactIdProviderMock->method('getRemoteContactId')
-      ->willReturn('contactId');
   }
 
   public function test(): void {
     $fundingCase = $this->createFundingCase('http://example.org/transfer-contract');
     $this->fundingApiMock->method('getFundingCase')
-      ->with('contactId', 12)
+      ->with(12)
       ->willReturn($fundingCase);
     $response = new Response();
     $this->remotePageProxyMock->expects(static::once())->method('get')
@@ -83,7 +72,7 @@ final class TransferContractDownloadControllerTest extends TestCase {
   public function testNoTransferContract(): void {
     $fundingCase = $this->createFundingCase(NULL);
     $this->fundingApiMock->method('getFundingCase')
-      ->with('contactId', 12)
+      ->with(12)
       ->willReturn($fundingCase);
 
     static::expectException(NotFoundHttpException::class);
@@ -92,7 +81,7 @@ final class TransferContractDownloadControllerTest extends TestCase {
 
   public function testNoFundingCase(): void {
     $this->fundingApiMock->method('getFundingCase')
-      ->with('contactId', 12)
+      ->with(12)
       ->willReturn(NULL);
 
     static::expectException(NotFoundHttpException::class);

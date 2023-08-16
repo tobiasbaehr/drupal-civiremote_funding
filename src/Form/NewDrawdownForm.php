@@ -21,7 +21,6 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Form;
 
 use Assert\Assertion;
-use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
 use Drupal\civiremote_funding\Api\Exception\ApiCallFailedException;
 use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\Core\Form\FormBase;
@@ -33,16 +32,10 @@ final class NewDrawdownForm extends FormBase {
 
   protected FundingApi $fundingApi;
 
-  protected RemoteContactIdProviderInterface $remoteContactIdProvider;
-
   protected int $payoutProcessId = -1;
 
-  public function __construct(
-    FundingApi $fundingApi,
-    RemoteContactIdProviderInterface $remoteContactIdProvider
-  ) {
+  public function __construct(FundingApi $fundingApi) {
     $this->fundingApi = $fundingApi;
-    $this->remoteContactIdProvider = $remoteContactIdProvider;
   }
 
   /**
@@ -51,10 +44,7 @@ final class NewDrawdownForm extends FormBase {
    * @return static
    */
   public static function create(ContainerInterface $container) {
-    return new static(
-      $container->get(FundingApi::class),
-      $container->get(RemoteContactIdProviderInterface::class),
-    );
+    return new static($container->get(FundingApi::class));
   }
 
   public function getFormId(): string {
@@ -75,18 +65,12 @@ final class NewDrawdownForm extends FormBase {
     $this->payoutProcessId = $payoutProcessId;
 
     try {
-      $payoutProcess = $this->fundingApi->getPayoutProcess(
-        $this->remoteContactIdProvider->getRemoteContactId(),
-        $this->payoutProcessId,
-      );
+      $payoutProcess = $this->fundingApi->getPayoutProcess($this->payoutProcessId);
       if (NULL === $payoutProcess || $payoutProcess->getFundingCaseId() !== $fundingCaseId) {
         throw new NotFoundHttpException();
       }
 
-      $transferContract = $this->fundingApi->getTransferContract(
-        $this->remoteContactIdProvider->getRemoteContactId(),
-        $payoutProcess->getFundingCaseId(),
-      );
+      $transferContract = $this->fundingApi->getTransferContract($payoutProcess->getFundingCaseId());
       if (NULL === $transferContract) {
         throw new NotFoundHttpException();
       }
@@ -126,7 +110,6 @@ final class NewDrawdownForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $formState): void {
     try {
       $this->fundingApi->createDrawdown(
-        $this->remoteContactIdProvider->getRemoteContactId(),
         $this->payoutProcessId,
         // @phpstan-ignore-next-line
         (float) $formState->getValue('amount'),
