@@ -37,8 +37,8 @@ final class RemoteContactIdProvider implements RemoteContactIdProviderInterface 
     // @phpstan-ignore-next-line
     $remoteContactId = $account->civiremote_id;
 
-    Assertion::string($remoteContactId);
-    Assertion::notEmpty($remoteContactId);
+    Assertion::string($remoteContactId, 'User has no remote contact ID');
+    Assertion::notEmpty($remoteContactId, 'User has no remote contact ID');
 
     return $remoteContactId;
   }
