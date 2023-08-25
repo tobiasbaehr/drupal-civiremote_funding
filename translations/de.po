@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: 2023-08-25 11:19+0200\n"
+"POT-Creation-Date: 2023-08-25 16:40+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -442,10 +442,18 @@ msgid "Manage current funding processes"
 msgstr "Laufende Antragsverfahren verwalten"
 
 #: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:53
+msgid "My Summary Applications"
+msgstr "Meine Sammelanträge"
+
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:56
+msgid "Manage current summary applications"
+msgstr "Laufende Sammelanträge verwalten"
+
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:61
 msgid "New Application"
 msgstr "Neuer Antrag"
 
-#: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:56
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:64
 msgid "Place a new application"
 msgstr "Neuen Antrag stellen"
 
