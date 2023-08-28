@@ -43,7 +43,7 @@ final class NewApplicationController extends ControllerBase {
       throw new NotFoundHttpException();
     }
 
-    if ($fundingCaseType->getIsSummaryApplication()) {
+    if ($fundingCaseType->getIsCombinedApplication()) {
       return $this->formBuilder()->getForm(NewFundingCaseForm::class);
     }
 

@@ -54,8 +54,8 @@ final class FundingCaseController extends ControllerBase {
       throw new NotFoundHttpException();
     }
 
-    if (!$fundingCaseType->getIsSummaryApplication()) {
-      // This is only for summary applications.
+    if (!$fundingCaseType->getIsCombinedApplication()) {
+      // This controller is only for combined applications.
       throw new NotFoundHttpException();
     }
 
@@ -80,7 +80,7 @@ final class FundingCaseController extends ControllerBase {
 
     $content['table'] = [
       '#type' => 'view',
-      '#name' => 'civiremote_funding_summary_application_process_list',
+      '#name' => 'civiremote_funding_combined_application_process_list',
       '#display_id' => 'embed_1',
       '#arguments' => [
         $fundingCaseId,

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: 2023-08-25 16:40+0200\n"
+"POT-Creation-Date: 2023-08-28 16:56+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -28,21 +28,17 @@ msgid "Amount Paid Out"
 msgstr "Ausgezahlter Betrag"
 
 #: config/optional/views.view.civiremote_funding_application_list.yml
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
-#: config/optional/views.view.civiremote_funding_summary_case_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Title"
 msgstr "Titel"
 
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
-msgid "CiviCRM Funding Summary Applications"
-msgstr "CiviCRM Sammelförderantrag"
-
 #: config/optional/views.view.civiremote_funding_application_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
 #: config/optional/views.view.civiremote_funding_drawdown_list.yml
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
-#: config/optional/views.view.civiremote_funding_summary_case_list.yml
 msgid "Status"
 msgstr "Status"
 
@@ -74,13 +70,9 @@ msgid "Link to application form"
 msgstr ""
 
 #: config/optional/views.view.civiremote_funding_application_list.yml
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
 msgid "Identifier"
 msgstr "Nummer"
-
-#: config/optional/views.view.civiremote_funding_summary_case_list.yml
-msgid "Summary Applications"
-msgstr "Sammelanträge"
 
 #: config/optional/views.view.civiremote_funding_transfer_contract.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
@@ -96,10 +88,6 @@ msgstr "Förderanträge"
 msgid "Funding"
 msgstr "Förderung"
 
-#: config/optional/views.view.civiremote_funding_summary_case_list.yml
-msgid "CiviCRM Funding Summary Case List"
-msgstr "CiviCRM Sammelförderantragsliste"
-
 #: config/optional/views.view.civiremote_funding_transfer_contract.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "payout_process_id"
@@ -114,7 +102,7 @@ msgid "{{ amount }} {{currency}}"
 msgstr ""
 
 #: config/optional/views.view.civiremote_funding_application_list.yml
-#: config/optional/views.view.civiremote_funding_summary_case_list.yml
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
 msgid "Open application"
 msgstr "Antrag öffnen"
 
@@ -126,17 +114,25 @@ msgstr ""
 msgid "File clean up delay (seconds)"
 msgstr ""
 
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
+msgid "CiviCRM Funding Case List (combined application)"
+msgstr "CiviCRM Förderfallliste (Sammelantrag)"
+
+#: config/optional/views.view.civiremote_funding_application_list.yml
+msgid "CiviCRM Funding Application List (non-combined)"
+msgstr "CiviCRM Förderantragsliste (kein Sammelantrag)"
+
 #: civiremote_funding.info.yml
 msgid "Drupal frontend for funding applications of CiviCRM Funding Manager."
 msgstr ""
 
-#: config/optional/views.view.civiremote_funding_summary_case_list.yml
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
 msgid "{{amount_approved}} {{funding_program_id__currency}}"
 msgstr ""
 
 #: config/optional/views.view.civiremote_funding_application_list.yml
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
-#: config/optional/views.view.civiremote_funding_summary_case_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Actions"
 msgstr "Aktionen"
@@ -163,7 +159,7 @@ msgstr "Annahmedatum"
 msgid "{{ amount_approved }} {{currency}}"
 msgstr ""
 
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
 msgid "ID"
 msgstr ""
 
@@ -171,18 +167,18 @@ msgstr ""
 msgid "CiviCRM Funding Drawdown List"
 msgstr "CiviCRM Mittelabrufliste"
 
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
-#: config/optional/views.view.civiremote_funding_summary_case_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
 msgid "title"
 msgstr ""
 
 #: config/optional/views.view.civiremote_funding_application_list.yml
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
 msgid "Show history"
 msgstr "Verlauf anzeigen"
 
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
 #: config/optional/views.view.civiremote_funding_drawdown_list.yml
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract.yml
 msgid "All"
 msgstr "Alle"
@@ -191,11 +187,7 @@ msgstr "Alle"
 msgid "CiviCRM Funding Transfer Contract"
 msgstr "CiviCRM Weiterleitungsvertrag"
 
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
-msgid "CiviCRM Funding Summary Application Process List"
-msgstr "CiviCRM Sammelförderantragsliste"
-
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
 msgid "Open {{arguments.null}}"
 msgstr "{{arguments.null}} öffnen"
 
@@ -203,14 +195,18 @@ msgstr "{{arguments.null}} öffnen"
 msgid "CiviCRM funding transfer contract via remote API"
 msgstr ""
 
-#: config/optional/views.view.civiremote_funding_application_list.yml
-msgid "CiviCRM Funding Application List"
-msgstr "CiviCRM Förderantragsliste"
-
 #: config/optional/views.view.civiremote_funding_drawdown_list.yml
 #: src/Form/NewDrawdownForm.php:95
 msgid "Amount"
 msgstr "Betrag"
+
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
+msgid "CiviCRM Funding Combined Applications"
+msgstr "CiviCRM Sammelanträge"
+
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
+msgid "Combined Applications"
+msgstr "Sammelanträge"
 
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "List of CiviCRM funding transfer contracts via remote API"
@@ -220,6 +216,10 @@ msgstr "Liste der CiviCRM Weiterleitungsverträge via Remote API"
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Amount Available"
 msgstr "Verfügbarer Betrag"
+
+#: config/optional/views.view.civiremote_funding_application_list.yml
+msgid "List of CiviCRM funding applications (non-combined)  via remote API"
+msgstr "Liste der CiviCRM Förderanträge (keine Sammelanträge) via Remote API"
 
 #: config/optional/views.view.civiremote_funding_transfer_contract.yml
 msgid "Transfer Contract"
@@ -243,7 +243,7 @@ msgstr "Mittelabrufe anzeigen"
 msgid "CiviCRM Funding Transfer Contract List"
 msgstr "CiviCRM Weiterleitungsvertragsliste"
 
-#: config/optional/views.view.civiremote_funding_summary_case_list.yml
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
 msgid "Budget"
 msgstr "Budget"
 
@@ -268,19 +268,17 @@ msgid "Grants access to CiviCRM Funding via CiviRemote."
 msgstr ""
 
 #: config/optional/views.view.civiremote_funding_application_list.yml
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
 msgid "Modification Date"
 msgstr "Änderungsdatum"
 
-#: config/optional/views.view.civiremote_funding_application_list.yml
-msgid ""
-"List of CiviCRM funding applications (non-summary application)  via remote "
-"API"
-msgstr "Liste der CiviCRM Förderanträge (keine Sammelanträge) via Remote API"
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
+msgid "CiviCRM Funding Combined Application Process List"
+msgstr "CiviCRM Sammelförderantragsliste"
 
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
 #: config/optional/views.view.civiremote_funding_drawdown_list.yml
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
-#: config/optional/views.view.civiremote_funding_summary_case_list.yml
 msgid "Creation Date"
 msgstr "Erstellungsdatum"
 
@@ -289,7 +287,7 @@ msgstr "Erstellungsdatum"
 msgid "Transfer Contracts"
 msgstr "Weiterleitungsverträge"
 
-#: config/optional/views.view.civiremote_funding_summary_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
 msgid "Funding Case ID"
 msgstr "Förderfall ID"
 
@@ -442,11 +440,11 @@ msgid "Manage current funding processes"
 msgstr "Laufende Antragsverfahren verwalten"
 
 #: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:53
-msgid "My Summary Applications"
+msgid "My Combined Applications"
 msgstr "Meine Sammelanträge"
 
 #: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:56
-msgid "Manage current summary applications"
+msgid "Manage current combined applications"
 msgstr "Laufende Sammelanträge verwalten"
 
 #: src/Plugin/Block/CiviremoteFundingDashboardGroupApplications.php:61

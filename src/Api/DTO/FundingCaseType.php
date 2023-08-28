@@ -26,7 +26,7 @@ namespace Drupal\civiremote_funding\Api\DTO;
  *   abbreviation: string,
  *   title: string,
  *   name: string,
- *   is_summary_application: bool,
+ *   is_combined_application: bool,
  *   application_process_label: string|null,
  *   properties: array<string, mixed>
  * }
@@ -69,8 +69,8 @@ final class FundingCaseType extends AbstractDTO {
     return $this;
   }
 
-  public function getIsSummaryApplication(): bool {
-    return $this->values['is_summary_application'];
+  public function getIsCombinedApplication(): bool {
+    return $this->values['is_combined_application'];
   }
 
   public function getApplicationProcessLabel(): ?string {

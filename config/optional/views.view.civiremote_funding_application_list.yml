@@ -5,9 +5,9 @@ dependencies:
     - cmrf_views
     - user
 id: civiremote_funding_application_list
-label: 'CiviCRM Funding Application List'
+label: 'CiviCRM Funding Application List (non-combined)'
 module: views
-description: 'List of CiviCRM funding applications (non-summary application)  via remote API'
+description: 'List of CiviCRM funding applications (non-combined)  via remote API'
 tag: ''
 base_table: cmrf_views_civiremote_funding_caseinfo
 base_field: ''
@@ -735,16 +735,16 @@ display:
           exposed: false
       arguments: {  }
       filters:
-        funding_case_type_is_summary_application:
-          id: funding_case_type_is_summary_application
+        funding_case_type_is_combined_application:
+          id: funding_case_type_is_combined_application
           table: cmrf_views_civiremote_funding_caseinfo
-          field: funding_case_type_is_summary_application
+          field: funding_case_type_is_combined_application
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: cmrf_views_filter_boolean
-          operator: '='
-          value: '0'
+          operator: '!='
+          value: '1'
           group: 1
           exposed: false
           expose:
