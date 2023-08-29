@@ -19,6 +19,10 @@ use Symfony\Component\HttpFoundation\Response;
  * RedirectResponse from Symfony.
  *
  * This class can be used to avoid redirection to "destination" query parameter.
+ * Drupal's RedirectResponseSubscriber overwrites the redirect destination to
+ * the path specified in the destination query parameter of the request (if any)
+ * in case the response is an instance of
+ * Symfony\Component\HttpFoundation\RedirectResponse.
  *
  * @see \Drupal\Core\EventSubscriber\RedirectResponseSubscriber
  *
