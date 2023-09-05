@@ -21,12 +21,13 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Api\Form;
 
 /**
- * @phpstan-type showFormValueT array{
- *   action: string, message?: string,
- *   jsonSchema: array<string, mixed>,
- *   uiSchema: array<string, mixed>,
- *   data?: array<string, mixed>,
+ * @phpstan-type submitResponseT array{
+ *   action: string,
+ *   message?: string,
+ *   errors?: array<string, non-empty-array<string>>,
  *   files?: array<string, string>,
+ *   entityType?: string,
+ *   entityId?: int,
  * }
  */
 final class FormSubmitResponse {
@@ -38,8 +39,6 @@ final class FormSubmitResponse {
    */
   private array $errors;
 
-  private ?FundingForm $form;
-
   private ?string $message;
 
   /**
@@ -47,33 +46,23 @@ final class FormSubmitResponse {
    */
   private array $files;
 
+  private ?string $entityType;
+
+  private ?int $entityId;
+
   /**
-   * @phpstan-param array{
-   *   action: string, message?: string,
-   *   errors?: array<string, non-empty-array<string>>,
-   *   jsonSchema?: array<string, mixed>,
-   *   uiSchema?: array<string, mixed>,
-   *   data?: array<string, mixed>,
-   *   files?: array<string, string>,
-   * } $value
+   * @phpstan-param submitResponseT $value
    *
    * @return self
    */
   public static function fromApiResultValue(array $value): self {
-    if ('showForm' === $value['action']) {
-      /** @phpstan-var showFormValueT $value */
-      $form = FundingForm::fromApiResultValue($value);
-    }
-    else {
-      $form = NULL;
-    }
-
     return new self(
       $value['action'],
-        $value['message'] ?? NULL,
-        $value['errors'] ?? [],
-      $form,
+      $value['message'] ?? NULL,
+      $value['errors'] ?? [],
       $value['files'] ?? [],
+      $value['entity_type'] ?? NULL,
+      $value['entity_id'] ?? NULL,
     );
   }
 
@@ -86,14 +75,16 @@ final class FormSubmitResponse {
     string $action,
     ?string $message,
     array $errors,
-    ?FundingForm $form,
-    array $files
+    array $files,
+    ?string $entityType,
+    ?int $entityId
   ) {
     $this->action = $action;
     $this->errors = $errors;
     $this->message = $message;
-    $this->form = $form;
     $this->files = $files;
+    $this->entityType = $entityType;
+    $this->entityId = $entityId;
   }
 
   public function getAction(): string {
@@ -107,10 +98,6 @@ final class FormSubmitResponse {
     return $this->errors;
   }
 
-  public function getForm(): ?FundingForm {
-    return $this->form;
-  }
-
   public function getMessage(): ?string {
     return $this->message;
   }
@@ -121,6 +108,14 @@ final class FormSubmitResponse {
    */
   public function getFiles(): array {
     return $this->files;
+  }
+
+  public function getEntityType(): ?string {
+    return $this->entityType;
+  }
+
+  public function getEntityId(): ?int {
+    return $this->entityId;
   }
 
 }

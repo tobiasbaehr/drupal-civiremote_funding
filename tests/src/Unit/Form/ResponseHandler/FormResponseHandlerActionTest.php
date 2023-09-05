@@ -21,19 +21,20 @@ declare(strict_types=1);
 namespace Drupal\Tests\civiremote_funding\Unit\Form\ResponseHandler;
 
 use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
-use Drupal\civiremote_funding\Api\Form\FundingForm;
 use Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerAction;
+use Drupal\civiremote_funding\FundingRedirectResponse;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Http\RequestStack;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\StringTranslation\TranslationInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @covers \Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerAction
  * @covers \Drupal\civiremote_funding\Api\Form\FormSubmitResponse
- * @covers \Drupal\civiremote_funding\Api\Form\FundingForm
  */
 final class FormResponseHandlerActionTest extends TestCase {
 
@@ -49,23 +50,29 @@ final class FormResponseHandlerActionTest extends TestCase {
 
   private FormResponseHandlerAction $handler;
 
+  /**
+   * @var \Drupal\Core\Http\RequestStack&\PHPUnit\Framework\MockObject\MockObject
+   */
+  private MockObject $requestStackMock;
+
   protected function setUp(): void {
     parent::setUp();
     $this->messengerMock = $this->createMock(MessengerInterface::class);
-    $this->handler = new FormResponseHandlerAction($this->messengerMock);
+    $this->requestStackMock = $this->createMock(RequestStack::class);
+    $this->handler = new FormResponseHandlerAction($this->messengerMock, $this->requestStackMock);
     $this->handler->setStringTranslation($this->createMock(TranslationInterface::class));
     $this->formStateMock = $this->createMock(FormStateInterface::class);
   }
 
   public function testShowValidation(): void {
-    $submitResponse = new FormSubmitResponse('showValidation', 'Test', [], NULL, []);
+    $submitResponse = new FormSubmitResponse('showValidation', 'Test', [], [], NULL, NULL);
 
     $this->messengerMock->expects(static::once())->method('addWarning')->with('Test');
     $this->handler->handleSubmitResponse($submitResponse, $this->formStateMock);
   }
 
   public function testShowValidationWithoutMessage(): void {
-    $submitResponse = new FormSubmitResponse('showValidation', NULL, [], NULL, []);
+    $submitResponse = new FormSubmitResponse('showValidation', NULL, [], [], NULL, NULL);
 
     $this->messengerMock->expects(static::once())->method('addWarning')->with(static::callback(
       function (TranslatableMarkup $value) {
@@ -78,33 +85,47 @@ final class FormResponseHandlerActionTest extends TestCase {
   }
 
   public function testCloseForm(): void {
-    $submitResponse = new FormSubmitResponse('closeForm', 'Test', [], NULL, []);
+    $submitResponse = new FormSubmitResponse('closeForm', 'Test', [], [], NULL, NULL);
 
     $this->messengerMock->expects(static::once())->method('addMessage')->with('Test');
     $this->formStateMock->expects(static::once())->method('setRedirect')->with('<front>');
     $this->handler->handleSubmitResponse($submitResponse, $this->formStateMock);
   }
 
-  public function testShowForm(): void {
-    $jsonSchema = new \stdClass();
-    $jsonSchema->a = 'b';
-    $uiSchema = new \stdClass();
-    $uiSchema->x = 'y';
-    $form = new FundingForm($jsonSchema, $uiSchema, ['foo' => 'bar']);
-    $submitResponse = new FormSubmitResponse('showForm', 'Test', [], $form, []);
+  public function testReloadForm(): void {
+    $submitResponse = new FormSubmitResponse('reloadForm', 'Test', [], [], NULL, NULL);
+
+    $url = 'http://example.org/test?x=y';
+    $request = Request::create($url);
+    $this->requestStackMock->method('getCurrentRequest')->willReturn($request);
+    $this->messengerMock->expects(static::once())->method('addMessage')->with('Test');
+    $this->formStateMock->expects(static::once())->method('setResponse')->with(
+      new FundingRedirectResponse($url, FundingRedirectResponse::HTTP_SEE_OTHER)
+    );
+    $this->handler->handleSubmitResponse($submitResponse, $this->formStateMock);
+  }
+
+  public function testLoadEntity(): void {
+    $submitResponse = new FormSubmitResponse('loadEntity', 'Test', [], [], 'FundingCase', 12);
 
     $this->messengerMock->expects(static::once())->method('addMessage')->with('Test');
-    $this->formStateMock->expects(static::exactly(2))->method('set')->withConsecutive(
-      ['jsonSchema', $jsonSchema],
-      ['uiSchema', $uiSchema],
+    $this->formStateMock->expects(static::once())->method('setRedirect')->with(
+      'civiremote_funding.case',
+      ['fundingCaseId' => $submitResponse->getEntityId()],
     );
-    $this->formStateMock->expects(static::once())->method('setTemporary')->with(['foo' => 'bar']);
-    $this->formStateMock->expects(static::once())->method('setRebuild');
+    $this->handler->handleSubmitResponse($submitResponse, $this->formStateMock);
+  }
+
+  public function testLoadEntityUnknown(): void {
+    $submitResponse = new FormSubmitResponse('loadEntity', 'Test', [], [], 'UnknownEntity', 12);
+
+    $this->messengerMock->expects(static::once())->method('addMessage')->with('Test');
+    $this->formStateMock->expects(static::once())->method('setRedirect')->with('<front>');
     $this->handler->handleSubmitResponse($submitResponse, $this->formStateMock);
   }
 
   public function testUnknownAction(): void {
-    $submitResponse = new FormSubmitResponse('someAction', NULL, [], NULL, []);
+    $submitResponse = new FormSubmitResponse('someAction', NULL, [], [], NULL, NULL);
 
     $this->messengerMock->expects(static::never())->method('addMessage');
     $this->expectException(\RuntimeException::class);

@@ -20,7 +20,6 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Controller;
 
-use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
 use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\civiremote_funding\Util\DestinationUtil;
 use Drupal\Core\Controller\ControllerBase;
@@ -31,11 +30,8 @@ final class ApplicationHistoryController extends ControllerBase {
 
   private FundingApi $fundingApi;
 
-  private RemoteContactIdProviderInterface $contactIdProvider;
-
-  public function __construct(FundingApi $fundingApi, RemoteContactIdProviderInterface $contactIdProvider) {
+  public function __construct(FundingApi $fundingApi) {
     $this->fundingApi = $fundingApi;
-    $this->contactIdProvider = $contactIdProvider;
   }
 
   /**
@@ -44,10 +40,7 @@ final class ApplicationHistoryController extends ControllerBase {
    * @throws \Drupal\civiremote_funding\Api\Exception\ApiCallFailedException
    */
   public function content(int $applicationProcessId, Request $request): array {
-    $info = $this->fundingApi->getFundingCaseInfoByApplicationProcessId(
-      $this->contactIdProvider->getRemoteContactId(),
-      $applicationProcessId
-    );
+    $info = $this->fundingApi->getFundingCaseInfoByApplicationProcessId($applicationProcessId);
     if (NULL === $info) {
       throw new NotFoundHttpException();
     }
@@ -57,14 +50,8 @@ final class ApplicationHistoryController extends ControllerBase {
       '#title' => $this->t('Application History'),
       '#application_title' => $info->getApplicationProcessTitle(),
       '#back_link_destination' => DestinationUtil::getDestinationWithoutBasePath($request),
-      '#activities' => $this->fundingApi->getApplicationActivities(
-        $this->contactIdProvider->getRemoteContactId(),
-        $applicationProcessId
-      ),
-      '#status_options' => $this->fundingApi->getApplicationStatusOptions(
-        $this->contactIdProvider->getRemoteContactId(),
-        $applicationProcessId
-      ),
+      '#activities' => $this->fundingApi->getApplicationActivities($applicationProcessId),
+      '#status_options' => $this->fundingApi->getApplicationStatusOptions($applicationProcessId),
     ];
   }
 

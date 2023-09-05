@@ -55,8 +55,20 @@ services:
     class: Drupal\civiremote_funding\Controller\ApplicationController
     public: true
 
+  Drupal\civiremote_funding\Controller\NewApplicationController:
+    class: Drupal\civiremote_funding\Controller\NewApplicationController
+    public: true
+
+  Drupal\civiremote_funding\Controller\FundingCaseController:
+    class: Drupal\civiremote_funding\Controller\FundingCaseController
+    public: true
+
   Drupal\civiremote_funding\Controller\TransferContractController:
     class: Drupal\civiremote_funding\Controller\TransferContractController
+    public: true
+
+  Drupal\civiremote_funding\Form\RequestHandler\AddApplicationFormRequestHandler:
+    class: Drupal\civiremote_funding\Form\RequestHandler\AddApplicationFormRequestHandler
     public: true
 
   Drupal\civiremote_funding\Form\RequestHandler\NewApplicationFormRequestHandler:
@@ -65,6 +77,14 @@ services:
 
   Drupal\civiremote_funding\Form\RequestHandler\ApplicationFormRequestHandler:
     class: Drupal\civiremote_funding\Form\RequestHandler\ApplicationFormRequestHandler
+    public: true
+
+  Drupal\civiremote_funding\Form\RequestHandler\NewFundingCaseFormRequestHandler:
+    class: Drupal\civiremote_funding\Form\RequestHandler\NewFundingCaseFormRequestHandler
+    public: true
+
+  Drupal\civiremote_funding\Form\RequestHandler\FundingCaseFormRequestHandler:
+    class: Drupal\civiremote_funding\Form\RequestHandler\FundingCaseFormRequestHandler
     public: true
 
   Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerFiles:
@@ -76,18 +96,13 @@ services:
     class: Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerAction
     arguments:
       $messenger: '@messenger'
+      $requestStack: '@request_stack'
 
   Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerInterface:
     class: Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerChain
     arguments:
       - '@Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerFiles'
       - '@Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerAction'
-    public: true
-
-  Drupal\civiremote_funding\Form\ResponseHandler\NewApplicationFormResponseHandler:
-    class: Drupal\civiremote_funding\Form\ResponseHandler\NewApplicationFormResponseHandler
-    arguments:
-      $messenger: '@messenger'
     public: true
 
   Drupal\civiremote_funding\File\FundingFileStorage:

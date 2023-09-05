@@ -20,7 +20,6 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Form;
 
-use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
 use Drupal\civiremote_funding\Api\DTO\FundingProgram;
 use Drupal\civiremote_funding\Api\Exception\ApiCallFailedException;
 use Drupal\civiremote_funding\Api\FundingApi;
@@ -32,11 +31,8 @@ final class ChooseFundingProgramForm extends FormBase {
 
   protected FundingApi $fundingApi;
 
-  protected RemoteContactIdProviderInterface $remoteContactIdProvider;
-
-  public function __construct(FundingApi $fundingApi, RemoteContactIdProviderInterface $remoteContactIdProvider) {
+  public function __construct(FundingApi $fundingApi) {
     $this->fundingApi = $fundingApi;
-    $this->remoteContactIdProvider = $remoteContactIdProvider;
   }
 
   /**
@@ -47,7 +43,6 @@ final class ChooseFundingProgramForm extends FormBase {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get(FundingApi::class),
-      $container->get(RemoteContactIdProviderInterface::class),
     );
   }
 
@@ -89,7 +84,6 @@ final class ChooseFundingProgramForm extends FormBase {
     $fundingProgramId = (int) $fundingProgramIdStr;
     try {
       $fundingCaseTypes = $this->fundingApi->getFundingCaseTypesByFundingProgramId(
-        $this->getRemoteContactId(),
         $fundingProgramId
       );
     }
@@ -117,17 +111,13 @@ final class ChooseFundingProgramForm extends FormBase {
    */
   private function getFundingProgramOptions(): array {
     $options = [];
-    foreach ($this->fundingApi->getFundingPrograms($this->getRemoteContactId()) as $fundingProgram) {
+    foreach ($this->fundingApi->getFundingPrograms() as $fundingProgram) {
       if ($this->isNewApplicationPossible($fundingProgram)) {
         $options[$fundingProgram->getId()] = $fundingProgram->getTitle();
       }
     }
 
     return $options;
-  }
-
-  private function getRemoteContactId(): string {
-    return $this->remoteContactIdProvider->getRemoteContactId();
   }
 
   private function isInRequestPeriod(FundingProgram $fundingProgram): bool {

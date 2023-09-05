@@ -26,9 +26,10 @@ use Drupal\civiremote_funding\Api\Form\FormValidationResponse;
 use Drupal\civiremote_funding\Api\Form\FundingForm;
 use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\Core\Routing\RouteMatch;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ApplicationFormRequestHandler implements FormRequestHandlerInterface {
+final class FundingCaseFormRequestHandler implements FormRequestHandlerInterface {
 
   private FundingApi $fundingApi;
 
@@ -37,23 +38,36 @@ final class ApplicationFormRequestHandler implements FormRequestHandlerInterface
   }
 
   public function getForm(Request $request): FundingForm {
-    return $this->fundingApi->getApplicationForm($this->getApplicationProcessId($request));
+    $routeMatch = RouteMatch::createFromRequest($request);
+
+    return $this->fundingApi->getFundingCaseUpdateForm(
+      $this->getFundingCaseId($routeMatch),
+    );
   }
 
   public function validateForm(Request $request, array $data): FormValidationResponse {
-    return $this->fundingApi->validateApplicationForm($this->getApplicationProcessId($request), $data);
+    $routeMatch = RouteMatch::createFromRequest($request);
+
+    return $this->fundingApi->validateFundingCaseUpdateForm(
+      $this->getFundingCaseId($routeMatch),
+      $data,
+    );
   }
 
   public function submitForm(Request $request, array $data): FormSubmitResponse {
-    return $this->fundingApi->submitApplicationForm($this->getApplicationProcessId($request), $data);
+    $routeMatch = RouteMatch::createFromRequest($request);
+
+    return $this->fundingApi->submitFundingCaseUpdateForm(
+      $this->getFundingCaseId($routeMatch),
+      $data,
+    );
   }
 
-  private function getApplicationProcessId(Request $request): int {
-    $routeMatch = RouteMatch::createFromRequest($request);
-    $applicationProcessId = $routeMatch->getParameter('applicationProcessId');
-    Assertion::integerish($applicationProcessId);
+  private function getFundingCaseId(RouteMatchInterface $routeMatch): int {
+    $fundingCaseId = $routeMatch->getParameter('fundingCaseId');
+    Assertion::integerish($fundingCaseId);
 
-    return (int) $applicationProcessId;
+    return (int) $fundingCaseId;
   }
 
 }

@@ -21,49 +21,63 @@ declare(strict_types=1);
 namespace Drupal\civiremote_funding\Form\RequestHandler;
 
 use Assert\Assertion;
-use Drupal\civiremote_funding\Access\RemoteContactIdProviderInterface;
 use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
 use Drupal\civiremote_funding\Api\Form\FormValidationResponse;
 use Drupal\civiremote_funding\Api\Form\FundingForm;
 use Drupal\civiremote_funding\Api\FundingApi;
 use Drupal\Core\Routing\RouteMatch;
+use Drupal\Core\Routing\RouteMatchInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 final class NewApplicationFormRequestHandler implements FormRequestHandlerInterface {
 
   private FundingApi $fundingApi;
 
-  private RemoteContactIdProviderInterface $remoteContactIdProvider;
-
-  public function __construct(FundingApi $fundingApi, RemoteContactIdProviderInterface $remoteContactIdProvider) {
+  public function __construct(FundingApi $fundingApi) {
     $this->fundingApi = $fundingApi;
-    $this->remoteContactIdProvider = $remoteContactIdProvider;
   }
 
   public function getForm(Request $request): FundingForm {
     $routeMatch = RouteMatch::createFromRequest($request);
-    $fundingProgramId = $routeMatch->getParameter('fundingProgramId');
-    Assertion::integerish($fundingProgramId);
-    $fundingProgramId = (int) $fundingProgramId;
-    $fundingCaseTypeId = $routeMatch->getParameter('fundingCaseTypeId');
-    Assertion::integerish($fundingCaseTypeId);
-    $fundingCaseTypeId = (int) $fundingCaseTypeId;
 
     return $this->fundingApi->getNewApplicationForm(
-      $this->getRemoteContactId(), $fundingProgramId, $fundingCaseTypeId
+      $this->getFundingProgramId($routeMatch),
+      $this->getFundingCaseTypeId($routeMatch),
     );
   }
 
   public function validateForm(Request $request, array $data): FormValidationResponse {
-    return $this->fundingApi->validateNewApplicationForm($this->getRemoteContactId(), $data);
+    $routeMatch = RouteMatch::createFromRequest($request);
+
+    return $this->fundingApi->validateNewApplicationForm(
+      $this->getFundingProgramId($routeMatch),
+      $this->getFundingCaseTypeId($routeMatch),
+      $data,
+    );
   }
 
   public function submitForm(Request $request, array $data): FormSubmitResponse {
-    return $this->fundingApi->submitNewApplicationForm($this->getRemoteContactId(), $data);
+    $routeMatch = RouteMatch::createFromRequest($request);
+
+    return $this->fundingApi->submitNewApplicationForm(
+      $this->getFundingProgramId($routeMatch),
+      $this->getFundingCaseTypeId($routeMatch),
+      $data,
+    );
   }
 
-  private function getRemoteContactId(): string {
-    return $this->remoteContactIdProvider->getRemoteContactId();
+  private function getFundingCaseTypeId(RouteMatchInterface $routeMatch): int {
+    $fundingCaseTypeId = $routeMatch->getParameter('fundingCaseTypeId');
+    Assertion::integerish($fundingCaseTypeId);
+
+    return (int) $fundingCaseTypeId;
+  }
+
+  private function getFundingProgramId(RouteMatchInterface $routeMatch): int {
+    $fundingProgramId = $routeMatch->getParameter('fundingProgramId');
+    Assertion::integerish($fundingProgramId);
+
+    return (int) $fundingProgramId;
   }
 
 }

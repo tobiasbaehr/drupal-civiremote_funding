@@ -50,6 +50,14 @@ final class CiviremoteFundingDashboardGroupApplications extends BlockBase {
         ],
         [
           '#type' => 'civiremote_funding_dashboard_element',
+          '#title' => $this->t('My Combined Applications'),
+          '#url' => Url::fromUri('base:civiremote/funding/case'),
+          '#content' => [
+            '#markup' => '<div>' . $this->t('Manage current combined applications') . '</div>',
+          ],
+        ],
+        [
+          '#type' => 'civiremote_funding_dashboard_element',
           '#title' => $this->t('New Application'),
           '#url' => Url::fromUri('base:civiremote/funding/application/add'),
           '#content' => [
