@@ -23,10 +23,10 @@ namespace Drupal\civiremote_funding\Api\DTO;
 /**
  * @phpstan-type fundingCaseT array{
  *   id: int,
+ *   identifier: string,
  *   funding_program_id: int,
  *   funding_case_type_id: int,
  *   status: string,
- *   title: ?string,
  *   recipient_contact_id: int,
  *   creation_date: string,
  *   modification_date: string,
@@ -46,6 +46,10 @@ final class FundingCase extends AbstractDTO {
     return $this->values['id'];
   }
 
+  public function getIdentifier(): string {
+    return $this->values['identifier'];
+  }
+
   public function getFundingProgramId(): int {
     return $this->values['funding_program_id'];
   }
@@ -56,10 +60,6 @@ final class FundingCase extends AbstractDTO {
 
   public function getStatus(): string {
     return $this->values['status'];
-  }
-
-  public function getTitle(): ?string {
-    return $this->values['title'];
   }
 
   public function getRecipientContactId(): int {

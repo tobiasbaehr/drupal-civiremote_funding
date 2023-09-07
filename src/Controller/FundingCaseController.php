@@ -60,7 +60,7 @@ final class FundingCaseController extends ControllerBase {
     }
 
     $content = [
-      '#title' => $fundingCase->getTitle(),
+      '#title' => $fundingCase->getIdentifier(),
       '#type' => 'container',
     ];
 
@@ -97,7 +97,7 @@ final class FundingCaseController extends ControllerBase {
   public function title(int $fundingCaseId): ?string {
     $fundingCase = $this->fundingApi->getFundingCase($fundingCaseId,);
 
-    return NULL === $fundingCase ? NULL : $fundingCase->getTitle();
+    return NULL === $fundingCase ? NULL : $fundingCase->getIdentifier();
   }
 
 }

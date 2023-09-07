@@ -87,8 +87,8 @@ final class NewDrawdownForm extends FormBase {
       '#title' => $this->t('Create Drawdown'),
       'transferContract' => [
         '#type' => 'item',
-        '#title' => $this->t('Transfer contract'),
-        '#markup' => $transferContract->getTitle(),
+        '#title' => $this->t('Transfer Contract'),
+        '#markup' => $transferContract->getIdentifier(),
       ],
       'amount' => [
         '#type' => 'number',

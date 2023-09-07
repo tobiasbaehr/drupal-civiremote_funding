@@ -23,7 +23,7 @@ namespace Drupal\civiremote_funding\Api\DTO;
 /**
  * @phpstan-type transferContractT array{
  *   funding_case_id: int,
- *   title: string,
+ *   identifier: string,
  *   amount_approved: float,
  *   payout_process_id: int,
  *   amount_paid_out: float,
@@ -45,8 +45,8 @@ final class TransferContract extends AbstractDTO {
     return $this->values['funding_case_id'];
   }
 
-  public function getTitle(): string {
-    return $this->values['title'];
+  public function getIdentifier(): string {
+    return $this->values['identifier'];
   }
 
   public function getAmountApproved(): float {

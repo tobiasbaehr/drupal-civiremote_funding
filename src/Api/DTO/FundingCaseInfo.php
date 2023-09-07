@@ -23,11 +23,11 @@ namespace Drupal\civiremote_funding\Api\DTO;
 /**
  * @phpstan-type fundingCaseInfoT array{
  *   funding_case_id: int,
+ *   funding_case_identifier: string,
  *   funding_case_permissions: array<string>,
  *   funding_case_status: string,
  *   funding_case_creation_date: string,
  *   funding_case_modification_date: string,
- *   funding_case_title: string|null,
  *   funding_case_amount_approved: float|null,
  *   funding_case_type_id: int,
  *   funding_case_transfer_contract_uri: string|null,
@@ -59,6 +59,10 @@ final class FundingCaseInfo extends AbstractDTO {
     return $this->values['funding_case_id'];
   }
 
+  public function getFundingCaseIdentifier(): string {
+    return $this->values['funding_case_identifier'];
+  }
+
   /**
    * @phpstan-return array<string>
    */
@@ -76,10 +80,6 @@ final class FundingCaseInfo extends AbstractDTO {
 
   public function getFundingCaseModificationDate(): \DateTimeInterface {
     return new \DateTime($this->values['funding_case_modification_date']);
-  }
-
-  public function getFundingCaseTitle(): ?string {
-    return $this->values['funding_case_title'];
   }
 
   public function getFundingCaseAmountApproved(): ?float {

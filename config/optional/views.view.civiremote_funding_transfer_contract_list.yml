@@ -193,15 +193,15 @@ display:
           delta_first_last: false
           multi_type: separator
           separator: ', '
-        title:
-          id: title
+        identifier:
+          id: identifier
           table: cmrf_views_civiremote_funding_transfer_contract
-          field: title
+          field: identifier
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: cmrf_views_standard
-          label: Title
+          label: Identifier
           exclude: false
           alter:
             alter_text: false
