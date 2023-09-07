@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: 2023-08-28 16:56+0200\n"
+"POT-Creation-Date: 2023-09-07 15:23+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -29,9 +29,6 @@ msgstr "Ausgezahlter Betrag"
 
 #: config/optional/views.view.civiremote_funding_application_list.yml
 #: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
-#: config/optional/views.view.civiremote_funding_combined_case_list.yml
-#: config/optional/views.view.civiremote_funding_transfer_contract.yml
-#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Title"
 msgstr "Titel"
 
@@ -71,6 +68,8 @@ msgstr ""
 
 #: config/optional/views.view.civiremote_funding_application_list.yml
 #: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
 msgid "Identifier"
 msgstr "Nummer"
 
@@ -222,6 +221,7 @@ msgid "List of CiviCRM funding applications (non-combined)  via remote API"
 msgstr "Liste der CiviCRM Förderanträge (keine Sammelanträge) via Remote API"
 
 #: config/optional/views.view.civiremote_funding_transfer_contract.yml
+#: src/Form/NewDrawdownForm.php:90
 msgid "Transfer Contract"
 msgstr "Weiterleitungsvertrag"
 
@@ -256,6 +256,7 @@ msgstr "Währung"
 #: config/optional/views.view.civiremote_funding_application_list.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+#: src/Form/ChooseFundingProgramForm.php:68
 msgid "Funding Program"
 msgstr "Förderprogramm"
 
@@ -313,8 +314,8 @@ msgid "Add @type"
 msgstr "@type hinzufügen"
 
 #: src/Controller/TransferContractController.php:45
-msgid "Transfer Contract: @name"
-msgstr "Weiterleitungsvertrag: @name"
+msgid "Transfer Contract: @identifier"
+msgstr "Weiterleitungsvertrag: @identifier"
 
 #: src/Element/CiviremoteFundingApplicationHistory.php:42
 msgid "Unknown"
@@ -387,10 +388,6 @@ msgstr "Senden des Formulars fehlgeschlagen: @error"
 msgid "Failed to load available funding programs: @error"
 msgstr "Laden der verfügbaren Förderprogramme fehlgeschlagen: @error"
 
-#: src/Form/ChooseFundingProgramForm.php:68
-msgid "Funding program"
-msgstr "Förderprogramm"
-
 #: src/Form/ChooseFundingProgramForm.php:75
 msgid "Next"
 msgstr "Weiter"
@@ -410,10 +407,6 @@ msgstr "API-Anfrage fehlgeschlagen: @error"
 #: src/Form/NewDrawdownForm.php:87
 msgid "Create Drawdown"
 msgstr "Mittelabruf erstellen"
-
-#: src/Form/NewDrawdownForm.php:90
-msgid "Transfer contract"
-msgstr "Weiterleitungsvertrag"
 
 #: src/Form/NewDrawdownForm.php:104
 msgid "Submit"

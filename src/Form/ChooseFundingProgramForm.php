@@ -65,7 +65,7 @@ final class ChooseFundingProgramForm extends FormBase {
     return [
       'fundingProgramId' => [
         '#type' => 'select',
-        '#title' => $this->t('Funding program'),
+        '#title' => $this->t('Funding Program'),
         '#options' => $fundingProgramOptions,
         '#required' => TRUE,
       ],

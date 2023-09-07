@@ -42,7 +42,7 @@ final class TransferContractController extends ControllerBase {
    */
   public function content(int $fundingCaseId): array {
     return [
-      '#title' => $this->t('Transfer Contract: @name', ['@name' => $this->title($fundingCaseId)]),
+      '#title' => $this->t('Transfer Contract: @identifier', ['@identifier' => $this->title($fundingCaseId)]),
       '#type' => 'view',
       '#name' => 'civiremote_funding_transfer_contract',
       '#display_id' => 'embed_1',
@@ -56,7 +56,7 @@ final class TransferContractController extends ControllerBase {
       $fundingCaseId,
     );
 
-    return NULL === $info ? NULL : $info->getTitle();
+    return NULL === $info ? NULL : $info->getIdentifier();
   }
 
 }
