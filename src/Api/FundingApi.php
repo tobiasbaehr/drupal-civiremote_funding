@@ -198,10 +198,11 @@ class FundingApi {
     );
   }
 
-  public function getAddApplicationForm(int $fundingCaseId): FundingForm {
+  public function getAddApplicationForm(int $fundingCaseId, ?int $copyDataFromId = NULL): FundingForm {
     $result = $this->apiClient->executeV4('RemoteFundingApplicationProcess', 'getAddForm', [
       'remoteContactId' => $this->remoteContactIdProvider->getRemoteContactId(),
       'fundingCaseId' => $fundingCaseId,
+      'copyDataFromId' => $copyDataFromId,
     ]);
 
     return FundingForm::fromApiResultValue($result['values']);
