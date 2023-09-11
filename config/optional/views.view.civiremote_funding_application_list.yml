@@ -683,24 +683,67 @@ display:
             application_process_modification_date: '0'
             application_process_start_date: '0'
             application_process_end_date: '0'
+        funding_program_id:
+          id: funding_program_id
+          table: cmrf_views_civiremote_funding_caseinfo
+          field: funding_program_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          label: funding_program_id
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          set_precision: false
+          precision: 0
+          decimal: .
+          separator: ''
+          format_plural: false
+          format_plural_string: !!binary MQNAY291bnQ=
+          prefix: ''
+          suffix: ''
       pager:
-        type: mini
+        type: none
         options:
           offset: 0
-          items_per_page: 10
-          total_pages: null
-          id: 0
-          tags:
-            next: ››
-            previous: ‹‹
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
       exposed_form:
         type: basic
         options:
@@ -773,6 +816,50 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
+        funding_program_title:
+          id: funding_program_title
+          table: cmrf_views_civiremote_funding_caseinfo
+          field: funding_program_title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: cmrf_views_filter_text
+          operator: contains
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: funding_program_title_op
+            label: 'Funding Program'
+            description: ''
+            use_operator: false
+            operator: funding_program_title_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: funding_program_title
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              civicrm_api: '0'
+              civiremote_remote_user: '0'
+              civiremote__ivi_emote__unding: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
       style:
         type: table
         options:
@@ -792,6 +879,7 @@ display:
             nothing: nothing
             nothing_1: nothing_1
             dropbutton: dropbutton
+            funding_program_id: funding_program_id
           default: '-1'
           info:
             funding_program_currency:
@@ -874,6 +962,13 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            funding_program_id:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
           override: true
           sticky: true
           summary: ''
@@ -899,6 +994,7 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }
@@ -914,6 +1010,7 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
+        - url
         - url.query_args
         - user.permissions
       tags: {  }
