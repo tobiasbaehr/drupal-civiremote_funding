@@ -20,6 +20,8 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Api\Form;
 
+use Assert\Assertion;
+
 /**
  * @phpstan-type submitResponseT array{
  *   action: string,
@@ -28,27 +30,33 @@ namespace Drupal\civiremote_funding\Api\Form;
  *   files?: array<string, string>,
  *   entityType?: string,
  *   entityId?: int,
+ *   copyDataFromId?: int,
  * }
  */
 final class FormSubmitResponse {
 
+  /**
+   * @phpstan-ignore-next-line Variable is actually initialized in constructor.
+   */
   private string $action;
 
   /**
    * @var array<string, non-empty-array<string>>
    */
-  private array $errors;
+  private array $errors = [];
 
-  private ?string $message;
+  private ?string $message = NULL;
 
   /**
    * @var array<string, string>
    */
-  private array $files;
+  private array $files = [];
 
-  private ?string $entityType;
+  private ?string $entityType = NULL;
 
-  private ?int $entityId;
+  private ?int $entityId = NULL;
+
+  private ?int $copyDataFromId = NULL;
 
   /**
    * @phpstan-param submitResponseT $value
@@ -56,35 +64,20 @@ final class FormSubmitResponse {
    * @return self
    */
   public static function fromApiResultValue(array $value): self {
-    return new self(
-      $value['action'],
-      $value['message'] ?? NULL,
-      $value['errors'] ?? [],
-      $value['files'] ?? [],
-      $value['entity_type'] ?? NULL,
-      $value['entity_id'] ?? NULL,
-    );
+    return new self($value);
   }
 
   /**
-   * @param array<string, non-empty-array<string>> $errors
-   * @param array<string, string> $files
-   *   Submitted file URIs mapped to CiviCRM file URIs.
+   * @phpstan-param submitResponseT $values
    */
-  public function __construct(
-    string $action,
-    ?string $message,
-    array $errors,
-    array $files,
-    ?string $entityType,
-    ?int $entityId
-  ) {
-    $this->action = $action;
-    $this->errors = $errors;
-    $this->message = $message;
-    $this->files = $files;
-    $this->entityType = $entityType;
-    $this->entityId = $entityId;
+  public function __construct(array $values) {
+    Assertion::keyExists($values, 'action');
+    foreach ($values as $key => $value) {
+      if (property_exists($this, $key)) {
+        // @phpstan-ignore-next-line
+        $this->{$key} = $value;
+      }
+    }
   }
 
   public function getAction(): string {
@@ -116,6 +109,10 @@ final class FormSubmitResponse {
 
   public function getEntityId(): ?int {
     return $this->entityId;
+  }
+
+  public function getCopyDataFromId(): ?int {
+    return $this->copyDataFromId;
   }
 
 }

@@ -20,6 +20,7 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding\Form\ResponseHandler;
 
+use Assert\Assertion;
 use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
 use Drupal\civiremote_funding\FundingRedirectResponse;
 use Drupal\Core\Form\FormStateInterface;
@@ -69,10 +70,18 @@ class FormResponseHandlerAction implements FormResponseHandlerInterface {
       }
       elseif ('reloadForm' === $submitResponse->getAction()) {
         $request = $this->requestStack->getCurrentRequest();
+        Assertion::notNull($request);
+        $redirectUrl = $request->getUri();
+        // @phpstan-ignore-next-line
+        $redirectUrl = rtrim(preg_replace('/copyDataFromId=[0-9]+&?/', '', $redirectUrl), '&?');
+        if (NULL !== $submitResponse->getCopyDataFromId()) {
+          $redirectUrl .= str_contains($redirectUrl, '?') ? '&' : '?';
+          $redirectUrl .= 'copyDataFromId=' . $submitResponse->getCopyDataFromId();
+        }
         // The standard redirect cannot be used, if "destination" query
         // parameter is set. Drupal would then replace the redirect URL.
         $formState->setResponse(
-          new FundingRedirectResponse($request->getUri(), FundingRedirectResponse::HTTP_SEE_OTHER)
+          new FundingRedirectResponse($redirectUrl, FundingRedirectResponse::HTTP_SEE_OTHER)
         );
       }
       else {
