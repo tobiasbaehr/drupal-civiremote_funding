@@ -10,6 +10,11 @@ services:
     parent: logger.channel_base
     arguments: [ 'civiremote_funding' ]
 
+  civiremote_funding.settings:
+    class: Drupal\Core\Config\ImmutableConfig
+    factory: [ 'Drupal', 'config' ]
+    arguments: [ 'civiremote_funding.settings' ]
+
   civiremote_funding.civiremote.settings:
     class: Drupal\Core\Config\ImmutableConfig
     factory: ['Drupal', 'config']
@@ -175,3 +180,8 @@ services:
   Drupal\civiremote_funding\Controller\TransferContractDownloadController:
     class: Drupal\civiremote_funding\Controller\TransferContractDownloadController
     public: true
+
+  Drupal\civiremote_funding\JsonForms\Configurator\FileUploadArrayFactoryConfigurator:
+    class: Drupal\civiremote_funding\JsonForms\Configurator\FileUploadArrayFactoryConfigurator
+    arguments:
+      - '@civiremote_funding.settings'

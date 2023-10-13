@@ -37,6 +37,8 @@ final class FileUploadArrayFactory extends AbstractConcreteFormArrayFactory {
 
   private FundingFileManager $fundingFileManager;
 
+  private ?string $validFileExtensions = NULL;
+
   public function __construct(FundingFileManager $fundingFileManager) {
     $this->fundingFileManager = $fundingFileManager;
   }
@@ -57,7 +59,13 @@ final class FileUploadArrayFactory extends AbstractConcreteFormArrayFactory {
     $form = [
       '#type' => 'managed_file',
       '#upload_location' => FundingFileInterface::UPLOAD_LOCATION,
+      '#upload_validators' => [],
     ] + BasicFormPropertiesFactory::createFieldProperties($definition, $formState);
+
+    if (NULL !== $this->validFileExtensions) {
+      // @phpstan-ignore-next-line
+      $form['#upload_validators']['file_validate_extensions'] = [$this->validFileExtensions];
+    }
 
     if (is_string($form['#default_value'] ?? NULL)) {
       $form['#default_value'] = $this->getValueForCiviUri($form['#default_value']);
@@ -80,6 +88,15 @@ final class FileUploadArrayFactory extends AbstractConcreteFormArrayFactory {
   public function supportsDefinition(DefinitionInterface $definition): bool {
     return $definition instanceof ControlDefinition && 'string' === $definition->getType()
       && 'uri' === $definition->getPropertyFormat() && 'file' === $definition->getControlFormat();
+  }
+
+  /**
+   * @param string|null $validFileExtensions
+   *   Space separated list of valid file extensions. Empty string to allow all
+   *   extensions. NULL to use Drupal's internal list of valid extensions.
+   */
+  public function setValidFileExtensions(?string $validFileExtensions): void {
+    $this->validFileExtensions = $validFileExtensions;
   }
 
   /**
