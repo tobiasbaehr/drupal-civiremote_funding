@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: 2023-09-07 15:23+0200\n"
+"POT-Creation-Date: 2023-10-13 16:41+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -420,7 +420,7 @@ msgstr "Mittelabruf erstellt."
 msgid "Failed to create drawdown: @error"
 msgstr "Erstellung des Mittelabrufs fehlgeschlagen: @error"
 
-#: src/Form/ResponseHandler/FormResponseHandlerAction.php:47
+#: src/Form/ResponseHandler/FormResponseHandlerAction.php:48
 msgid "Validation failed."
 msgstr "Validierung fehlgeschlagen."
 
@@ -451,3 +451,7 @@ msgstr "Neuen Antrag stellen"
 #: src/Plugin/Block/CiviremoteFundingDashboardGroupApprovements.php:40
 msgid "Approvements"
 msgstr "Bewilligungen"
+
+#: src/Plugin/Block/CiviremoteFundingDashboardGroupApprovements.php:48
+msgid "Download transfer contracts and manage drawdowns"
+msgstr "Weiterleitungsverträge herunterladen und Mittelabrufe verwalten"
