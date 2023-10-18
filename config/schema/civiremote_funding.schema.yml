@@ -6,4 +6,4 @@ civiremote_funding.settings:
       label: 'File clean up delay (seconds)'
     file_upload_valid_extensions:
       type: string
-      label: 'Valid file upload extensions separated by space (empty string to allow all extensions)'
+      label: 'Allowed file extensions for uploaded files, separated by space. Leave empty to allow all file extensions.'
