@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: civiremote_funding\n"
-"POT-Creation-Date: 2023-10-13 16:41+0200\n"
+"POT-Creation-Date: 2023-10-19 16:21+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.0.1\n"
-"X-Poedit-KeywordsList: t;title;label;description;text\n"
+"X-Poedit-KeywordsList: t;title;label;description;text;submit_button\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SearchPath-0: config\n"
 "X-Poedit-SearchPath-1: src\n"
@@ -166,6 +166,15 @@ msgstr ""
 msgid "CiviCRM Funding Drawdown List"
 msgstr "CiviCRM Mittelabrufliste"
 
+#: config/optional/views.view.civiremote_funding_application_list.yml
+#: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
+#: config/optional/views.view.civiremote_funding_combined_case_list.yml
+#: config/optional/views.view.civiremote_funding_drawdown_list.yml
+#: config/optional/views.view.civiremote_funding_transfer_contract.yml
+#: config/optional/views.view.civiremote_funding_transfer_contract_list.yml
+msgid "Apply"
+msgstr "Anwenden"
+
 #: config/optional/views.view.civiremote_funding_combined_application_process_list.yml
 #: config/optional/views.view.civiremote_funding_combined_case_list.yml
 msgid "title"
@@ -246,6 +255,12 @@ msgstr "CiviCRM Weiterleitungsvertragsliste"
 #: config/optional/views.view.civiremote_funding_combined_case_list.yml
 msgid "Budget"
 msgstr "Budget"
+
+#: config/schema/civiremote_funding.schema.yml
+msgid ""
+"Allowed file extensions for uploaded files, separated by space. Leave empty "
+"to allow all file extensions."
+msgstr ""
 
 #: config/optional/views.view.civiremote_funding_drawdown_list.yml
 #: config/optional/views.view.civiremote_funding_transfer_contract.yml
