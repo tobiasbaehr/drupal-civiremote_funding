@@ -20,9 +20,12 @@ declare(strict_types=1);
 
 namespace Drupal\civiremote_funding;
 
+use Drupal\civiremote_funding\JsonForms\Configurator\FileUploadArrayFactoryConfigurator;
+use Drupal\civiremote_funding\JsonForms\FileUploadArrayFactory;
 use Drupal\Core\DependencyInjection\ContainerBuilder;
 use Drupal\Core\DependencyInjection\ServiceProviderInterface;
 use Drupal\json_forms\Form\Util\FactoryRegistrator;
+use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * @codeCoverageIgnore
@@ -35,6 +38,9 @@ final class CiviremoteFundingServiceProvider implements ServiceProviderInterface
       __DIR__ . '/JsonForms',
       'Drupal\\civiremote_funding\\JsonForms'
     );
+
+    $container->getDefinition(FileUploadArrayFactory::class)
+      ->setConfigurator(new Reference(FileUploadArrayFactoryConfigurator::class));
   }
 
 }

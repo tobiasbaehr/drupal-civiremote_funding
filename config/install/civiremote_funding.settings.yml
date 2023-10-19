@@ -1,1 +1,2 @@
 file_cleanup_delay: 2592000 # 30 days
+file_upload_valid_extensions: 'jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp'
