@@ -43,12 +43,19 @@ final class CiviremoteFundingDashboardGroup extends RenderElement {
   }
 
   public static function preRenderDashboardGroup(array $element): array {
+    $elements = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['civiremote-funding-dashboard-elements']],
+      'elements' => $element['#elements'],
+    ];
+    unset($element['#elements']);
+
     $element['#attached']['library'][] = 'civiremote_funding/dashboard';
     $element['#attributes']['class'][] = 'civiremote-funding-dashboard-group';
 
     return [
       '#type' => 'container',
-      'elements' => $element['#elements'],
+      'elements' => $elements,
     ] + $element;
   }
 

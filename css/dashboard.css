@@ -1,3 +1,8 @@
+.civiremote-funding-dashboard-elements {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 a.civiremote-funding-dashboard-element-link {
   display: block;
   width: fit-content;
