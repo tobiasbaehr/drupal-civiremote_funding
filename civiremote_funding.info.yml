@@ -8,6 +8,5 @@ dependencies:
   - cmrf_views
   - civiremote
   - json_forms
-version: 0.3.0
 'interface translation project': civiremote_funding
 'interface translation server pattern': modules/custom/%project/translations/%language.po
