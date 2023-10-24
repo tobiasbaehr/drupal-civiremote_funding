@@ -34,6 +34,8 @@ final class CiviremoteFundingDashboardGroupApprovements extends BlockBase {
 
   /**
    * {@inheritDoc}
+   *
+   * @phpstan-return array<string, mixed>
    */
   public function build(): array {
     return [

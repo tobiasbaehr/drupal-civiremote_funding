@@ -91,6 +91,7 @@ final class TransferContractDownloadControllerTest extends TestCase {
   private function createFundingCase(?string $transferContractUri): FundingCase {
     return FundingCase::fromArray([
       'id' => 12,
+      'identifier' => 'FC12',
       'funding_program_id' => 1,
       'funding_case_type_id' => 1,
       'status' => 'ongoing',

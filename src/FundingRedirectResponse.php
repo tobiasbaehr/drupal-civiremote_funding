@@ -39,6 +39,7 @@ class FundingRedirectResponse extends Response
      *                        but practically every browser redirects on paths only as well
      * @param int    $status  The status code (302 by default)
      * @param array  $headers The headers (Location is always set to the given URL)
+     * @phpstan-param array<string, string|array<string>> $headers
      *
      * @throws \InvalidArgumentException
      *
