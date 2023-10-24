@@ -84,6 +84,7 @@ final class NewDrawdownForm extends FormBase {
     }
 
     return [
+      '#attributes' => ['class' => ['civiremote-funding-form']],
       '#title' => $this->t('Create Drawdown'),
       'transferContract' => [
         '#type' => 'item',

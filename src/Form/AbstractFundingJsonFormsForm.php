@@ -72,7 +72,7 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
       $form_state->setTemporary($fundingForm->getData());
     }
 
-    return $this->buildJsonFormsForm(
+    $form = $this->buildJsonFormsForm(
       $form,
       $form_state,
       // @phpstan-ignore-next-line
@@ -81,6 +81,11 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
       $form_state->get('uiSchema'),
       static::FLAG_RECALCULATE_ONCHANGE
     );
+
+    // @phpstan-ignore-next-line
+    $form['#attributes']['class'][] = 'civiremote-funding-form';
+
+    return $form;
   }
 
   public function validateForm(array &$form, FormStateInterface $formState): void {
