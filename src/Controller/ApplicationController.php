@@ -35,8 +35,22 @@ final class ApplicationController extends ControllerBase {
   /**
    * @return array<int|string, mixed>
    */
-  public function form(): array {
-    return $this->formBuilder()->getForm(ApplicationForm::class);
+  public function form(int $applicationProcessId): array {
+    $info = $this->fundingApi->getFundingCaseInfoByApplicationProcessId(
+      $applicationProcessId,
+    );
+    $form = $this->formBuilder()->getForm(ApplicationForm::class);
+
+    // Add identifier to beginning of the form if not already in the title.
+    if (NULL !== $info && !str_contains($form['#title'], $info->getApplicationProcesIdentifier())) {
+      $form = array_merge([
+        '_identifier' => [
+          '#plain_text' => $info->getApplicationProcesIdentifier(),
+        ],
+      ], $form);
+    }
+
+    return $form;
   }
 
   public function title(int $applicationProcessId): ?string {
