@@ -14,7 +14,7 @@ final class BreadcrumbRouteAnalyzer implements ContainerInjectionInterface {
   private RouteAnalyzer $routeAnalyzer;
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    *
    * @return static
    */

@@ -28,7 +28,7 @@ use Drupal\Core\Render\Element\RenderElement;
 final class CiviremoteFundingApplicationHistoryEntry extends RenderElement {
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getInfo(): array {
     return [

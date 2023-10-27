@@ -29,7 +29,7 @@ final class RouteAnalyzer implements ContainerInjectionInterface {
   private RouteProvider $routeProvider;
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    *
    * @return static
    */

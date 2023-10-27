@@ -30,7 +30,7 @@ use Drupal\Core\Render\Element\RenderElement;
 final class CiviremoteFundingApplicationHistoryComment extends RenderElement {
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    *
    * @phpstan-return array<string, mixed>
    */

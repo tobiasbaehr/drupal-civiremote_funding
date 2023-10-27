@@ -39,7 +39,7 @@ final class NewDrawdownForm extends FormBase {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    *
    * @return static
    */
@@ -52,7 +52,7 @@ final class NewDrawdownForm extends FormBase {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function buildForm(
     array $form,

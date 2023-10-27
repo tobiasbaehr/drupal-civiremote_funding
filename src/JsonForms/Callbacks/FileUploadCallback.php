@@ -49,7 +49,7 @@ final class FileUploadCallback implements ContainerInjectionInterface {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    *
    * @return static
    *

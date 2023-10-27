@@ -96,14 +96,14 @@ final class FundingFileMock extends AbstractEntityMock implements FundingFileInt
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function uuid(): ?string {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    *
    * @return string|null
    *   Actually the ID is an integer, though Drupal returns a string. So we do
@@ -125,14 +125,14 @@ final class FundingFileMock extends AbstractEntityMock implements FundingFileInt
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getEntityTypeId(): string {
     return 'civicrm_funding_file';
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function label() {
     return 'CiviRemote Funding file entity';

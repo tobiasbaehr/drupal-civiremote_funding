@@ -36,7 +36,7 @@ final class ChooseFundingProgramForm extends FormBase {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    *
    * @return static
    */

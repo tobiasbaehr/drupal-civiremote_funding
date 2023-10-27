@@ -27,6 +27,14 @@ use Drupal\language\ConfigurableLanguageManagerInterface;
 
 final class ViewTranslator {
 
+  private const DEFAULT_TRANSLATABLE_KEYS = [
+    'label',
+    'title',
+    'description',
+    'text',
+    'submit_button',
+  ];
+
   private ConfigFactoryInterface $configFactory;
 
   private LanguageManagerInterface $languageManager;
@@ -41,10 +49,11 @@ final class ViewTranslator {
   /**
    * @phpstan-param array<string> $translatableKeys
    */
-  public function __construct(ConfigFactoryInterface $configFactory,
+  public function __construct(
+    ConfigFactoryInterface $configFactory,
     LanguageManagerInterface $languageManager,
     TranslatorInterface $translator,
-    array $translatableKeys = ['label', 'title', 'description', 'text', 'submit_button']
+    array $translatableKeys = self::DEFAULT_TRANSLATABLE_KEYS
   ) {
     $this->configFactory = $configFactory;
     $this->languageManager = $languageManager;

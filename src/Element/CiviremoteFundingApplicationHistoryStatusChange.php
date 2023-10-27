@@ -30,7 +30,7 @@ use Drupal\Core\Render\Element\RenderElement;
 final class CiviremoteFundingApplicationHistoryStatusChange extends RenderElement {
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getInfo(): array {
     return [
