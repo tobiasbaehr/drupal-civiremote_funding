@@ -48,7 +48,7 @@ final class FileUploadArrayFactory extends AbstractConcreteFormArrayFactory {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function createFormArray(DefinitionInterface $definition,
     FormStateInterface $formState,

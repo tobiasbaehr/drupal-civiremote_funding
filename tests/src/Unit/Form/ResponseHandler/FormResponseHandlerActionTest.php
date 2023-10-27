@@ -136,7 +136,10 @@ final class FormResponseHandlerActionTest extends TestCase {
     $this->requestStackMock->method('getCurrentRequest')->willReturn($request);
     $this->messengerMock->expects(static::once())->method('addMessage')->with('Test');
     $this->formStateMock->expects(static::once())->method('setResponse')->with(
-      new FundingRedirectResponse('http://example.org/test?x=y&copyDataFromId=23', FundingRedirectResponse::HTTP_SEE_OTHER)
+      new FundingRedirectResponse(
+        'http://example.org/test?x=y&copyDataFromId=23',
+        FundingRedirectResponse::HTTP_SEE_OTHER
+      )
     );
     $this->handler->handleSubmitResponse($submitResponse, $this->formStateMock);
   }

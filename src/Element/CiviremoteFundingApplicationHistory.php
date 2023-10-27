@@ -31,7 +31,7 @@ use Drupal\Core\Url;
 final class CiviremoteFundingApplicationHistory extends RenderElement {
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getInfo(): array {
     return [

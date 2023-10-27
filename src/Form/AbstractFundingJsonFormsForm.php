@@ -115,7 +115,7 @@ abstract class AbstractFundingJsonFormsForm extends AbstractJsonFormsForm {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    *
    * @param array<int|string, mixed> $form
    * @param \Drupal\Core\Form\FormStateInterface $formState

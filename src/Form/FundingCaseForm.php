@@ -30,7 +30,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 final class FundingCaseForm extends AbstractFundingJsonFormsForm {
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    *
    * @return static
    */

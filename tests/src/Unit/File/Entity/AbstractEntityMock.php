@@ -27,266 +27,266 @@ use Drupal\Core\Session\AccountInterface;
 abstract class AbstractEntityMock implements EntityInterface {
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function access($operation, AccountInterface $account = NULL, $return_as_object = FALSE) {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getCacheContexts() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getCacheTags() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getCacheMaxAge() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function language() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function isNew(): bool {
     return NULL === $this->id();
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function enforceIsNew($value = TRUE) {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function bundle() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function toUrl($rel = 'canonical', array $options = []) {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function toLink($text = NULL, $rel = 'canonical', array $options = []) {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function hasLinkTemplate($key) {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function uriRelationships() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public static function load($id) {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public static function loadMultiple(array $ids = NULL) {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public static function create(array $values = []) {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function save() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function delete(): void {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function preSave(EntityStorageInterface $storage): void {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function postSave(EntityStorageInterface $storage, $update = TRUE): void {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public static function preCreate(EntityStorageInterface $storage, array &$values): void {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function postCreate(EntityStorageInterface $storage): void {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public static function preDelete(EntityStorageInterface $storage, array $entities): void {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public static function postDelete(EntityStorageInterface $storage, array $entities): void {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public static function postLoad(EntityStorageInterface $storage, array &$entities): void {
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function createDuplicate() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getEntityType() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function referencedEntities() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getOriginalId() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getCacheTagsToInvalidate() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function setOriginalId($id) {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function toArray() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getTypedData() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getConfigDependencyKey() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getConfigDependencyName() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function getConfigTarget() {
     throw new \BadMethodCallException('Not implemented');
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function addCacheContexts(array $cache_contexts) {
     return $this;
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function addCacheTags(array $cache_tags) {
     return $this;
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function mergeCacheMaxAge($max_age) {
     return $this;
   }
 
   /**
-   * @inheritDoc
+   * {@inheritDoc}
    */
   public function addCacheableDependency($other_object) {
     return $this;
