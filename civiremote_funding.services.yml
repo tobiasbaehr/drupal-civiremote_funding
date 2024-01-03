@@ -147,7 +147,7 @@ services:
   Drupal\civiremote_funding\File\FundingFileRouter:
     class: Drupal\civiremote_funding\File\FundingFileRouter
     arguments:
-      $router: '@router.no_access_checks'
+      $urlGenerator: '@url_generator'
     public: true
 
   Drupal\civiremote_funding\File\FundingFileDownloadHook:
