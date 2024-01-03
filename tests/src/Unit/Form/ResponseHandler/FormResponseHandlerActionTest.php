@@ -24,7 +24,6 @@ use Drupal\civiremote_funding\Api\Form\FormSubmitResponse;
 use Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerAction;
 use Drupal\civiremote_funding\FundingRedirectResponse;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Http\RequestStack;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\StringTranslation\TranslationInterface;
@@ -32,6 +31,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * @covers \Drupal\civiremote_funding\Form\ResponseHandler\FormResponseHandlerAction
