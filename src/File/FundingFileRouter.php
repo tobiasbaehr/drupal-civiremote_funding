@@ -22,26 +22,30 @@ namespace Drupal\civiremote_funding\File;
 
 use Assert\Assertion;
 use Drupal\civiremote_funding\Entity\FundingFileInterface;
-use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @codeCoverageIgnore
  */
 class FundingFileRouter {
 
-  private RouterInterface $router;
+  private UrlGeneratorInterface $urlGenerator;
 
-  public function __construct(RouterInterface $router) {
-    $this->router = $router;
+  public function __construct(UrlGeneratorInterface $urlGenerator) {
+    $this->urlGenerator = $urlGenerator;
   }
 
   public function generate(FundingFileInterface $fundingFile): string {
     Assertion::notNull($fundingFile->getFile());
 
-    return $this->router->generate('civiremote_funding.token_file_download', [
-      'token' => $fundingFile->getToken(),
-      'filename' => $fundingFile->getFile()->getFilename(),
-    ], RouterInterface::ABSOLUTE_URL);
+    return $this->urlGenerator->generate(
+      'civiremote_funding.token_file_download',
+      [
+        'token' => $fundingFile->getToken(),
+        'filename' => $fundingFile->getFile()->getFilename(),
+      ],
+      UrlGeneratorInterface::ABSOLUTE_URL
+    );
   }
 
 }
