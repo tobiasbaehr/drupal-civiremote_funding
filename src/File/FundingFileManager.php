@@ -138,6 +138,7 @@ class FundingFileManager {
    */
   public function loadByLastAccessBefore(int $lastAccess): array {
     $ids = $this->storage->getQuery()
+      ->accessCheck(FALSE)
       ->condition('last_access', $lastAccess, '<')
       ->execute();
 
