@@ -52,7 +52,7 @@ final class FormResponseHandlerActionTest extends TestCase {
   private FormResponseHandlerAction $handler;
 
   /**
-   * @var \Drupal\Core\Http\RequestStack&\PHPUnit\Framework\MockObject\MockObject
+   * @var \Symfony\Component\HttpFoundation\RequestStack&\PHPUnit\Framework\MockObject\MockObject
    */
   private MockObject $requestStackMock;
 
