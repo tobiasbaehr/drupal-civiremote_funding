@@ -53,6 +53,7 @@
         "php": "^7.4 || ^8",
         "beberlei/assert": "*",
         "custom/civiremote": "^1.0@beta",
+        "drupal/cmrf_core": "^2.1@beta",
         "drupal/json_forms": "~0.1"
     },
     "require-dev": {
@@ -61,6 +62,9 @@
     },
     "suggest": {
         "drupal/fontawesome": "To load Font Awesome icons. https://www.drupal.org/project/fontawesome"
+    },
+    "conflict": {
+        "drupal/cmrf_core": "2.1.0-beta5"
     },
     "scripts": {
         "composer-phpstan": [
