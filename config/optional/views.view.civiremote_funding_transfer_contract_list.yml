@@ -1,8 +1,6 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - system.menu.civiremote-funding
   module:
     - cmrf_views
     - user
